@@ -3,16 +3,12 @@ package com.example.chen.wanandroiddemo.ui.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.WXTabViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
-import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.contract.WXContract;
-import com.example.chen.wanandroiddemo.core.bean.Article;
-import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.WXTab;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXComponent;
 import com.example.chen.wanandroiddemo.di.module.WXModule;
 import com.example.chen.wanandroiddemo.presenter.WXPresenter;
@@ -56,11 +52,10 @@ public class WXFragment extends BaseFragment<WXPresenter> implements WXContract.
     }
 
     @Override
-    public void showTab(List<WXTab> wxTabList) {
-        for (WXTab tab : wxTabList) {
+    public void showTab(List<Tab> wxTabList) {
+        for (Tab tab : wxTabList) {
             mFragments.add(new WxTabFragment(tab));
         }
         mPagerAdapter.notifyDataSetChanged();
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

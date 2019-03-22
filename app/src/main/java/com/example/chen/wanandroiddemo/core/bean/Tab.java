@@ -6,7 +6,7 @@ import java.util.List;
  * Coder : chenshuaiyu
  * Time : 2019/3/18 22:14
  */
-public class WXTab {
+public class Tab {
     /**
      * children : []
      * courseId : 13

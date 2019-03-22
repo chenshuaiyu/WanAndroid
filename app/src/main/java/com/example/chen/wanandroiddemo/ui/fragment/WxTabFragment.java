@@ -4,15 +4,12 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.WXTabAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
-import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.contract.WXTabContract;
-import com.example.chen.wanandroiddemo.core.bean.WXTab;
-import com.example.chen.wanandroiddemo.core.bean.WXTabArticle;
+import com.example.chen.wanandroiddemo.core.bean.Article;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.WXTabPresenter;
@@ -20,10 +17,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -38,17 +33,16 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     RecyclerView mRecyclerView;
 
     private int curPage = 0;
-    private List<WXTabArticle> mWXTabArticleList;
+    private List<Article> mWXTabArticleList;
     private WXTabAdapter mWXTabAdapter;
 
+    private Tab mWXTab;
 
-    private WXTab mWXTab;
-
-    public WxTabFragment(WXTab WXTab) {
+    public WxTabFragment(Tab WXTab) {
         mWXTab = WXTab;
     }
 
-    public WXTab getWXTab() {
+    public Tab getWXTab() {
         return mWXTab;
     }
 
@@ -69,7 +63,7 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mWXTabAdapter);
 
-        presenter.getWXTabArticles(mWXTab.getId(), curPage);
+        presenter.getWXTabArticles(mWXTab.getId(), curPage++);
 
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -86,12 +80,10 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
                 refreshLayout.finishLoadMore(1500);
             }
         });
-
-
     }
 
     @Override
-    public void showWXTabArticles(List<WXTabArticle> wxTabArticles) {
+    public void showWXTabArticles(List<Article> wxTabArticles) {
         if (curPage == 0)
             mWXTabArticleList.clear();
         mWXTabArticleList.addAll(wxTabArticles);

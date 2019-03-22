@@ -3,11 +3,9 @@ package com.example.chen.wanandroiddemo.presenter;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.WXTabArticles;
-
 import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -30,12 +28,12 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
         mDataManager.getWXTabArticles(id, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponse<WXTabArticles>>() {
+                .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
-                    public void onNext(BaseResponse<WXTabArticles> wxTabArticlesBaseResponse) {
+                    public void onNext(BaseResponse<Articles> wxTabArticlesBaseResponse) {
                         view.showWXTabArticles(wxTabArticlesBaseResponse.getData().getDatas());
                     }
                     @Override

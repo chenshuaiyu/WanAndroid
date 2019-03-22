@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.di.component.DaggerAppComponent;
 
 import javax.inject.Inject;
 

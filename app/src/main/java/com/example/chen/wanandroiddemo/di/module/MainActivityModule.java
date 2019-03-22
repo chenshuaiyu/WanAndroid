@@ -1,12 +1,7 @@
 package com.example.chen.wanandroiddemo.di.module;
 
-import android.support.v4.app.FragmentManager;
-
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.ui.fragment.HomeFragment;
-import com.example.chen.wanandroiddemo.ui.MainActivity;
-import com.example.chen.wanandroiddemo.ui.fragment.WXFragment;
 
 import javax.inject.Singleton;
 

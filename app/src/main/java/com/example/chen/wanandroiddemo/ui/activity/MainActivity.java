@@ -1,6 +1,6 @@
-package com.example.chen.wanandroiddemo.ui;
+package com.example.chen.wanandroiddemo.ui.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -14,23 +14,26 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.contract.MainContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
 import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.presenter.MainPresenter;
 import com.example.chen.wanandroiddemo.ui.fragment.HomeFragment;
+import com.example.chen.wanandroiddemo.ui.fragment.ProjectFragment;
+import com.example.chen.wanandroiddemo.ui.fragment.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.fragment.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BNVUtil;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -40,14 +43,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
     NavigationView mNavigationView;
     @BindView(R.id.bottom_navigation_view)
     BottomNavigationView mBottomNavigationView;
-
+//    @BindView(R.id.login)
+//    TextView login;
 
     private HomeFragment mHomeFragment = new HomeFragment();
+    private SystemFragment mSystemFragment = new SystemFragment();
     private WXFragment mWXFragment = new WXFragment();
+    private ProjectFragment mProjectFragment = new ProjectFragment();
 
-
-    FragmentManager mFragmentManager = getSupportFragmentManager();
-
+    private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment curFragment;
 
     @Override
@@ -73,8 +77,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
         curFragment = mHomeFragment;
         mFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, mHomeFragment)
+                .add(R.id.fragment_container, mSystemFragment)
                 .add(R.id.fragment_container, mWXFragment)
+                .add(R.id.fragment_container, mProjectFragment)
+                .hide(mSystemFragment)
                 .hide(mWXFragment)
+                .hide(mProjectFragment)
                 .show(curFragment)
                 .commit();
 
@@ -88,7 +96,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                             curFragment = mHomeFragment;
                         break;
                     case R.id.menu_system:
-
+                        if (curFragment != mSystemFragment)
+                            curFragment = mSystemFragment;
                         break;
                     case R.id.menu_wxarticle:
                         if (curFragment != mWXFragment)
@@ -98,7 +107,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
                         break;
                     case R.id.menu_project:
-
+                        if (curFragment != mProjectFragment)
+                            curFragment = mProjectFragment;
                         break;
                     default:
                         break;
@@ -107,11 +117,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 return true;
             }
         });
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -132,7 +145,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
             default:
                 break;

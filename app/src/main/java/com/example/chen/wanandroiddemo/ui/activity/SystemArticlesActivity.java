@@ -1,0 +1,60 @@
+package com.example.chen.wanandroiddemo.ui.activity;
+
+import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+
+import com.example.chen.wanandroiddemo.R;
+import com.example.chen.wanandroiddemo.adapter.SystemArticlesViewPagerAdapter;
+import com.example.chen.wanandroiddemo.app.Constants;
+import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.contract.SystemArticlesContract;
+import com.example.chen.wanandroiddemo.core.bean.System;
+import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
+import com.example.chen.wanandroiddemo.di.module.SystemArticlesModule;
+import com.example.chen.wanandroiddemo.presenter.SystemArticlesPresenter;
+import com.example.chen.wanandroiddemo.ui.fragment.SystemArticleFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+
+public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    private System mSystem;
+    private List<Fragment> mFragmentList;
+    private SystemArticlesViewPagerAdapter mAdapter;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_system_article;
+    }
+
+    @Override
+    protected void inject() {
+        DaggerSystemArticlesComponent.builder().systemArticlesModule(new SystemArticlesModule()).build().inject(this);
+    }
+
+    @Override
+    protected void initData() {
+        setSupportActionBar(mToolbar);
+        mFragmentList = new ArrayList<>();
+        Intent intent = getIntent();
+        mSystem = (System) intent.getSerializableExtra(Constants.SYSTEM);
+        for (System childrenSystem : mSystem.getChildren()) {
+            mFragmentList.add(new SystemArticleFragment(childrenSystem));
+        }
+        mAdapter = new SystemArticlesViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        mViewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+}

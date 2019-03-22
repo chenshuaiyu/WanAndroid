@@ -18,6 +18,8 @@
     <string name="login">登录</string>
     <string name="search">搜索</string>
     <string name="collect">收藏</string>
+    <string name="history">历史记录</string>
+    <string name="hot_word">热词</string>
 
 
 </resources>

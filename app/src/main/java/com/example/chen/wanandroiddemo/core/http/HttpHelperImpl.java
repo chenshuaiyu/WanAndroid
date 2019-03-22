@@ -1,11 +1,11 @@
 package com.example.chen.wanandroiddemo.core.http;
 
-import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.WXTab;
-import com.example.chen.wanandroiddemo.core.bean.WXTabArticles;
+import com.example.chen.wanandroiddemo.core.bean.Navigation;
+import com.example.chen.wanandroiddemo.core.bean.System;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
 
 import java.util.List;
@@ -37,14 +37,37 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<List<WXTab>>> getWXTab() {
+    public Observable<BaseResponse<List<Tab>>> getWXTab() {
         return mApi.getWXTab();
     }
 
     @Override
-    public Observable<BaseResponse<WXTabArticles>> getWXTabArticles(int id, int page) {
+    public Observable<BaseResponse<Articles>> getWXTabArticles(int id, int page) {
         return mApi.getWXTabArticles(id, page);
     }
 
+    @Override
+    public Observable<BaseResponse<List<Tab>>> getProjectTab() {
+        return mApi.getProjectTab();
+    }
 
+    @Override
+    public Observable<BaseResponse<Articles>> getProjectTabArticles(int page, int cid) {
+        return mApi.getProjectTabArticles(page, cid);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<System>>> getSystem() {
+        return mApi.getSystem();
+    }
+
+    @Override
+    public Observable<BaseResponse<Articles>> getSystemArticles(int page, int cid) {
+        return mApi.getSystemArticles(page, cid);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<Navigation>>> getNavigation() {
+        return mApi.getNavigation();
+    }
 }

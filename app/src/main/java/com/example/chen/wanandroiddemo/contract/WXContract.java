@@ -2,7 +2,7 @@ package com.example.chen.wanandroiddemo.contract;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.core.bean.WXTab;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import java.util.List;
 
 /**
@@ -15,6 +15,6 @@ public interface WXContract {
     }
 
     interface View extends BaseView {
-        void showTab(List<WXTab> wxTabList);
+        void showTab(List<Tab> wxTabList);
     }
 }

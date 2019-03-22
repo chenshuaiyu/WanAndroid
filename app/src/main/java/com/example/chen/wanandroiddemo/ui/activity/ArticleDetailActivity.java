@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui;
+package com.example.chen.wanandroiddemo.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;

@@ -19,4 +19,5 @@ public class Constants {
 
     // Intent key
     public static final String ARTICLE_URL = "article_url";
+    public static final String SYSTEM = "system_id";
 }

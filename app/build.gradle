@@ -62,4 +62,6 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.just.agentweb:agentweb:4.0.2'
+    implementation 'com.zhy:flowlayout-lib:1.0.3'
+    implementation 'q.rorbin:VerticalTabLayout:1.2.5'
 }

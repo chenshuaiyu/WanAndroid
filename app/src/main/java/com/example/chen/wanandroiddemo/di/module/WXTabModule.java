@@ -14,7 +14,6 @@ import dagger.Provides;
  */
 @Module
 public class WXTabModule {
-
     @Provides
     DataManager getDataManager() {
         return WanAndroidApp.getInstance().getAppComponent().getDataManager();

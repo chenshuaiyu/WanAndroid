@@ -8,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.core.bean.Article;
-import com.example.chen.wanandroiddemo.core.bean.WXTabArticle;
-import com.example.chen.wanandroiddemo.ui.ArticleDetailActivity;
-
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import java.util.List;
 
 /**
@@ -23,9 +20,9 @@ import java.util.List;
  */
 public class WXTabAdapter extends RecyclerView.Adapter<WXTabAdapter.WXTabHolder> {
     private Context mContext;
-    private List<WXTabArticle> mWXTabArticleList;
+    private List<Article> mWXTabArticleList;
 
-    public WXTabAdapter(Context context, List<WXTabArticle> wxTabArticleList) {
+    public WXTabAdapter(Context context, List<Article> wxTabArticleList) {
         mContext = context;
         mWXTabArticleList = wxTabArticleList;
     }
@@ -51,7 +48,7 @@ public class WXTabAdapter extends RecyclerView.Adapter<WXTabAdapter.WXTabHolder>
     }
 
     private void setArticles(WXTabHolder wxTabHolder, int i) {
-        WXTabArticle article = mWXTabArticleList.get(i);
+        Article article = mWXTabArticleList.get(i);
         wxTabHolder.author.setText(article.getAuthor());
         wxTabHolder.superChapterName.setText(article.getSuperChapterName());
         wxTabHolder.chapterName.setText(article.getChapterName());
