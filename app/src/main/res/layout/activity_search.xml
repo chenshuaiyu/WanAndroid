@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -11,16 +12,45 @@
         android:background="@color/colorPrimary"
         android:gravity="center">
 
-        <EditText
-            android:id="@+id/edit_text"
-            android:layout_width="300dp"
-            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_toLeftOf="@id/search_button"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_search_bar"
+                android:layout_centerVertical="true">
 
+                <ImageView
+                    android:id="@+id/search_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_search"
+                    android:layout_marginLeft="3dp"/>
+
+                <EditText
+                    android:id="@+id/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/search_more"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_search_button"
+                android:text="@string/search"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"/>
+
+        </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     <TextView
@@ -30,16 +60,17 @@
         android:layout_marginTop="10dp"
         android:text="@string/hot_word"
         android:textColor="@color/red"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <com.zhy.view.flowlayout.TagFlowLayout
         android:id="@+id/tag_flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:max_select="0"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,29 +82,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:text="@string/history"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_alignParentLeft="true"/>
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/clear_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_clear"
-            android:layout_toLeftOf="@id/clear"/>
+            android:layout_toLeftOf="@id/clear"
+            android:src="@drawable/ic_clear" />
 
         <TextView
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:text="清空"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

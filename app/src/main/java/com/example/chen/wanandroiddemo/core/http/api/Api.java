@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.core.http.api;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -10,7 +11,10 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -46,4 +50,11 @@ public interface Api {
 
     @GET("navi/json")
     Observable<BaseResponse<List<Navigation>>> getNavigation();
+
+    @GET("hotkey/json")
+    Observable<BaseResponse<List<HotWord>>> getHotWord();
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    Observable<BaseResponse<Articles>> getSearchArticles(@Path("page") int page, @Field("k") String k);
 }

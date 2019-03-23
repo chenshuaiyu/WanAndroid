@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.core.http;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -69,5 +70,15 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<List<Navigation>>> getNavigation() {
         return mApi.getNavigation();
+    }
+
+    @Override
+    public Observable<BaseResponse<List<HotWord>>> getHotWord() {
+        return mApi.getHotWord();
+    }
+
+    @Override
+    public Observable<BaseResponse<Articles>> getSearchArticles(int page, String k) {
+        return mApi.getSearchArticles(page, k);
     }
 }
