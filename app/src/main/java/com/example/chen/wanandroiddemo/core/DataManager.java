@@ -7,6 +7,7 @@ import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.db.DbHelper;
 import com.example.chen.wanandroiddemo.core.db.DbHelperImpl;
 import com.example.chen.wanandroiddemo.core.http.HttpHelper;
@@ -89,5 +90,10 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<Articles>> getSearchArticles(int page, String k) {
         return mHttpHelper.getSearchArticles(page, k);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<Website>>> getCommonWebsite() {
+        return mHttpHelper.getCommonWebsite();
     }
 }

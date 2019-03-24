@@ -7,6 +7,7 @@ import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 
 import java.util.List;
 
@@ -57,4 +58,9 @@ public interface Api {
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     Observable<BaseResponse<Articles>> getSearchArticles(@Path("page") int page, @Field("k") String k);
+
+    @GET("friend/json")
+    Observable<BaseResponse<List<Website>>> getCommonWebsite();
+
+
 }

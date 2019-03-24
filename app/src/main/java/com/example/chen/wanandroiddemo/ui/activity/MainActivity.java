@@ -6,7 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.support.design.widget.NavigationView;
@@ -14,10 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.MainContract;
@@ -34,7 +31,6 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.drawer_layout)
@@ -66,12 +62,13 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     protected void initData() {
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         mNavigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
         BNVUtil.disableShiftMode(mBottomNavigationView);
 
         curFragment = mHomeFragment;
@@ -144,6 +141,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.menu_website:
+                startActivity(new Intent(this, CommonActivity.class));
+                break;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;

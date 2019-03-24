@@ -2,25 +2,20 @@ package com.example.chen.wanandroiddemo.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
-import com.example.chen.wanandroiddemo.contract.SearchContract;
-import com.example.chen.wanandroiddemo.core.bean.HotWord;
-import com.example.chen.wanandroiddemo.di.component.DaggerSearchComponent;
-import com.example.chen.wanandroiddemo.di.module.SearchModule;
-import com.example.chen.wanandroiddemo.presenter.SearchPresenter;
+import com.example.chen.wanandroiddemo.contract.CommonContract;
+import com.example.chen.wanandroiddemo.core.bean.Website;
+import com.example.chen.wanandroiddemo.di.component.DaggerCommonComponent;
+import com.example.chen.wanandroiddemo.di.module.CommonModule;
+import com.example.chen.wanandroiddemo.presenter.CommonPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -31,64 +26,49 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
+public class CommonActivity extends BaseActivity<CommonPresenter> implements CommonContract.View {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tag_flow_layout)
     TagFlowLayout mTagFlowLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.search_button)
-    Button mButton;
-    @BindView(R.id.edit_text)
-    EditText mEditText;
 
-    private List<HotWord> mHotWords;
-    private TagAdapter<HotWord> mTagAdapter;
-
+    private List<Website> mWebsites;
+    private TagAdapter<Website> mTagAdapter;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_search;
+        return R.layout.activity_common;
     }
 
     @Override
     protected void inject() {
-        DaggerSearchComponent.builder().searchModule(new SearchModule()).build().inject(this);
+        DaggerCommonComponent.builder().commonModule(new CommonModule()).build().inject(this);
     }
 
     @Override
     protected void initData() {
+        mToolbar.setTitle(getResources().getString(R.string.commom_website));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mWebsites = new ArrayList<>();
+        mTagAdapter = new TagAdapter<Website>(mWebsites) {
             @Override
-            public void onClick(View v) {
-                String s = mEditText.getText().toString();
-                if (!TextUtils.isEmpty(s)) {
-                    Intent intent = new Intent(SearchActivity.this, SearchArticlesActivity.class);
-                    intent.putExtra(Constants.SEARCH_KEY, s);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        mHotWords = new ArrayList<>();
-        mTagAdapter = new TagAdapter<HotWord>(mHotWords) {
-            @Override
-            public View getView(FlowLayout parent, int position, final HotWord hotWord) {
+            public View getView(FlowLayout parent, int position, final Website website) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
                 TextView textView = view.findViewById(R.id.text_view);
-                textView.setText(hotWord.getName());
+                textView.setText(website.getName());
                 view.setBackgroundColor(ColorUtil.randomTagColor());
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(CommonActivity.this, ArticleDetailActivity.class);
+                        intent.putExtra(Constants.ARTICLE_URL, website.getLink());
+                        startActivity(intent);
                     }
                 });
                 return view;
@@ -96,13 +76,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         };
         mTagFlowLayout.setAdapter(mTagAdapter);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mRecyclerView.setAdapter();
-
-
-        presenter.getHotWord();
+        presenter.getCommonWebsite();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,8 +90,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
-    public void showHotWord(List<HotWord> hotWords) {
-        mHotWords.addAll(hotWords);
+    public void showCommonWebsite(List<Website> websites) {
+        mWebsites.addAll(websites);
         mTagAdapter.notifyDataChanged();
     }
 }

@@ -1,9 +1,6 @@
 package com.example.chen.wanandroiddemo.utils;
 
-import android.graphics.Color;
-
 import com.example.chen.wanandroiddemo.app.Constants;
-
 import java.util.Random;
 
 /**

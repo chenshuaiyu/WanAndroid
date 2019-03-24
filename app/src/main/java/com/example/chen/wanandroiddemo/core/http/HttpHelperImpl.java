@@ -7,6 +7,7 @@ import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
 
 import java.util.List;
@@ -80,5 +81,10 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<Articles>> getSearchArticles(int page, String k) {
         return mApi.getSearchArticles(page, k);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<Website>>> getCommonWebsite() {
+        return mApi.getCommonWebsite();
     }
 }
