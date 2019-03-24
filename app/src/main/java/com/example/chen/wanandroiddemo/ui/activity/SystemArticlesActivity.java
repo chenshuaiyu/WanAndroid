@@ -48,12 +48,22 @@ public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter
     protected void initData() {
         setSupportActionBar(mToolbar);
         mFragmentList = new ArrayList<>();
-        Intent intent = getIntent();
-        mSystem = (System) intent.getSerializableExtra(Constants.SYSTEM);
+        mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
         for (System childrenSystem : mSystem.getChildren()) {
             mFragmentList.add(new SystemArticleFragment(childrenSystem));
         }
         mAdapter = new SystemArticlesViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        mViewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFragmentList.clear();
+        for (System childrenSystem : mSystem.getChildren()) {
+            mFragmentList.add(new SystemArticleFragment(childrenSystem));
+        }
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

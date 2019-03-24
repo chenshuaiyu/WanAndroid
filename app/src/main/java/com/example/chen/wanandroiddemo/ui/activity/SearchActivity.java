@@ -69,9 +69,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             public void onClick(View v) {
                 String s = mEditText.getText().toString();
                 if (!TextUtils.isEmpty(s)) {
-                    Intent intent = new Intent(SearchActivity.this, SearchArticlesActivity.class);
-                    intent.putExtra(Constants.SEARCH_KEY, s);
-                    startActivity(intent);
+                    searchArticles(s);
                 }
             }
         });
@@ -88,7 +86,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        searchArticles(hotWord.getName());
                     }
                 });
                 return view;
@@ -103,12 +101,20 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         presenter.getHotWord();
     }
 
+    private void searchArticles(String key) {
+        Intent intent = new Intent(SearchActivity.this, SearchArticlesActivity.class);
+        intent.putExtra(Constants.SEARCH_KEY, key);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            default:
                 break;
         }
         return true;

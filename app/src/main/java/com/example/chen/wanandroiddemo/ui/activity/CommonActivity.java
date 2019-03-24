@@ -85,6 +85,8 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
             case android.R.id.home:
                 finish();
                 break;
+            default:
+                break;
         }
         return true;
     }

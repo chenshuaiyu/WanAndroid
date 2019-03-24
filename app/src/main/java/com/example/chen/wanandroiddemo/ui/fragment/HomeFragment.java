@@ -26,7 +26,6 @@ import butterknife.BindView;
  * Time : 2019/3/11 22:25
  */
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
-
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)

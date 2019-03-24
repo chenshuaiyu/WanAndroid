@@ -73,7 +73,7 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 curPage = 1;
-                presenter.getProjectTabArticles(curPage, mProjectTab.getId());
+                presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
                 refreshLayout.finishRefresh(1500);
             }
         });

@@ -45,7 +45,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     @Override
     protected void initData() {
         mFragments = new ArrayList<>();
-        mPagerAdapter = new ProjectTabViewPagerAdapter(getFragmentManager(), mFragments);
+        mPagerAdapter = new ProjectTabViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 

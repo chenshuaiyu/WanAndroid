@@ -40,9 +40,10 @@ public class WXTabAdapter extends RecyclerView.Adapter<WXTabAdapter.WXTabHolder>
         wxTabHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
-                intent.putExtra(Constants.ARTICLE_URL, mWXTabArticleList.get(i).getLink());
+                Article article = mWXTabArticleList.get(i);
+                Intent intent = ArticleDetailActivity.newIntent(mContext, article.getLink(), article.getTitle());
                 mContext.startActivity(intent);
+
             }
         });
     }

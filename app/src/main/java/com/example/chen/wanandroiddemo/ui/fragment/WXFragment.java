@@ -44,7 +44,7 @@ public class WXFragment extends BaseFragment<WXPresenter> implements WXContract.
     @Override
     protected void initData() {
         mFragments = new ArrayList<>();
-        mPagerAdapter = new WXTabViewPagerAdapter(getFragmentManager(), mFragments);
+        mPagerAdapter = new WXTabViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 

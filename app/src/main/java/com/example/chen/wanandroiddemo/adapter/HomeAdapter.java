@@ -17,6 +17,7 @@ import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +69,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
             @Override
             public void onClick(View v) {
                 if (i != 0) {
-                    Intent intent = new Intent(mContext, ArticleDetailActivity.class);
-                    intent.putExtra(Constants.ARTICLE_URL, mArticles.get(i - 1).getLink());
-                    mContext.startActivity(intent);
+                    Article article = mArticles.get(i - 1);
+                    jumpToDetail(article.getLink(), article.getTitle());
                 }
             }
         });
@@ -92,6 +92,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         homeHolder.mBanner.setBannerAnimation(Transformer.DepthPage);
         homeHolder.mBanner.setBannerTitles(titles);
         homeHolder.mBanner.setDelayTime(2500);
+        homeHolder.mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Banner banner = mBannerList.get(position);
+                jumpToDetail(banner.getUrl(), banner.getTitle());
+            }
+        });
         homeHolder.mBanner.start();
     }
 
@@ -105,6 +112,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         if (position == 0)
             return TYPE_BANNER;
         return TYPE_NORMAL;
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(mContext, link, title);
+        mContext.startActivity(intent);
     }
 
     class HomeHolder extends RecyclerView.ViewHolder {

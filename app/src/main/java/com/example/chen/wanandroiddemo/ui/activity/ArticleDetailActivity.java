@@ -1,8 +1,11 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -26,7 +29,14 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     private AgentWeb mAgentWeb;
     private String url;
+    private String title;
 
+    public static Intent newIntent(Context context, String link, String title) {
+        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        intent.putExtra(Constants.ARTICLE_URL, link);
+        intent.putExtra(Constants.ARTICLE_TITLE, title);
+        return intent;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -42,7 +52,14 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     protected void initData() {
         Intent intent = getIntent();
         url = intent.getStringExtra(Constants.ARTICLE_URL);
+        title = intent.getStringExtra(Constants.ARTICLE_TITLE);
+
+        mToolbar.setTitle(title);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mFrameLayout, new LinearLayout.LayoutParams(-1, -1))
@@ -57,6 +74,20 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_article_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.menu_collect:
+                break;
+            default:
+                break;
+        }
         return true;
     }
 }
