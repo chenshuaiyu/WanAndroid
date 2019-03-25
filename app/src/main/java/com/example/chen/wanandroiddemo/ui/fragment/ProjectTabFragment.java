@@ -52,7 +52,7 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_project_tab;
+        return R.layout.common_refresh_recycler_view;
     }
 
     @Override

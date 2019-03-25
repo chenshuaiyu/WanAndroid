@@ -9,5 +9,8 @@
     <color name="tab_checked">#3F51B5</color>
     <color name="tab_unchecked">#757575</color>
     <color name="red">#FF0000</color>
+    <color name="sky_blue">#0080FF</color>
+
+    <color name="light_gray">#E0E0E0</color>
 
 </resources>

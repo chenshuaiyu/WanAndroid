@@ -18,10 +18,12 @@ import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.MainContract;
+import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
 import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.presenter.MainPresenter;
 import com.example.chen.wanandroiddemo.ui.fragment.HomeFragment;
+import com.example.chen.wanandroiddemo.ui.fragment.NavigationFragment;
 import com.example.chen.wanandroiddemo.ui.fragment.ProjectFragment;
 import com.example.chen.wanandroiddemo.ui.fragment.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.fragment.WXFragment;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private HomeFragment mHomeFragment = new HomeFragment();
     private SystemFragment mSystemFragment = new SystemFragment();
     private WXFragment mWXFragment = new WXFragment();
+    private NavigationFragment mNavigationFragment = new NavigationFragment();
     private ProjectFragment mProjectFragment = new ProjectFragment();
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
@@ -76,9 +79,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 .add(R.id.fragment_container, mHomeFragment)
                 .add(R.id.fragment_container, mSystemFragment)
                 .add(R.id.fragment_container, mWXFragment)
+                .add(R.id.fragment_container, mNavigationFragment)
                 .add(R.id.fragment_container, mProjectFragment)
                 .hide(mSystemFragment)
                 .hide(mWXFragment)
+                .hide(mNavigationFragment)
                 .hide(mProjectFragment)
                 .show(curFragment)
                 .commit();
@@ -101,7 +106,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                             curFragment = mWXFragment;
                         break;
                     case R.id.menu_navigation:
-
+                        if (curFragment != mNavigationFragment)
+                            curFragment = mNavigationFragment;
                         break;
                     case R.id.menu_project:
                         if (curFragment != mProjectFragment)

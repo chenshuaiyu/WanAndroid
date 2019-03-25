@@ -30,7 +30,7 @@ public class WXTabAdapter extends RecyclerView.Adapter<WXTabAdapter.WXTabHolder>
     @NonNull
     @Override
     public WXTabHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wxtab, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.common_item_article, viewGroup, false);
         return new WXTabHolder(view);
     }
 

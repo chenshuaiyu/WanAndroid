@@ -31,7 +31,7 @@ public class SystemArticleAdapter extends RecyclerView.Adapter<SystemArticleAdap
     @NonNull
     @Override
     public SystemArticleHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_system_article, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.common_item_article, viewGroup, false);
         return new SystemArticleHolder(view);
     }
 
@@ -41,7 +41,7 @@ public class SystemArticleAdapter extends RecyclerView.Adapter<SystemArticleAdap
         systemArticleHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Article article = mArticles.get(i - 1);
+                Article article = mArticles.get(i);
                 Intent intent = ArticleDetailActivity.newIntent(mContext, article.getLink(), article.getTitle());
                 mContext.startActivity(intent);
             }

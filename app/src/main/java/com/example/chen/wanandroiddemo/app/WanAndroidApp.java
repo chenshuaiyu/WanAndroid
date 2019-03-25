@@ -1,9 +1,8 @@
 package com.example.chen.wanandroiddemo.app;
 
 import android.app.Application;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.example.chen.wanandroiddemo.R;
+
 import com.example.chen.wanandroiddemo.core.dao.DaoMaster;
 import com.example.chen.wanandroiddemo.core.dao.DaoSession;
 import com.example.chen.wanandroiddemo.di.component.AppComponent;

@@ -54,7 +54,7 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_system_article;
+        return R.layout.common_refresh_recycler_view;
     }
 
     @Override

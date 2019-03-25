@@ -8,6 +8,7 @@ import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
+import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.core.db.DbHelper;
 import com.example.chen.wanandroiddemo.core.db.DbHelperImpl;
 import com.example.chen.wanandroiddemo.core.http.HttpHelper;
@@ -95,5 +96,25 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<List<Website>>> getCommonWebsite() {
         return mHttpHelper.getCommonWebsite();
+    }
+
+    @Override
+    public void addHistoryRecord(HistoryRecord record) {
+        mDbHelper.addHistoryRecord(record);
+    }
+
+    @Override
+    public List<HistoryRecord> getAllHistoryRecord() {
+        return mDbHelper.getAllHistoryRecord();
+    }
+
+    @Override
+    public void clearHistoryRecord() {
+        mDbHelper.clearHistoryRecord();
+    }
+
+    @Override
+    public void deleteHistoryRecord(HistoryRecord record) {
+        mDbHelper.deleteHistoryRecord(record);
     }
 }

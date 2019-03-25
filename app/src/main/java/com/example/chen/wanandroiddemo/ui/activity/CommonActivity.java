@@ -66,8 +66,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(CommonActivity.this, ArticleDetailActivity.class);
-                        intent.putExtra(Constants.ARTICLE_URL, website.getLink());
+                        Intent intent = ArticleDetailActivity.newIntent(CommonActivity.this, website.getLink(), website.getName());
                         startActivity(intent);
                     }
                 });

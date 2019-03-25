@@ -18,7 +18,7 @@ android {
         }
     }
     greendao {
-        schemaVersion 1 //数据库版本号
+        schemaVersion 2 //数据库版本号
         daoPackage 'com.example.chen.wanandroiddemo.core.dao' //这个是生成代码保存的包名
         targetGenDir 'src/main/java' //保存到java代码路径
     }

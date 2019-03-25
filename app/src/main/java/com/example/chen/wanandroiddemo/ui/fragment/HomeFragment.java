@@ -39,7 +39,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.common_refresh_recycler_view;
     }
 
     @Override

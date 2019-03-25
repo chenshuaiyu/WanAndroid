@@ -22,8 +22,8 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property Time = new Property(1, long.class, "time", false, "TIME");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property Time = new Property(1, Long.class, "time", false, "TIME");
         public final static Property Data = new Property(2, String.class, "data", false, "DATA");
     }
 
@@ -40,8 +40,8 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"HISTORY_RECORD\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
-                "\"TIME\" INTEGER NOT NULL ," + // 1: time
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"TIME\" INTEGER," + // 1: time
                 "\"DATA\" TEXT);"); // 2: data
     }
 
@@ -54,8 +54,16 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, HistoryRecord entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
-        stmt.bindLong(2, entity.getTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(2, time);
+        }
  
         String data = entity.getData();
         if (data != null) {
@@ -66,8 +74,16 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, HistoryRecord entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
-        stmt.bindLong(2, entity.getTime());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
+ 
+        Long time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(2, time);
+        }
  
         String data = entity.getData();
         if (data != null) {
@@ -77,14 +93,14 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public HistoryRecord readEntity(Cursor cursor, int offset) {
         HistoryRecord entity = new HistoryRecord( //
-            cursor.getLong(offset + 0), // id
-            cursor.getLong(offset + 1), // time
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // time
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // data
         );
         return entity;
@@ -92,8 +108,8 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
      
     @Override
     public void readEntity(Cursor cursor, HistoryRecord entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
-        entity.setTime(cursor.getLong(offset + 1));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setTime(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setData(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
@@ -114,7 +130,7 @@ public class HistoryRecordDao extends AbstractDao<HistoryRecord, Long> {
 
     @Override
     public boolean hasKey(HistoryRecord entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

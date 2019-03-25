@@ -48,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         if (i == TYPE_BANNER)
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_banner, viewGroup, false);
         else
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_normal, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.common_item_article, viewGroup, false);
         return new HomeHolder(view);
     }
 

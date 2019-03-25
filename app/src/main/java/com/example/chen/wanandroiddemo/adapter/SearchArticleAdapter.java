@@ -32,7 +32,7 @@ public class SearchArticleAdapter extends RecyclerView.Adapter<SearchArticleAdap
     @NonNull
     @Override
     public SearchArticleHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_article, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.common_item_article, viewGroup, false);
         return new SearchArticleHolder(view);
     }
 

@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.core.bean.Article;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 
 import java.util.List;
 
@@ -38,15 +40,20 @@ public class ProjectTabAdapter extends RecyclerView.Adapter<ProjectTabAdapter.Pr
 
     @Override
     public void onBindViewHolder(@NonNull ProjectTabHolder projectTabHolder, int i) {
-        Article article = mArticles.get(i);
-
-        Log.d("CCC", article.getAuthor());
+        final Article article = mArticles.get(i);
 
         Glide.with(mContext).load(article.getEnvelopePic()).into(projectTabHolder.image);
         projectTabHolder.author.setText(article.getAuthor());
         projectTabHolder.title.setText(article.getTitle());
         projectTabHolder.desc.setText(article.getDesc());
         projectTabHolder.time.setText(article.getNiceDate());
+        projectTabHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ArticleDetailActivity.newIntent(mContext, article.getLink(), article.getTitle());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.chen.wanandroiddemo.contract.SearchContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
+import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 
 import java.util.List;
 
@@ -45,5 +46,26 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void addHisotryRecord(HistoryRecord record) {
+        mDataManager.addHistoryRecord(record);
+    }
+
+    @Override
+    public void getAllHisotryRecord() {
+        List<HistoryRecord> recordList = mDataManager.getAllHistoryRecord();
+        view.showAllHisotryRecord(recordList);
+    }
+
+    @Override
+    public void clearHisotryRecord() {
+        mDataManager.clearHistoryRecord();
+    }
+
+    @Override
+    public void deleteHisotryRecord(HistoryRecord record) {
+        mDataManager.deleteHistoryRecord(record);
     }
 }

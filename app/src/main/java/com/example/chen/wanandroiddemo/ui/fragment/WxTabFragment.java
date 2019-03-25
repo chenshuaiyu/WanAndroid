@@ -48,7 +48,7 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_wx_tab;
+        return R.layout.common_refresh_recycler_view;
     }
 
     @Override

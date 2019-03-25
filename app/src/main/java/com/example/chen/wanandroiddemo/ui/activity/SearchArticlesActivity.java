@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -39,6 +40,12 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     private String key;
     private List<Article> mArticles;
     private SearchArticleAdapter mSearchArticleAdapter;
+
+    public static Intent newIntent(Context context, String key){
+        Intent intent = new Intent(context, SearchArticlesActivity.class);
+        intent.putExtra(Constants.SEARCH_KEY, key);
+        return intent;
+    }
 
     @Override
     protected int getLayoutId() {

@@ -33,7 +33,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_system;
+        return R.layout.common_refresh_recycler_view;
     }
 
     @Override
