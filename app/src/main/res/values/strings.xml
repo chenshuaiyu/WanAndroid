@@ -25,6 +25,11 @@
     <string name="clear_all_history">清除所有历史</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <string name="register">注册</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="to_login">去登录 ></string>
 
 
 </resources>

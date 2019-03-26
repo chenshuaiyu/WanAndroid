@@ -17,14 +17,13 @@ import butterknife.ButterKnife;
  * Time : 2019/3/16 16:18
  */
 public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivity implements BaseView {
-
     @Inject
     protected T presenter;
 
     @LayoutRes
-    protected abstract int getLayoutId();
-    protected abstract void inject();
-    protected abstract void initData();
+    protected abstract int getLayoutId();//提供布局Id
+    protected abstract void inject();//注入
+    protected abstract void initData();//初始化数据
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,5 +33,12 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         inject();
         presenter.attachView(this);
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (presenter != null)
+            presenter.detachView();
+        super.onDestroy();
     }
 }

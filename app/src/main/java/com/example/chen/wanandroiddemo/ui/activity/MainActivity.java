@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -41,8 +42,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     NavigationView mNavigationView;
     @BindView(R.id.bottom_navigation_view)
     BottomNavigationView mBottomNavigationView;
-//    @BindView(R.id.login)
-//    TextView login;
+
+    private TextView login;
 
     private HomeFragment mHomeFragment = new HomeFragment();
     private SystemFragment mSystemFragment = new SystemFragment();
@@ -121,13 +122,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
             }
         });
 
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        login = mNavigationView.getHeaderView(0).findViewById(R.id.login);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

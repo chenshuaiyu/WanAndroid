@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SystemArticleAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent;
@@ -29,12 +30,7 @@ import butterknife.BindView;
  * Time : 2019/3/22 20:12
  */
 @SuppressLint("ValidFragment")
-public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> implements SystemArticleContract.View {
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
+public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePresenter> implements SystemArticleContract.View {
     private int curPage = 0;
     private System mChildrenSystem;
     private List<Article> mArticles;
@@ -46,15 +42,6 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
 
     public System getChildrenSystem() {
         return mChildrenSystem;
-    }
-
-    public void setChildrenSystem(System childrenSystem) {
-        mChildrenSystem = childrenSystem;
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.common_refresh_recycler_view;
     }
 
     @Override
@@ -70,24 +57,20 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
         mRecyclerView.setAdapter(mAdapter);
 
         presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
-
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 0;
-                presenter.getSystemArticles(curPage, mChildrenSystem.getId());
-                refreshLayout.finishRefresh(1500);
-            }
-        });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
-                refreshLayout.finishLoadMore(1500);
-            }
-        });
     }
 
+    @Override
+    public void refresh(RefreshLayout refreshLayout) {
+        curPage = 0;
+        presenter.getSystemArticles(curPage, mChildrenSystem.getId());
+        refreshLayout.finishRefresh(1500);
+    }
+
+    @Override
+    public void loadMore(RefreshLayout refreshLayout) {
+        presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
+        refreshLayout.finishLoadMore(1500);
+    }
 
     @Override
     public void showSystemArticles(List<Article> articles) {

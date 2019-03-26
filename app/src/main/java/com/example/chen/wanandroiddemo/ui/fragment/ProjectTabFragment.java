@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ProjectTabAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -30,12 +31,7 @@ import butterknife.BindView;
  * Time : 2019/3/21 20:33
  */
 @SuppressLint("ValidFragment")
-public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implements ProjectTabContract.View {
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
+public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter> implements ProjectTabContract.View {
     private int curPage = 1;
     private List<Article> mArticles;
     private ProjectTabAdapter mProjectTabAdapter;
@@ -51,11 +47,6 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.common_refresh_recycler_view;
-    }
-
-    @Override
     protected void inject() {
         DaggerProjectTabComponent.builder().projectTabModule(new ProjectTabModule()).build().inject(this);
     }
@@ -68,22 +59,19 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
         mRecyclerView.setAdapter(mProjectTabAdapter);
 
         presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
+    }
 
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 1;
-                presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-                refreshLayout.finishRefresh(1500);
-            }
-        });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-                refreshLayout.finishLoadMore(1500);
-            }
-        });
+    @Override
+    public void refresh(RefreshLayout refreshLayout) {
+        curPage = 1;
+        presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
+        refreshLayout.finishRefresh(1500);
+    }
+
+    @Override
+    public void loadMore(RefreshLayout refreshLayout) {
+        presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
+        refreshLayout.finishLoadMore(1500);
     }
 
     @Override

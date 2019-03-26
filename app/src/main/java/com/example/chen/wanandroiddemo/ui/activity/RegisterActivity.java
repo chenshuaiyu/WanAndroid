@@ -5,18 +5,20 @@ import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
-import com.example.chen.wanandroiddemo.contract.LoginContract;
-import com.example.chen.wanandroiddemo.di.component.DaggerLoginComponent;
-import com.example.chen.wanandroiddemo.di.module.LoginActivityModule;
-import com.example.chen.wanandroiddemo.presenter.LoginPresenter;
+import com.example.chen.wanandroiddemo.contract.RegisterContract;
+import com.example.chen.wanandroiddemo.di.component.DaggerRegisterComponent;
+import com.example.chen.wanandroiddemo.di.module.RegisterModule;
+import com.example.chen.wanandroiddemo.presenter.RegisterPresenter;
 
 import butterknife.BindView;
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
     @BindView(R.id.username)
     TextView username;
     @BindView(R.id.password)
     TextView password;
+    @BindView(R.id.confirm_password)
+    TextView confirmPassword;
     @BindView(R.id.login)
     Button login;
     @BindView(R.id.register)
@@ -24,16 +26,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_login;
+        return R.layout.activity_register;
     }
 
     @Override
     protected void inject() {
-        DaggerLoginComponent.builder().loginActivityModule(new LoginActivityModule()).build().inject(this);
+        DaggerRegisterComponent.builder().registerModule(new RegisterModule()).build().inject(this);
     }
 
     @Override
     protected void initData() {
 
     }
+
 }

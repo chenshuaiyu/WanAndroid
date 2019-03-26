@@ -1,11 +1,14 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -48,6 +51,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         DaggerArticleDetailComponent.builder().articleDetailModule(new ArticleDetailModule()).build().inject(this);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initData() {
         Intent intent = getIntent();
@@ -69,6 +73,17 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 .createAgentWeb()
                 .ready()
                 .go(url);
+        WebView mWebView = mAgentWeb.getWebCreator().getWebView();
+        WebSettings mSettings = mWebView.getSettings();
+
+        //进行一系列设置，优化交互效果
+        mSettings.setJavaScriptEnabled(true);
+        mSettings.setSupportZoom(true);
+        mSettings.setBuiltInZoomControls(true);
+        mSettings.setDisplayZoomControls(false);
+        mSettings.setUseWideViewPort(true);
+        mSettings.setLoadWithOverviewMode(true);
+        mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 
     @Override

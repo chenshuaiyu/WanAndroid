@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HomeAdapter;
-import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
@@ -25,22 +25,12 @@ import butterknife.BindView;
  * Coder : chenshuaiyu
  * Time : 2019/3/11 22:25
  */
-public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout mSmartRefreshLayout;
-
+public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements HomeContract.View {
     private HomeAdapter mHomeAdapter;
     private List<Banner> mBannerList;
     private List<Article> mArticleList;
 
     private int curPage = 0;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.common_refresh_recycler_view;
-    }
 
     @Override
     protected void inject() {
@@ -49,31 +39,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initData() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBannerList = new ArrayList<>();
         mArticleList = new ArrayList<>();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mHomeAdapter = new HomeAdapter(getActivity(), mBannerList, mArticleList);
         mRecyclerView.setAdapter(mHomeAdapter);
 
         presenter.getBanner();
         presenter.getArticles(curPage++);
-
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 0;
-                presenter.getBanner();
-                presenter.getArticles(curPage);
-                refreshLayout.finishRefresh(1500);
-            }
-        });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                presenter.getArticles(curPage++);
-                refreshLayout.finishLoadMore(1500);
-            }
-        });
 
         getActivity().findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +54,20 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 mRecyclerView.scrollToPosition(0);
             }
         });
+    }
+
+    @Override
+    public void refresh(RefreshLayout refreshLayout) {
+        curPage = 0;
+        presenter.getBanner();
+        presenter.getArticles(curPage);
+        refreshLayout.finishRefresh(1500);
+    }
+
+    @Override
+    public void loadMore(RefreshLayout refreshLayout) {
+        presenter.getArticles(curPage++);
+        refreshLayout.finishLoadMore(1500);
     }
 
     @Override

@@ -6,12 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SystemAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.SystemContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemModule;
 import com.example.chen.wanandroiddemo.presenter.SystemPresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +24,9 @@ import butterknife.BindView;
  * Coder : chenshuaiyu
  * Time : 2019/3/22 14:19
  */
-public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
+public class SystemFragment extends BaseRefreshFragment<SystemPresenter> implements SystemContract.View {
     private List<System> mSystems;
     private SystemAdapter mSystemAdapter;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.common_refresh_recycler_view;
-    }
 
     @Override
     protected void inject() {
@@ -49,6 +41,16 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
         mRecyclerView.setAdapter(mSystemAdapter);
 
         presenter.getSystem();
+    }
+
+    @Override
+    public void refresh(RefreshLayout refreshLayout) {
+
+    }
+
+    @Override
+    public void loadMore(RefreshLayout refreshLayout) {
+
     }
 
     @Override

@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
  * Time : 2019/3/16 16:19
  */
 public abstract class BaseFragment<T extends IPresenter> extends Fragment implements BaseView {
-
     @Inject
     protected T presenter;
 

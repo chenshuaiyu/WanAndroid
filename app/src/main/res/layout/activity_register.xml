@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WanAndroid 客户端登录"
+        android:text="WanAndroid 注册"
         android:textSize="25sp"
         android:textColor="@color/black"
         android:layout_marginBottom="120dp"/>
@@ -64,15 +64,30 @@
         android:layout_height="2dp"
         android:background="@color/light_gray"/>
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="220dp"
-        android:layout_height="45dp"
-        android:text="@string/login"
-        android:textSize="18sp"
-        android:background="@drawable/bg_login_button"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_password"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:hint="@string/confirm_password"
+            android:background="@null"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="2dp"
+        android:background="@color/light_gray"/>
 
     <Button
         android:id="@+id/register"
@@ -81,6 +96,16 @@
         android:text="@string/register"
         android:textSize="18sp"
         android:background="@drawable/bg_register_button"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:text="@string/to_login"
+        android:textSize="18sp"
+        android:background="@drawable/bg_login_button"
         android:layout_marginBottom="40dp"/>
 
 </LinearLayout>
