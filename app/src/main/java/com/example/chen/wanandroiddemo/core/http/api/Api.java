@@ -62,5 +62,12 @@ public interface Api {
     @GET("friend/json")
     Observable<BaseResponse<List<Website>>> getCommonWebsite();
 
+//    @POST("user/login")
+//    @FormUrlEncoded
+//    Observable<BaseResponse<Login>> getLoginData(@Field("username") String username, @Field("password") String password);
+//
+//    @POST("user/register")
+//    @FormUrlEncoded
+//    Observable<BaseResponse<Login>> getRegisterData(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
 
 }

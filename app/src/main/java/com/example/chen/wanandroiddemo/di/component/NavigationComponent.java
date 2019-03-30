@@ -1,9 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.NavigationModule;
-import com.example.chen.wanandroiddemo.di.module.SystemModule;
-import com.example.chen.wanandroiddemo.ui.fragment.NavigationFragment;
-import com.example.chen.wanandroiddemo.ui.fragment.SystemFragment;
+import com.example.chen.wanandroiddemo.ui.navigation.NavigationFragment;
 
 import javax.inject.Singleton;
 

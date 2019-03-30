@@ -2,8 +2,12 @@ package com.example.chen.wanandroiddemo.base.presenter;
 
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.utils.RxBus;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Coder : chenshuaiyu
@@ -13,6 +17,7 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
 
     protected T view;
     protected DataManager mDataManager;
+    protected CompositeDisposable mCompositeDisposable;
 
     @Inject
     public BasePresenter(DataManager dataManager) {
@@ -27,5 +32,21 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
     @Override
     public void detachView() {
         view = null;
+        if (mCompositeDisposable != null)
+            mCompositeDisposable.clear();
+    }
+
+    @Override
+    public void addSubcriber(Disposable disposable) {
+        if (mCompositeDisposable == null)
+            mCompositeDisposable = new CompositeDisposable();
+        mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void subscribeEvent() {
+//        addSubcriber(
+//                RxBus.getInstance().toObservable()
+//        );
     }
 }

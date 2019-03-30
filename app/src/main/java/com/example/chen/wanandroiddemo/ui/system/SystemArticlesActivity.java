@@ -1,6 +1,5 @@
-package com.example.chen.wanandroiddemo.ui.activity;
+package com.example.chen.wanandroiddemo.ui.system;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,7 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemArticlesModule;
 import com.example.chen.wanandroiddemo.presenter.SystemArticlesPresenter;
-import com.example.chen.wanandroiddemo.ui.fragment.SystemArticleFragment;
+import com.example.chen.wanandroiddemo.ui.system.SystemArticleFragment;
 
 import java.util.ArrayList;
 import java.util.List;

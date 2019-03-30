@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,6 +36,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initData() {
-
+        register.setOnClickListener(
+                v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
+        );
     }
 }

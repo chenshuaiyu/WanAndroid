@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.wx;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;

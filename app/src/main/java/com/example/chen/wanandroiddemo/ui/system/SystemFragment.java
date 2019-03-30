@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.system;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

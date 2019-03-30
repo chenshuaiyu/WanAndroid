@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.navigation;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;

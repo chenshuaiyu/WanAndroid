@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.ui.activity.SystemArticlesActivity;
+import com.example.chen.wanandroiddemo.ui.system.SystemArticlesActivity;
 
 import java.util.List;
 

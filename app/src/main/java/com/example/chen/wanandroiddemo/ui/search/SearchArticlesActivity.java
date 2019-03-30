@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.activity;
+package com.example.chen.wanandroiddemo.ui.search;
 
 import android.content.Context;
 import android.content.Intent;

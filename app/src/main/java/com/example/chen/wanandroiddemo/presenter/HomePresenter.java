@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.presenter;
 
-import android.util.Log;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -33,17 +32,13 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
-
                     @Override
-                    public void onNext(BaseResponse<List<Banner>> bannerBaseBean) {
-                        view.showBanner(bannerBaseBean.getData());
+                    public void onNext(BaseResponse<List<Banner>> listBaseResponse) {
+                        view.showBanner(listBaseResponse.getData());
                     }
-
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
                     }
-
                     @Override
                     public void onComplete() {
                     }
@@ -59,22 +54,17 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
-
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         view.showArticles(articlesBaseResponse.getData().getDatas());
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
                     }
-
                     @Override
                     public void onComplete() {
                     }
                 });
     }
-
-
 }

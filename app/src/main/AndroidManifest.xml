@@ -16,11 +16,12 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.SettingsActivity"></activity>
+        <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.CommonActivity" />
-        <activity android:name=".ui.activity.SearchArticlesActivity" />
-        <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.SystemArticlesActivity" />
+        <activity android:name=".ui.search.SearchArticlesActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.system.SystemArticlesActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.ArticleDetailActivity" />
         <activity android:name=".ui.activity.MainActivity" />

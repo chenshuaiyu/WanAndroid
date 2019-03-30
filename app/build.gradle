@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.0.2'
     implementation 'com.zhy:flowlayout-lib:1.0.3'
     implementation 'q.rorbin:VerticalTabLayout:1.2.5'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }

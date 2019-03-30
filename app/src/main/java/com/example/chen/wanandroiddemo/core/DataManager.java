@@ -15,11 +15,8 @@ import com.example.chen.wanandroiddemo.core.http.HttpHelper;
 import com.example.chen.wanandroiddemo.core.http.HttpHelperImpl;
 import com.example.chen.wanandroiddemo.core.prefs.PreferenceHelper;
 import com.example.chen.wanandroiddemo.core.prefs.PreferenceHelperImpl;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**

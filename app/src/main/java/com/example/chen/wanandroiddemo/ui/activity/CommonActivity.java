@@ -9,14 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.CommonContract;
 import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.di.component.DaggerCommonComponent;
 import com.example.chen.wanandroiddemo.di.module.CommonModule;
 import com.example.chen.wanandroiddemo.presenter.CommonPresenter;
-import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -61,7 +60,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
                 TextView textView = view.findViewById(R.id.text_view);
                 textView.setText(website.getName());
-                view.setBackgroundColor(ColorUtil.randomTagColor());
+                view.setBackgroundColor(ColorUtils.randomTagColor());
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override

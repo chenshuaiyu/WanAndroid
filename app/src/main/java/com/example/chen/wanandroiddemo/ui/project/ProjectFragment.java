@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.project;
 
 import android.support.v4.app.Fragment;
 import com.example.chen.wanandroiddemo.adapter.ProjectTabViewPagerAdapter;

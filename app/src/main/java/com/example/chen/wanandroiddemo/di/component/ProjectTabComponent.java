@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
-import com.example.chen.wanandroiddemo.ui.fragment.ProjectTabFragment;
+import com.example.chen.wanandroiddemo.ui.project.ProjectTabFragment;
 
 import dagger.Component;
 

@@ -1,8 +1,8 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
-import com.example.chen.wanandroiddemo.ui.fragment.WxTabFragment;
-import javax.inject.Singleton;
+import com.example.chen.wanandroiddemo.ui.wx.WxTabFragment;
+
 import dagger.Component;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.homepager;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;

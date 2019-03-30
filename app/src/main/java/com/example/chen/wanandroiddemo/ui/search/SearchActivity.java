@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.activity;
+package com.example.chen.wanandroiddemo.ui.search;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,12 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.SearchContract;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
@@ -27,7 +25,7 @@ import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchModule;
 import com.example.chen.wanandroiddemo.presenter.SearchPresenter;
-import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -91,7 +89,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
                 TextView textView = view.findViewById(R.id.text_view);
                 textView.setText(hotWord.getName());
-                view.setBackgroundColor(ColorUtil.randomTagColor());
+                view.setBackgroundColor(ColorUtils.randomTagColor());
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override

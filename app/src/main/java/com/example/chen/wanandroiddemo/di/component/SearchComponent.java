@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.SearchModule;
-import com.example.chen.wanandroiddemo.ui.activity.SearchActivity;
+import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 
 import javax.inject.Singleton;
 

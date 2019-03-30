@@ -12,7 +12,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
-import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -49,7 +49,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Na
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation_tag, parent, false);
                 TextView name = view.findViewById(R.id.name);
                 name.setText(article.getTitle());
-                name.setTextColor(ColorUtil.randomTagColor());
+                name.setTextColor(ColorUtils.randomTagColor());
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

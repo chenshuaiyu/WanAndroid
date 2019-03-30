@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.example.chen.wanandroiddemo.ui.fragment.WxTabFragment;
+import com.example.chen.wanandroiddemo.ui.wx.WxTabFragment;
 import java.util.List;
 
 /**

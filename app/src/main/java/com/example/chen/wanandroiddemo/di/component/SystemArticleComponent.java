@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
-import com.example.chen.wanandroiddemo.ui.fragment.SystemArticleFragment;
+import com.example.chen.wanandroiddemo.ui.system.SystemArticleFragment;
 
 import javax.inject.Singleton;
 

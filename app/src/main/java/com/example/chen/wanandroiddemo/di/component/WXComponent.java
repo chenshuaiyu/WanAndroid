@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.WXModule;
-import com.example.chen.wanandroiddemo.ui.fragment.WXFragment;
+import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
 import javax.inject.Singleton;
 import dagger.Component;
 

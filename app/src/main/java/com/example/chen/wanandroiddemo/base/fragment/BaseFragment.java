@@ -15,12 +15,16 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Coder : chenshuaiyu
  * Time : 2019/3/16 16:19
  */
 public abstract class BaseFragment<T extends IPresenter> extends Fragment implements BaseView {
+
+    private Unbinder mUnbinder;
+
     @Inject
     protected T presenter;
 
@@ -34,7 +38,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         initData();
         return view;
     }
@@ -44,5 +48,14 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         super.onCreate(savedInstanceState);
         inject();
         presenter.attachView(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY)
+            mUnbinder.unbind();
+        if (presenter != null)
+            presenter.detachView();
+        super.onDestroy();
     }
 }

@@ -9,7 +9,7 @@ import android.support.design.widget.BottomNavigationView;
  * Coder : chenshuaiyu
  * Time : 2019/3/17 15:10
  */
-public class BNVUtil {
+public class BNVUtils {
     @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);

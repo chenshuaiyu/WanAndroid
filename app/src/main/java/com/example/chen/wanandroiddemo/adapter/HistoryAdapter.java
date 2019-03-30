@@ -1,7 +1,6 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
-import com.example.chen.wanandroiddemo.ui.activity.SearchArticlesActivity;
 
 import java.util.List;
 

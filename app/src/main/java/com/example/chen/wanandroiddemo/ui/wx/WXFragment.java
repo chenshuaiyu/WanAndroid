@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.fragment;
+package com.example.chen.wanandroiddemo.ui.wx;
 
 import android.support.v4.app.Fragment;
 import com.example.chen.wanandroiddemo.adapter.WXTabViewPagerAdapter;
@@ -8,6 +8,7 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXComponent;
 import com.example.chen.wanandroiddemo.di.module.WXModule;
 import com.example.chen.wanandroiddemo.presenter.WXPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,16 +18,16 @@ import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.MainContract;
-import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
 import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.presenter.MainPresenter;
-import com.example.chen.wanandroiddemo.ui.fragment.HomeFragment;
-import com.example.chen.wanandroiddemo.ui.fragment.NavigationFragment;
-import com.example.chen.wanandroiddemo.ui.fragment.ProjectFragment;
-import com.example.chen.wanandroiddemo.ui.fragment.SystemFragment;
-import com.example.chen.wanandroiddemo.ui.fragment.WXFragment;
-import com.example.chen.wanandroiddemo.utils.BNVUtil;
+import com.example.chen.wanandroiddemo.ui.homepager.HomeFragment;
+import com.example.chen.wanandroiddemo.ui.navigation.NavigationFragment;
+import com.example.chen.wanandroiddemo.ui.project.ProjectFragment;
+import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
+import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
+import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
+import com.example.chen.wanandroiddemo.utils.BNVUtils;
 
 import butterknife.BindView;
 
@@ -73,7 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        BNVUtil.disableShiftMode(mBottomNavigationView);
+        BNVUtils.disableShiftMode(mBottomNavigationView);
 
         curFragment = mHomeFragment;
         mFragmentManager.beginTransaction()
