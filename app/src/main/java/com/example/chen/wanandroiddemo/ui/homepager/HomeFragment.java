@@ -1,11 +1,12 @@
 package com.example.chen.wanandroiddemo.ui.homepager;
 
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.HomeAdapter;
+import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -13,20 +14,23 @@ import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.di.component.DaggerHomeComponent;
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
 import com.example.chen.wanandroiddemo.presenter.HomePresenter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.BindView;
 
 /**
  * Coder : chenshuaiyu
  * Time : 2019/3/11 22:25
  */
 public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements HomeContract.View {
-    private HomeAdapter mHomeAdapter;
+    private com.youth.banner.Banner mBanner;
+
+    private ArticlesAdapter mArticlesAdapter;
     private List<Banner> mBannerList;
     private List<Article> mArticleList;
 
@@ -41,26 +45,29 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
     protected void initData() {
         mBannerList = new ArrayList<>();
         mArticleList = new ArrayList<>();
+
+        View bannerLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_banner, null);
+        mBanner = bannerLayout.findViewById(R.id.banner);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mHomeAdapter = new HomeAdapter(getActivity(), mBannerList, mArticleList);
-        mRecyclerView.setAdapter(mHomeAdapter);
+        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticleList);
+        mArticlesAdapter.addHeaderView(bannerLayout);
+        mRecyclerView.setAdapter(mArticlesAdapter);
+        mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = mArticleList.get(position);
+            jumpToDetail(article.getLink(), article.getTitle());
+        });
 
         presenter.getBanner();
         presenter.getArticles(curPage++);
 
-        getActivity().findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRecyclerView.scrollToPosition(0);
-            }
-        });
+        getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
     }
 
     @Override
     public void refresh(RefreshLayout refreshLayout) {
         curPage = 0;
         presenter.getBanner();
-        presenter.getArticles(curPage);
+        presenter.getArticles(curPage++);
         refreshLayout.finishRefresh(1500);
     }
 
@@ -75,8 +82,8 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         if (banners != null && banners.size() != 0) {
             mBannerList.clear();
             mBannerList.addAll(banners);
-            mHomeAdapter.notifyDataSetChanged();
         }
+        setBanner();
     }
 
     @Override
@@ -84,6 +91,28 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         if (curPage == 0)
             mArticleList.clear();
         mArticleList.addAll(articles);
-        mHomeAdapter.notifyDataSetChanged();
+        mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    private void setBanner() {
+        List<String> title = new ArrayList<>();
+        for (Banner banner : mBannerList)
+            title.add(banner.getTitle());
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.setImages(mBannerList);
+        mBanner.setBannerAnimation(Transformer.DepthPage);
+        mBanner.setBannerTitles(title);
+        mBanner.setDelayTime(2500);
+        mBanner.setOnBannerListener(position -> {
+            Banner banner = mBannerList.get(position);
+            jumpToDetail(banner.getUrl(), banner.getTitle());
+        });
+        mBanner.start();
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
+        startActivity(intent);
     }
 }

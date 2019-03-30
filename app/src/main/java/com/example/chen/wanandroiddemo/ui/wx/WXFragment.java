@@ -1,7 +1,8 @@
 package com.example.chen.wanandroiddemo.ui.wx;
 
 import android.support.v4.app.Fragment;
-import com.example.chen.wanandroiddemo.adapter.WXTabViewPagerAdapter;
+
+import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WXContract.View {
     private List<Fragment> mFragments;
-    private WXTabViewPagerAdapter mPagerAdapter;
+    private ViewPagerAdapter mPagerAdapter;
 
     @Override
     protected void inject() {
@@ -28,7 +29,7 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     @Override
     protected void initData() {
         mFragments = new ArrayList<>();
-        mPagerAdapter = new WXTabViewPagerAdapter(getChildFragmentManager(), mFragments);
+        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 

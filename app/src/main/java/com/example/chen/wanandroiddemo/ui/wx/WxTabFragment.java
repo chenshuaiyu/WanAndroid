@@ -1,13 +1,11 @@
 package com.example.chen.wanandroiddemo.ui.wx;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.WXTabAdapter;
-import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -15,15 +13,10 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.WXTabPresenter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Coder : chenshuaiyu
@@ -33,16 +26,12 @@ import butterknife.BindView;
 public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implements WXTabContract.View {
     private int curPage = 0;
     private List<Article> mWXTabArticleList;
-    private WXTabAdapter mWXTabAdapter;
+    private ArticlesAdapter mArticlesAdapter;
 
     private Tab mWXTab;
 
     public WxTabFragment(Tab WXTab) {
         mWXTab = WXTab;
-    }
-
-    public Tab getWXTab() {
-        return mWXTab;
     }
 
     @Override
@@ -53,9 +42,13 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
     @Override
     protected void initData() {
         mWXTabArticleList = new ArrayList<>();
-        mWXTabAdapter = new WXTabAdapter(getActivity(), mWXTabArticleList);
+        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWXTabArticleList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mWXTabAdapter);
+        mRecyclerView.setAdapter(mArticlesAdapter);
+        mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = mWXTabArticleList.get(position);
+            jumpToDetail(article.getLink(), article.getTitle());
+        });
 
         presenter.getWXTabArticles(mWXTab.getId(), curPage++);
     }
@@ -78,6 +71,16 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
         if (curPage == 0)
             mWXTabArticleList.clear();
         mWXTabArticleList.addAll(wxTabArticles);
-        mWXTabAdapter.notifyDataSetChanged();
+        mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public String toString() {
+        return mWXTab.getName();
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
+        startActivity(intent);
     }
 }

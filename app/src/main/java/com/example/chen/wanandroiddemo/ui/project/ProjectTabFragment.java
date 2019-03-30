@@ -1,14 +1,11 @@
 package com.example.chen.wanandroiddemo.ui.project;
 
-
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.ProjectTabAdapter;
-import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
+import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -16,15 +13,10 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerProjectTabComponent;
 import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
 import com.example.chen.wanandroiddemo.presenter.ProjectTabPresenter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Coder : chenshuaiyu
@@ -34,16 +26,12 @@ import butterknife.BindView;
 public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter> implements ProjectTabContract.View {
     private int curPage = 1;
     private List<Article> mArticles;
-    private ProjectTabAdapter mProjectTabAdapter;
+    private ProjectsAdapter mProjectsAdapter;
 
     private Tab mProjectTab;
 
     public ProjectTabFragment(Tab projectTab) {
         mProjectTab = projectTab;
-    }
-
-    public Tab getProjectTab() {
-        return mProjectTab;
     }
 
     @Override
@@ -54,9 +42,13 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
     @Override
     protected void initData() {
         mArticles = new ArrayList<>();
-        mProjectTabAdapter = new ProjectTabAdapter(getActivity(), mArticles);
+        mProjectsAdapter = new ProjectsAdapter(R.layout.item_projecttab, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mProjectTabAdapter);
+        mRecyclerView.setAdapter(mProjectsAdapter);
+        mProjectsAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = mArticles.get(position);
+            jumpToDetail(article.getLink(), article.getTitle());
+        });
 
         presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
     }
@@ -79,6 +71,16 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
         if (curPage == 1)
             mArticles.clear();
         mArticles.addAll(projectTabArticles);
-        mProjectTabAdapter.notifyDataSetChanged();
+        mProjectsAdapter.notifyDataSetChanged();
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
+        startActivity(intent);
+    }
+
+    @Override
+    public String toString() {
+        return mProjectTab.getName();
     }
 }

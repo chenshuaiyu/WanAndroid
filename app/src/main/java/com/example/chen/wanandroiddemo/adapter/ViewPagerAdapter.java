@@ -4,17 +4,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.example.chen.wanandroiddemo.ui.wx.WxTabFragment;
 import java.util.List;
 
 /**
  * Coder : chenshuaiyu
- * Time : 2019/3/19 18:04
+ * Time : 2019/3/30 21:05
  */
-public class WXTabViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
 
-    public WXTabViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         mFragments = fragments;
     }
@@ -32,7 +31,6 @@ public class WXTabViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        WxTabFragment fragment = (WxTabFragment) mFragments.get(position);
-        return fragment.getWXTab().getName();
+        return mFragments.get(position).toString();
     }
 }

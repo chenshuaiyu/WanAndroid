@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -71,14 +72,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = mEditText.getText().toString();
-                if (!TextUtils.isEmpty(s)) {
-                    addHisotryRecord(s);
-                    searchArticles(s);
-                }
+        mButton.setOnClickListener(v -> {
+            String s = mEditText.getText().toString();
+            if (!TextUtils.isEmpty(s)) {
+                addHisotryRecord(s);
+                searchArticles(s);
             }
         });
 
@@ -104,62 +102,56 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         };
         mTagFlowLayout.setAdapter(mTagAdapter);
-
         mHistoryRecords = new ArrayList<>();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mHistoryAdapter = new HistoryAdapter(this, mHistoryRecords);
-        mHistoryAdapter.setCallback(new HistoryAdapter.Callback() {
-            @Override
-            public void searchArticle(String data, int index) {
-                setEditSelection(data);
+        mHistoryAdapter = new HistoryAdapter(R.layout.item_history, mHistoryRecords);
+        mHistoryAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    String data = mHistoryRecords.get(position).getData();
+                    setEditSelection(data);
 
-                //将此项记录从内存、数据库中删除
-                HistoryRecord record = mHistoryRecords.get(index);
-                mHistoryRecords.remove(index);
-                mHistoryAdapter.notifyDataSetChanged();
-                presenter.deleteHisotryRecord(record);
+                    //将此项记录从内存、数据库中删除
+                    HistoryRecord record = mHistoryRecords.get(position);
+                    mHistoryRecords.remove(position);
+                    mHistoryAdapter.notifyDataSetChanged();
+                    presenter.deleteHisotryRecord(record);
 
-                //内存、数据库添加一条记录
-                addHisotryRecord(data);
+                    //内存、数据库添加一条记录
+                    addHisotryRecord(data);
 
-                searchArticles(data);
-            }
+                    searchArticles(data);
+                }
+        );
+        mHistoryAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            //删除内存中此项记录
+            HistoryRecord record = mHistoryRecords.get(position);
+            mHistoryRecords.remove(position);
+            mHistoryAdapter.notifyDataSetChanged();
 
-            @Override
-            public void deleteHistoryRecord(int index) {
-                //删除内存中此项记录
-                HistoryRecord record = mHistoryRecords.get(index);
-                mHistoryRecords.remove(index);
-                mHistoryAdapter.notifyDataSetChanged();
-
-                //数据库删除此项记录
-                presenter.deleteHisotryRecord(record);
-            }
+            //数据库删除此项记录
+            presenter.deleteHisotryRecord(record);
         });
         mRecyclerView.setAdapter(mHistoryAdapter);
 
-        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(SearchActivity.this)
-                        .setTitle(R.string.clear_all_history)
-                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                presenter.clearHisotryRecord();
-                                mHistoryRecords.clear();
-                                mHistoryAdapter.notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .create();
-                dialog.show();
-            }
+        mRelativeLayout.setOnClickListener(v -> {
+            AlertDialog dialog = new AlertDialog.Builder(SearchActivity.this)
+                    .setTitle(R.string.clear_all_history)
+                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            presenter.clearHisotryRecord();
+                            mHistoryRecords.clear();
+                            mHistoryAdapter.notifyDataSetChanged();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+            dialog.show();
         });
 
         presenter.getHotWord();

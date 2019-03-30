@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.SearchArticleAdapter;
+import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
@@ -18,6 +18,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchArticlesModule;
 import com.example.chen.wanandroiddemo.presenter.SearchArticlesPresenter;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -39,7 +40,7 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     private int curPage = 0;
     private String key;
     private List<Article> mArticles;
-    private SearchArticleAdapter mSearchArticleAdapter;
+    private ArticlesAdapter mArticlesAdapter;
 
     public static Intent newIntent(Context context, String key){
         Intent intent = new Intent(context, SearchArticlesActivity.class);
@@ -70,9 +71,13 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
         mArticles = new ArrayList<>();
-        mSearchArticleAdapter = new SearchArticleAdapter(this, mArticles);
+        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mSearchArticleAdapter);
+        mRecyclerView.setAdapter(mArticlesAdapter);
+        mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = mArticles.get(position);
+            jumpToDetail(article.getLink(), article.getTitle());
+        });
 
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -108,6 +113,11 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     @Override
     public void showSearchArticles(List<Article> articles) {
         mArticles.addAll(articles);
-        mSearchArticleAdapter.notifyDataSetChanged();
+        mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(SearchArticlesActivity.this, link, title);
+        startActivity(intent);
     }
 }

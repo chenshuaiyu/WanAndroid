@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
     greendao {
         schemaVersion 2 //数据库版本号
         daoPackage 'com.example.chen.wanandroiddemo.core.dao' //这个是生成代码保存的包名

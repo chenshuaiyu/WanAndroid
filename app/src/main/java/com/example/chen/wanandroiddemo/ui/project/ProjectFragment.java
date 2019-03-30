@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.ui.project;
 
 import android.support.v4.app.Fragment;
-import com.example.chen.wanandroiddemo.adapter.ProjectTabViewPagerAdapter;
+import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> implements ProjectContract.View {
     private List<Fragment> mFragments;
-    private ProjectTabViewPagerAdapter mPagerAdapter;
+    private ViewPagerAdapter mPagerAdapter;
 
     @Override
     protected void inject() {
@@ -27,13 +27,12 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
     @Override
     protected void initData() {
         mFragments = new ArrayList<>();
-        mPagerAdapter = new ProjectTabViewPagerAdapter(getChildFragmentManager(), mFragments);
+        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
         presenter.getProjectTab();
     }
-
 
     @Override
     public void showTab(List<Tab> projectTabList) {

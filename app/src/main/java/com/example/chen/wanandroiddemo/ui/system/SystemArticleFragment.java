@@ -1,29 +1,21 @@
 package com.example.chen.wanandroiddemo.ui.system;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.SystemArticleAdapter;
-import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
 import com.example.chen.wanandroiddemo.presenter.SystemArticlePresenter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Coder : chenshuaiyu
@@ -34,14 +26,10 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
     private int curPage = 0;
     private System mChildrenSystem;
     private List<Article> mArticles;
-    private SystemArticleAdapter mAdapter;
+    private ArticlesAdapter mArticlesAdapter;
 
     public SystemArticleFragment(System childrenSystem) {
         mChildrenSystem = childrenSystem;
-    }
-
-    public System getChildrenSystem() {
-        return mChildrenSystem;
     }
 
     @Override
@@ -52,9 +40,9 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
     @Override
     protected void initData() {
         mArticles = new ArrayList<>();
-        mAdapter = new SystemArticleAdapter(getActivity(), mArticles);
+        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mArticlesAdapter);
 
         presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
     }
@@ -77,6 +65,11 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
         if (curPage == 0)
             mArticles.clear();
         mArticles.addAll(articles);
-        mAdapter.notifyDataSetChanged();
+        mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public String toString() {
+        return mChildrenSystem.getName();
     }
 }

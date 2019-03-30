@@ -1,10 +1,14 @@
 package com.example.chen.wanandroiddemo.ui.system;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SystemAdapter;
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.SystemContract;
@@ -36,9 +40,15 @@ public class SystemFragment extends BaseRefreshFragment<SystemPresenter> impleme
     @Override
     protected void initData() {
         mSystems = new ArrayList<>();
-        mSystemAdapter = new SystemAdapter(getActivity(), mSystems);
+        mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mSystemAdapter);
+        mSystemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            System system = mSystems.get(position);
+            Intent intent = new Intent(getActivity(), SystemArticlesActivity.class);
+            intent.putExtra(Constants.SYSTEM, system);
+            startActivity(intent);
+        });
 
         presenter.getSystem();
     }

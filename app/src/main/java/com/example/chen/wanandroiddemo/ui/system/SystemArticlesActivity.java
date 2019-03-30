@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.SystemArticlesViewPagerAdapter;
+import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.SystemArticlesContract;
@@ -14,7 +14,6 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemArticlesModule;
 import com.example.chen.wanandroiddemo.presenter.SystemArticlesPresenter;
-import com.example.chen.wanandroiddemo.ui.system.SystemArticleFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter
 
     private System mSystem;
     private List<Fragment> mFragmentList;
-    private SystemArticlesViewPagerAdapter mAdapter;
+    private ViewPagerAdapter mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -51,7 +50,7 @@ public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter
         for (System childrenSystem : mSystem.getChildren()) {
             mFragmentList.add(new SystemArticleFragment(childrenSystem));
         }
-        mAdapter = new SystemArticlesViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
