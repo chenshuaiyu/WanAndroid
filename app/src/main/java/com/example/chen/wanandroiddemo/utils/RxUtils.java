@@ -19,39 +19,8 @@ public class RxUtils {
 
     //切换线程
     public static <T> ObservableTransformer<T, T> switchSchedulers() {
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
-
-    //对结果进行预处理，只返回成功的结果
-    public static <T> ObservableTransformer<BaseResponse<T>, T> handleRequest() {
-        return new ObservableTransformer<BaseResponse<T>, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<BaseResponse<T>> upstream) {
-                return upstream.flatMap(new Function<BaseResponse<T>, ObservableSource<T>>() {
-                    @Override
-                    public ObservableSource<T> apply(BaseResponse<T> tBaseResponse) throws Exception {
-                        return createObservable(tBaseResponse.getData());
-                    }
-                });
-            }
-        };
-    }
-
-    //创建成功的数据源
-    private static <T> Observable<T> createObservable(final T data) {
-        return Observable.create(new ObservableOnSubscribe<T>() {
-            @Override
-            public void subscribe(ObservableEmitter<T> emitter) throws Exception {
-                emitter.onNext(data);
-                emitter.onComplete();
-            }
-        });
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

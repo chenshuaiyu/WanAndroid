@@ -3,7 +3,7 @@ package com.example.chen.wanandroiddemo.di.module;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.example.chen.wanandroiddemo.core.http.cookie.CookieManger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +13,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -55,7 +56,9 @@ public class AppModule {
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
 
-        // ssl  cookie  缓存
+        //设置Cookie
+        builder.cookieJar(new CookieManger(mApp));
+
         return builder.build();
     }
 

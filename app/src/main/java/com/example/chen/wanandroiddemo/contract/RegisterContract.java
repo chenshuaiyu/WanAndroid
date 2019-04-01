@@ -9,10 +9,11 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
  */
 public interface RegisterContract {
     interface Presenter extends IPresenter<View> {
-
+        void getRegisterData(String useranme, String password, String repassword);
     }
 
     interface View extends BaseView {
-
+        void showErrorMesssage(String error);
+        void showSuccessfulMesssage();
     }
 }

@@ -5,11 +5,11 @@ import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
+
 import javax.inject.Inject;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Coder : chenshuaiyu
@@ -24,15 +24,14 @@ public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.View> 
     @Override
     public void getProjectTabArticles(int page, int cid) {
         mDataManager.getProjectTabArticles(page, cid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        view.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
                     }
                     @Override
                     public void onError(Throwable e) {

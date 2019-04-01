@@ -30,6 +30,7 @@
     <string name="password">密码</string>
     <string name="confirm_password">确认密码</string>
     <string name="to_login">去登录 ></string>
+    <string name="logout">退出登录</string>
 
 
 </resources>

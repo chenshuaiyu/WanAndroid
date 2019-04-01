@@ -3,7 +3,9 @@ package com.example.chen.wanandroiddemo.ui.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -16,9 +18,9 @@ import butterknife.BindView;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
     @BindView(R.id.username)
-    TextView username;
+    EditText username;
     @BindView(R.id.password)
-    TextView password;
+    EditText password;
     @BindView(R.id.login)
     Button login;
     @BindView(R.id.register)
@@ -39,5 +41,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         register.setOnClickListener(
                 v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
         );
+        login.setOnClickListener(
+                v -> presenter.getLoginData(username.getText().toString(), password.getText().toString())
+        );
+    }
+
+    @Override
+    public void showErrorMesssage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showSuccessfulMesssage() {
+        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
     }
 }

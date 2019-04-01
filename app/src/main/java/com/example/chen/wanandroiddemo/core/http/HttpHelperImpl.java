@@ -4,6 +4,7 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
+import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -86,5 +87,15 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<List<Website>>> getCommonWebsite() {
         return mApi.getCommonWebsite();
+    }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> getLoginData(String username, String password) {
+        return mApi.getLoginData(username, password);
+    }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword) {
+        return mApi.getRegisterData(username, password, repassword);
     }
 }

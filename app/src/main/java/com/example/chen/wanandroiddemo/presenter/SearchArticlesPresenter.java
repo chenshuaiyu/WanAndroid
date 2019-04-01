@@ -5,13 +5,12 @@ import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Coder : chenshuaiyu
@@ -26,15 +25,14 @@ public class SearchArticlesPresenter extends BasePresenter<SearchArticlesContrac
     @Override
     public void getSearchArticles(int page, String key) {
         mDataManager.getSearchArticles(page, key)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        view.showSearchArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showSearchArticles(articlesBaseResponse.getData().getDatas());
                     }
                     @Override
                     public void onError(Throwable e) {

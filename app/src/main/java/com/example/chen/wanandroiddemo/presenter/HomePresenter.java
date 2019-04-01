@@ -6,12 +6,11 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Coder : chenshuaiyu
@@ -26,15 +25,14 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
     public void getBanner() {
         mDataManager.getBanner()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<Banner>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
                     public void onNext(BaseResponse<List<Banner>> listBaseResponse) {
-                        view.showBanner(listBaseResponse.getData());
+                        mView.showBanner(listBaseResponse.getData());
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -48,15 +46,14 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     @Override
     public void getArticles(int page) {
         mDataManager.getArticles(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        view.showArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showArticles(articlesBaseResponse.getData().getDatas());
                     }
                     @Override
                     public void onError(Throwable e) {

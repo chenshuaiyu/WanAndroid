@@ -4,6 +4,7 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
+import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -93,6 +94,16 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<List<Website>>> getCommonWebsite() {
         return mHttpHelper.getCommonWebsite();
+    }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> getLoginData(String username, String password) {
+        return mHttpHelper.getLoginData(username, password);
+    }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword) {
+        return mHttpHelper.getRegisterData(username, password, repassword);
     }
 
     @Override

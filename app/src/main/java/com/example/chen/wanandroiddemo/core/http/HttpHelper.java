@@ -4,6 +4,7 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
+import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -42,4 +43,8 @@ public interface HttpHelper {
     Observable<BaseResponse<Articles>> getSearchArticles(int page, String k);
 
     Observable<BaseResponse<List<Website>>> getCommonWebsite();
+
+    Observable<BaseResponse<LoginData>> getLoginData(String username, String password);
+
+    Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword);
 }

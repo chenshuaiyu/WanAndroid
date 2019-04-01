@@ -9,10 +9,11 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
  */
 public interface LoginContract {
     interface Presenter extends IPresenter<View> {
-
+        void getLoginData(String useranme, String password);
     }
 
     interface View extends BaseView {
-
+        void showErrorMesssage(String error);
+        void showSuccessfulMesssage();
     }
 }
