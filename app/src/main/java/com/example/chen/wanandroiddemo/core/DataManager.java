@@ -60,6 +60,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public Observable<BaseResponse<Articles>> getWxTabSearchArticles(int id, int page, String k) {
+        return mHttpHelper.getWxTabSearchArticles(id, page, k);
+    }
+
+    @Override
     public Observable<BaseResponse<List<Tab>>> getProjectTab() {
         return mHttpHelper.getProjectTab();
     }

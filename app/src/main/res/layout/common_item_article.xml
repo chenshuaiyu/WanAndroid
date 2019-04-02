@@ -88,12 +88,13 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/zan"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_zan" />
+                android:src="@drawable/ic_zan_unselecred" />
 
 
             <ImageView

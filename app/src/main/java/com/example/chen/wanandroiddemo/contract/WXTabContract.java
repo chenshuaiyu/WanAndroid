@@ -12,9 +12,11 @@ import java.util.List;
 public interface WXTabContract {
     interface Presenter extends IPresenter<View> {
         void getWXTabArticles(int id, int page);
+        void getWXTabSearchArticles(int id, int page, String k);
     }
 
     interface View extends BaseView {
         void showWXTabArticles(List<Article> wxTabArticles);
+        void showWXTabSearchArticles(List<Article> wxTabArticles);
     }
 }

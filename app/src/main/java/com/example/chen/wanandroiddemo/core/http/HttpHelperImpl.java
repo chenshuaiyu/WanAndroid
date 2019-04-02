@@ -50,6 +50,11 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
+    public Observable<BaseResponse<Articles>> getWxTabSearchArticles(int id, int page, String k) {
+        return mApi.getWxTabSearchArticles(id, page, k);
+    }
+
+    @Override
     public Observable<BaseResponse<List<Tab>>> getProjectTab() {
         return mApi.getProjectTab();
     }

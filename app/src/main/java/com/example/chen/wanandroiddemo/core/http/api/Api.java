@@ -65,6 +65,19 @@ public interface Api {
     @GET("wxarticle/list/{id}/{page}/json")
     Observable<BaseResponse<Articles>> getWXTabArticles(@Path("id") int id, @Path("page") int page);
 
+
+    /**
+     * 搜索指定公众号文章
+     * http://wanandroid.com/wxarticle/list/405/1/json?k=Java
+     *
+     * @param id
+     * @param page
+     * @param k
+     * @return 公众号文章数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<BaseResponse<Articles>> getWxTabSearchArticles(@Path("id") int id, @Path("page") int page, @Query("k") String k);
+
     /**
      * 项目Tab
      * https://wanandroid.com/project/tree/json

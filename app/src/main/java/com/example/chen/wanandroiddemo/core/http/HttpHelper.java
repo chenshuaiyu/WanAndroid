@@ -28,6 +28,8 @@ public interface HttpHelper {
 
     Observable<BaseResponse<Articles>> getWXTabArticles(int id, int page);
 
+    Observable<BaseResponse<Articles>> getWxTabSearchArticles(int id, int page, String k);
+
     Observable<BaseResponse<List<Tab>>> getProjectTab();
 
     Observable<BaseResponse<Articles>> getProjectTabArticles(int page, int cid);

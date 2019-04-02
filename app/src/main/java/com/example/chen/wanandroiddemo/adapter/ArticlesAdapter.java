@@ -24,5 +24,6 @@ public class ArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
                 .setText(R.id.chapterName, item.getChapterName())
                 .setText(R.id.title, item.getTitle())
                 .setText(R.id.time, item.getNiceDate());
+        helper.addOnClickListener(R.id.zan);
     }
 }
