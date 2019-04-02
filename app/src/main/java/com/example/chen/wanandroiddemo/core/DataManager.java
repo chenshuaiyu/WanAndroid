@@ -16,8 +16,11 @@ import com.example.chen.wanandroiddemo.core.http.HttpHelper;
 import com.example.chen.wanandroiddemo.core.http.HttpHelperImpl;
 import com.example.chen.wanandroiddemo.core.prefs.PreferenceHelper;
 import com.example.chen.wanandroiddemo.core.prefs.PreferenceHelperImpl;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -107,6 +110,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public Observable<BaseResponse<LoginData>> logout() {
+        return mHttpHelper.logout();
+    }
+
+    @Override
     public void addHistoryRecord(HistoryRecord record) {
         mDbHelper.addHistoryRecord(record);
     }
@@ -124,5 +132,35 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public void deleteHistoryRecord(HistoryRecord record) {
         mDbHelper.deleteHistoryRecord(record);
+    }
+
+    @Override
+    public void setLoginStatus(boolean status) {
+        mPreferenceHelper.setLoginStatus(status);
+    }
+
+    @Override
+    public boolean getLoginStatus() {
+        return mPreferenceHelper.getLoginStatus();
+    }
+
+    @Override
+    public void setLoginAccount(String account) {
+        mPreferenceHelper.setLoginAccount(account);
+    }
+
+    @Override
+    public String getLoginAccount() {
+        return mPreferenceHelper.getLoginAccount();
+    }
+
+    @Override
+    public void setLoginPassword(String password) {
+        mPreferenceHelper.setLoginPassword(password);
+    }
+
+    @Override
+    public String getLoginPassword() {
+        return mPreferenceHelper.getLoginPassword();
     }
 }

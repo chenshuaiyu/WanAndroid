@@ -10,10 +10,15 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
 public interface MainContract {
 
     interface Presenter extends IPresenter<View> {
-
+        void setLoginUser();
+        void logout();
     }
 
     interface View extends BaseView {
-
+        void showLoginUser(String account);
+        void resetLoginUser();
+        void setLogoutVisibility(boolean visiable);
+        void showLogoutSucceed();
+        void showLogoutFailed();
     }
 }

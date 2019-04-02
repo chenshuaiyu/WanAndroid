@@ -7,19 +7,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_wanandroid"
+            android:icon="@drawable/ic_wanandroid"
             android:checked="true"
             android:title="@string/app_name"
             app:showAsAction="never" />
         <item
             android:id="@+id/menu_collection"
+            android:icon="@drawable/ic_collect"
             android:title="@string/collection"
             app:showAsAction="never" />
         <item
             android:id="@+id/menu_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/settings"
             app:showAsAction="never" />
         <item
             android:id="@+id/menu_logout"
+            android:icon="@drawable/ic_logout"
             android:title="@string/logout"
             app:showAsAction="never"
             android:visible="false"/>

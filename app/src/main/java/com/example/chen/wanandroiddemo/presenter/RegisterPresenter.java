@@ -2,6 +2,7 @@ package com.example.chen.wanandroiddemo.presenter;
 
 import android.text.TextUtils;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -37,17 +38,21 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
+
                     @Override
                     public void onNext(BaseResponse<LoginData> loginDataBaseResponse) {
                         LoginData data = loginDataBaseResponse.getData();
-                        if (data != null)
+                        if (loginDataBaseResponse.getErrorCode() == Constants.SUCCESS_CODE
+                                && data != null)
                             mView.showSuccessfulMesssage();
                         else
-                            mView.showErrorMesssage("注册失败");
+                            mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
                     }
+
                     @Override
                     public void onError(Throwable e) {
                     }
+
                     @Override
                     public void onComplete() {
                     }

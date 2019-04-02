@@ -21,4 +21,33 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
 
+    @Override
+    public void setLoginStatus(boolean status) {
+        mPreferences.edit().putBoolean(Constants.LOGIN_STATUS, status).apply();
+    }
+
+    @Override
+    public boolean getLoginStatus() {
+        return mPreferences.getBoolean(Constants.LOGIN_STATUS, false);
+    }
+
+    @Override
+    public void setLoginAccount(String account) {
+        mPreferences.edit().putString(Constants.LOGIN_ACCOUNT, account).apply();
+    }
+
+    @Override
+    public String getLoginAccount() {
+        return mPreferences.getString(Constants.LOGIN_ACCOUNT, "");
+    }
+
+    @Override
+    public void setLoginPassword(String password) {
+        mPreferences.edit().putString(Constants.LOGIN_PASSWORD, password).apply();
+    }
+
+    @Override
+    public String getLoginPassword() {
+        return mPreferences.getString(Constants.LOGIN_PASSWORD, "");
+    }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.LoginContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerLoginComponent;
@@ -39,7 +40,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initData() {
         register.setOnClickListener(
-                v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
+                v -> {
+                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                    finish();
+                }
         );
         login.setOnClickListener(
                 v -> presenter.getLoginData(username.getText().toString(), password.getText().toString())
@@ -48,11 +52,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showErrorMesssage(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(WanAndroidApp.getInstance(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showSuccessfulMesssage() {
-        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WanAndroidApp.getInstance(), "登录成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

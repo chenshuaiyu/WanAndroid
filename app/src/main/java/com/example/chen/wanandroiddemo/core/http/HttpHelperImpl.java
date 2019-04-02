@@ -98,4 +98,9 @@ public class HttpHelperImpl implements HttpHelper {
     public Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword) {
         return mApi.getRegisterData(username, password, repassword);
     }
+
+    @Override
+    public Observable<BaseResponse<LoginData>> logout() {
+        return mApi.logout();
+    }
 }

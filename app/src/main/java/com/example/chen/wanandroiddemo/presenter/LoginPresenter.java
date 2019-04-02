@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.presenter;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.LoginContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -42,10 +43,14 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                     @Override
                     public void onNext(BaseResponse<LoginData> loginDataBaseResponse) {
                         LoginData data = loginDataBaseResponse.getData();
-                        if (data != null)
+                        if (loginDataBaseResponse.getErrorCode() == Constants.SUCCESS_CODE
+                                && data != null) {
+                            mDataManager.setLoginStatus(true);
+                            mDataManager.setLoginAccount(data.getUsername());
+                            mDataManager.setLoginPassword(data.getPassword());
                             mView.showSuccessfulMesssage();
-                        else
-                            mView.showErrorMesssage("登录失败");
+                        } else
+                            mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
                     }
 
                     @Override
