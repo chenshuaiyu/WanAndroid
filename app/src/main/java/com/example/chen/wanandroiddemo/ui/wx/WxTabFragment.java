@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -21,7 +19,6 @@ import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.WXTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +91,6 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
         curSearchPage = 1;
         search.setText("");
         presenter.getWXTabArticles(mWXTab.getId(), curPage);
-        refreshLayout.finishRefresh(1500);
     }
 
     @Override
@@ -103,7 +99,6 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
             presenter.getWXTabArticles(mWXTab.getId(), curPage++);
         else
             presenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage++, searchContent);
-        refreshLayout.finishLoadMore(1500);
     }
 
     @Override

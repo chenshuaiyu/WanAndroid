@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.CommonContract;
@@ -19,7 +18,6 @@ import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +40,10 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     @Override
     protected void inject() {
         DaggerCommonComponent.builder().commonModule(new CommonModule()).build().inject(this);
+    }
+
+    @Override
+    protected void initView() {
     }
 
     @Override

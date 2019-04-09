@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.ui.system;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -12,6 +13,7 @@ import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent
 import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
 import com.example.chen.wanandroiddemo.presenter.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
+import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
@@ -43,6 +45,10 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mArticlesAdapter);
+        mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = mArticles.get(position);
+            jumpToDetail(article.getLink(), article.getTitle());
+        });
 
         presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
     }
@@ -51,13 +57,11 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
     public void refresh(RefreshLayout refreshLayout) {
         curPage = 0;
         presenter.getSystemArticles(curPage, mChildrenSystem.getId());
-        refreshLayout.finishRefresh(1500);
     }
 
     @Override
     public void loadMore(RefreshLayout refreshLayout) {
         presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
-        refreshLayout.finishLoadMore(1500);
     }
 
     @Override
@@ -71,5 +75,10 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
     @Override
     public String toString() {
         return mChildrenSystem.getName();
+    }
+
+    private void jumpToDetail(String link, String title) {
+        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
+        startActivity(intent);
     }
 }

@@ -20,6 +20,10 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     }
 
     @Override
+    protected void initView() {
+    }
+
+    @Override
     protected void initData() {
 
     }

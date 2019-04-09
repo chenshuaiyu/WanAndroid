@@ -11,7 +11,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -49,6 +48,10 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     @Override
     protected void inject() {
         DaggerArticleDetailComponent.builder().articleDetailModule(new ArticleDetailModule()).build().inject(this);
+    }
+
+    @Override
+    protected void initView() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")

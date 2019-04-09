@@ -12,7 +12,7 @@ import butterknife.BindView;
  * Coder : chenshuaiyu
  * Time : 2019/3/26 19:46
  */
-public abstract class BaseViewPagerFragment<T extends BasePresenter> extends BaseFragment<T>  {
+public abstract class BaseViewPagerFragment<T extends BasePresenter> extends BaseLoadFragment<T>  {
     @BindView(R.id.view_pager)
     protected ViewPager mViewPager;
     @BindView(R.id.tab_layout)

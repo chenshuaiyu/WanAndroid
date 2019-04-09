@@ -36,6 +36,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
+    protected void initView() {
+    }
+
+    @Override
     protected void initData() {
         login.setOnClickListener(
                 v -> {

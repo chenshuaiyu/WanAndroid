@@ -2,34 +2,29 @@ package com.example.chen.wanandroiddemo.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchArticlesModule;
 import com.example.chen.wanandroiddemo.presenter.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.NetUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
+public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.recycler_view)
@@ -79,23 +74,19 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
             jumpToDetail(article.getLink(), article.getTitle());
         });
 
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                curPage = 0;
-                presenter.getSearchArticles(curPage++, key);
-                refreshLayout.finishRefresh(1500);
-            }
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            curPage = 0;
+            presenter.getSearchArticles(curPage++, key);
+            refreshLayout.finishRefresh(1500);
         });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                presenter.getSearchArticles(curPage++, key);
-                refreshLayout.finishLoadMore(1500);
-            }
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            presenter.getSearchArticles(curPage++, key);
+            refreshLayout.finishLoadMore(1500);
         });
 
         presenter.getSearchArticles(curPage++, key);
+//        if (!NetUtils.isNetworkConnected())
+//            showErrorView();
     }
 
     @Override
@@ -112,6 +103,7 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
 
     @Override
     public void showSearchArticles(List<Article> articles) {
+
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
     }

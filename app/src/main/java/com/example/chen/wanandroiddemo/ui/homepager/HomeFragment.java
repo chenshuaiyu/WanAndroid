@@ -68,13 +68,11 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         curPage = 0;
         presenter.getBanner();
         presenter.getArticles(curPage++);
-        refreshLayout.finishRefresh(1500);
     }
 
     @Override
     public void loadMore(RefreshLayout refreshLayout) {
         presenter.getArticles(curPage++);
-        refreshLayout.finishLoadMore(1500);
     }
 
     @Override

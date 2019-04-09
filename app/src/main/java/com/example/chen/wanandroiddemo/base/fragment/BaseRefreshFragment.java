@@ -17,7 +17,7 @@ import butterknife.BindView;
  * Coder : chenshuaiyu
  * Time : 2019/3/26 19:05
  */
-public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseFragment<T> {
+public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseLoadFragment<T> {
     @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
@@ -35,17 +35,13 @@ public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseF
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refresh(refreshLayout);
-            }
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            refresh(refreshLayout);
+            refreshLayout.finishRefresh(1500);
         });
-        mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadMore(refreshLayout);
-            }
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            loadMore(refreshLayout);
+            refreshLayout.finishLoadMore(1500);
         });
 
     }

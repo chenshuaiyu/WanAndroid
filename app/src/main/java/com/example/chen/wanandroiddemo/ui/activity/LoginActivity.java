@@ -38,6 +38,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
+    protected void initView() {
+    }
+
+    @Override
     protected void initData() {
         register.setOnClickListener(
                 v -> {

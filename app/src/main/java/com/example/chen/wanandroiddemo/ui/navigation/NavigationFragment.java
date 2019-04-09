@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
-import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseLoadFragment;
 import com.example.chen.wanandroiddemo.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.di.component.DaggerNavigationComponent;
@@ -24,7 +24,7 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * Coder : chenshuaiyu
  * Time : 2019/3/22 15:19
  */
-public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> implements NavigationContract.View {
     @BindView(R.id.vertical_tab_layout)
     VerticalTabLayout mVerticalTabLayout;
     @BindView(R.id.recycler_view)

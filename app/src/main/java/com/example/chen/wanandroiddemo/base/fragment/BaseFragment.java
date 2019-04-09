@@ -31,6 +31,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @LayoutRes
     protected abstract int getLayoutId();
     protected abstract void inject();
+    protected abstract void initView();
     protected abstract void initData();
 
 
@@ -39,6 +40,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         mUnbinder = ButterKnife.bind(this, view);
+        initView();
         initData();
         return view;
     }
@@ -57,5 +59,20 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         if (presenter != null)
             presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
+    public void showLoadingView() {
+
+    }
+
+    @Override
+    public void showNormalView() {
+
     }
 }

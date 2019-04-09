@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -30,10 +28,9 @@ import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import butterknife.BindView;
 
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
@@ -66,6 +63,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
+    protected void initView() {
+    }
+
+    @Override
     protected void initData() {
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -89,14 +90,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 textView.setText(hotWord.getName());
                 view.setBackgroundColor(ColorUtils.randomTagColor());
 
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setEditSelection(hotWord.getName());
+                view.setOnClickListener(v -> {
+                    setEditSelection(hotWord.getName());
 
-                        addHisotryRecord(hotWord.getName());
-                        searchArticles(hotWord.getName());
-                    }
+                    addHisotryRecord(hotWord.getName());
+                    searchArticles(hotWord.getName());
                 });
                 return view;
             }
@@ -213,6 +211,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public void showAllHisotryRecord(List<HistoryRecord> historyRecords) {
         mHistoryRecords.addAll(historyRecords);
+        Collections.reverse(mHistoryRecords);
         mHistoryAdapter.notifyDataSetChanged();
     }
 }

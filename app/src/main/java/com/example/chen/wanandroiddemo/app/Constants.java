@@ -8,18 +8,16 @@ import android.graphics.Color;
  */
 public class Constants {
 
-    // URL
+    // Base URL
     public static final String BASE_URL = "https://www.wanandroid.com/";
-
 
     public static final int SUCCESS_CODE = 0;
 
-    // prefs
+    // Preferences
     public static final String SHAREDPREFERENCES_NAME = "prefs";
     public static final String LOGIN_STATUS = "login_status";
     public static final String LOGIN_ACCOUNT = "login_account";
     public static final String LOGIN_PASSWORD = "login_password";
-
 
     // db
     public static final String DB_NAME = "wanandroid.db";
@@ -30,7 +28,12 @@ public class Constants {
     public static final String SYSTEM = "system_id";
     public static final String SEARCH_KEY = "search_key";
 
+    //BaseLoadActivity ViewState
+    public static final int NORMAL_VIEW_STATE = 0;
+    public static final int ERROR_VIEW_STATE = 1;
+    public static final int LOADING_VIEW_STATE = 2;
 
+    //Color
     public static final int[] COLOR_HOTWORD = new int[]{
             Color.parseColor("#90C5F0"),
             Color.parseColor("#91CED5"),

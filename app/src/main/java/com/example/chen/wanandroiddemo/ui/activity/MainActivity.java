@@ -64,6 +64,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     @Override
+    protected void initView() {
+    }
+
+    @Override
     protected void initData() {
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);

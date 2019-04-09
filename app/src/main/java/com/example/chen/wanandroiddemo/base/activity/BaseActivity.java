@@ -26,9 +26,8 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
 
     @LayoutRes
     protected abstract int getLayoutId();//提供布局Id
-
     protected abstract void inject();//注入
-
+    protected abstract void initView();//初始化控件
     protected abstract void initData();//初始化数据
 
     @Override
@@ -38,6 +37,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         mUnbinder = ButterKnife.bind(this);
         inject();
         presenter.attachView(this);
+        initView();
         initData();
     }
 
@@ -48,5 +48,20 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         if (presenter != null)
             presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
+    public void showLoadingView() {
+
+    }
+
+    @Override
+    public void showNormalView() {
+
     }
 }

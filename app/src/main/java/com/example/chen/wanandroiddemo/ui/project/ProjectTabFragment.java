@@ -3,6 +3,8 @@ package com.example.chen.wanandroiddemo.ui.project;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
@@ -57,13 +59,11 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
     public void refresh(RefreshLayout refreshLayout) {
         curPage = 1;
         presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-        refreshLayout.finishRefresh(1500);
     }
 
     @Override
     public void loadMore(RefreshLayout refreshLayout) {
         presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-        refreshLayout.finishLoadMore(1500);
     }
 
     @Override
@@ -82,5 +82,13 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
     @Override
     public String toString() {
         return mProjectTab.getName();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mProjectsAdapter != null){
+            presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
+        }
     }
 }
