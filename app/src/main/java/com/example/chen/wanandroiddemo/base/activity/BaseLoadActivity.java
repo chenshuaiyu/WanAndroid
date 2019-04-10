@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
+import com.example.chen.wanandroiddemo.utils.NetUtils;
+
 import static com.example.chen.wanandroiddemo.app.Constants.ERROR_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.LOADING_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.NORMAL_VIEW_STATE;
@@ -17,12 +19,11 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
-//    private ImageView mIvReload;
     private int mCurrentState = Constants.NORMAL_VIEW_STATE;
 
     @Override
     protected void initView() {
-        mNormalView = findViewById(R.id.refresh_layout);
+        mNormalView = findViewById(R.id.normal_view);
         if (mNormalView == null || !(mNormalView.getParent() instanceof ViewGroup))
             throw new IllegalStateException("mNormalView error.");
 
@@ -32,9 +33,14 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         mErrorView = parent.findViewById(R.id.error);
         mLoadingView = parent.findViewById(R.id.loading);
 
-//        mLoadingView.setVisibility(View.INVISIBLE);
-//        mNormalView.setVisibility(View.VISIBLE);
-//        mErrorView.setVisibility(View.INVISIBLE);
+        mNormalView.setVisibility(View.VISIBLE);
+        mLoadingView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+
+        if (NetUtils.isNetworkConnected())
+            showLoadingView();
+        else
+            showErrorView();
     }
 
     @Override
@@ -99,6 +105,6 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
                 break;
         }
         if (hideView == null) return;
-        hideView.setVisibility(View.INVISIBLE);
+        hideView.setVisibility(View.GONE);
     }
 }

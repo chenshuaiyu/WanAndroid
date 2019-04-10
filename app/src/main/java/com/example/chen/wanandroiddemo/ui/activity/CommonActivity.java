@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.CommonContract;
 import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.di.component.DaggerCommonComponent;
@@ -20,10 +20,9 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
-public class CommonActivity extends BaseActivity<CommonPresenter> implements CommonContract.View {
+public class CommonActivity extends BaseLoadActivity<CommonPresenter> implements CommonContract.View {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tag_flow_layout)
@@ -40,10 +39,6 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     @Override
     protected void inject() {
         DaggerCommonComponent.builder().commonModule(new CommonModule()).build().inject(this);
-    }
-
-    @Override
-    protected void initView() {
     }
 
     @Override
@@ -64,12 +59,9 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
                 textView.setText(website.getName());
                 view.setBackgroundColor(ColorUtils.randomTagColor());
 
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = ArticleDetailActivity.newIntent(CommonActivity.this, website.getLink(), website.getName());
-                        startActivity(intent);
-                    }
+                view.setOnClickListener(v -> {
+                    Intent intent = ArticleDetailActivity.newIntent(CommonActivity.this, website.getLink(), website.getName());
+                    startActivity(intent);
                 });
                 return view;
             }
@@ -95,5 +87,6 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     public void showCommonWebsite(List<Website> websites) {
         mWebsites.addAll(websites);
         mTagAdapter.notifyDataChanged();
+        showNormalView();
     }
 }

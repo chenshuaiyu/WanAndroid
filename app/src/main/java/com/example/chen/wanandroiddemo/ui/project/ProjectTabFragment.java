@@ -72,6 +72,7 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
             mArticles.clear();
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 
     private void jumpToDetail(String link, String title) {

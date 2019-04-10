@@ -42,5 +42,6 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
             mFragments.add(new WxTabFragment(tab));
         }
         mPagerAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 }

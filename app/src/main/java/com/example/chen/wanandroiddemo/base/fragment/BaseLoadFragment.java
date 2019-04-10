@@ -1,12 +1,11 @@
 package com.example.chen.wanandroiddemo.base.fragment;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
-
+import com.example.chen.wanandroiddemo.utils.NetUtils;
 import static com.example.chen.wanandroiddemo.app.Constants.*;
 
 /**
@@ -17,15 +16,16 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
-    //    private ImageView mIvReload;
     private int mCurrentState = NORMAL_VIEW_STATE;
 
     @Override
     protected void initView() {
         if (getView() == null) return;
-        mNormalView = getView().findViewById(R.id.refresh_layout);
-        if (mNormalView == null || !(mNormalView.getParent() instanceof ViewGroup))
-            throw new IllegalStateException("mNormalView error.");
+        mNormalView = getView().findViewById(R.id.normal_view);
+        if (mNormalView == null)
+            throw new IllegalStateException("mNormalView is null.");
+        if (!(mNormalView.getParent() instanceof ViewGroup))
+            throw new IllegalStateException("mNormalView is not instanceof ViewGroup.");
 
         ViewGroup parent = (ViewGroup) mNormalView.getParent();
         View.inflate(getActivity(), R.layout.error_view, parent);
@@ -34,8 +34,13 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         mLoadingView = parent.findViewById(R.id.loading);
 
         mNormalView.setVisibility(View.VISIBLE);
-        mLoadingView.setVisibility(View.INVISIBLE);
-        mErrorView.setVisibility(View.INVISIBLE);
+        mLoadingView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
+
+        if (NetUtils.isNetworkConnected())
+            showLoadingView();
+        else
+            showErrorView();
     }
 
     @Override
@@ -100,6 +105,6 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
                 break;
         }
         if (hideView == null) return;
-        hideView.setVisibility(View.INVISIBLE);
+        hideView.setVisibility(View.GONE);
     }
 }

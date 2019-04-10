@@ -51,6 +51,11 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     @Override
+    public void reload() {
+
+    }
+
+    @Override
     public void showErrorView() {
 
     }

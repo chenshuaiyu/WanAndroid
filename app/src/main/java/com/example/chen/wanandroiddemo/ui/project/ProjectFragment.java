@@ -40,5 +40,6 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
             mFragments.add(new ProjectTabFragment(tab));
         }
         mPagerAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 }

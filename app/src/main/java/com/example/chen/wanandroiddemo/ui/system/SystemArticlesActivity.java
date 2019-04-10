@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 
-public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
+public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
@@ -40,10 +40,6 @@ public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter
     }
 
     @Override
-    protected void initView() {
-    }
-
-    @Override
     protected void initData() {
         setSupportActionBar(mToolbar);
         mFragmentList = new ArrayList<>();
@@ -54,6 +50,8 @@ public class SystemArticlesActivity extends BaseActivity<SystemArticlesPresenter
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        showNormalView();
     }
 
     @Override

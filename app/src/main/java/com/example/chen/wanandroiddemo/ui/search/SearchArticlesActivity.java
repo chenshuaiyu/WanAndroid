@@ -85,8 +85,6 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
         });
 
         presenter.getSearchArticles(curPage++, key);
-//        if (!NetUtils.isNetworkConnected())
-//            showErrorView();
     }
 
     @Override
@@ -103,9 +101,9 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
 
     @Override
     public void showSearchArticles(List<Article> articles) {
-
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 
     private void jumpToDetail(String link, String title) {

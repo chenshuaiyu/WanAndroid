@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -19,7 +18,6 @@ import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +80,7 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             mBannerList.addAll(banners);
         }
         setBanner();
+        showNormalView();
     }
 
     @Override
@@ -90,6 +89,7 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             mArticleList.clear();
         mArticleList.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 
     private void setBanner() {

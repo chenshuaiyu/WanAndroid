@@ -107,6 +107,7 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
             mWXTabArticleList.clear();
         mWXTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 
     @Override

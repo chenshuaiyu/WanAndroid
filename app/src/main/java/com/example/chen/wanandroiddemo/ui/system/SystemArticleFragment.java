@@ -3,7 +3,6 @@ package com.example.chen.wanandroiddemo.ui.system;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -15,7 +14,6 @@ import com.example.chen.wanandroiddemo.presenter.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +68,7 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
             mArticles.clear();
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 
     @Override

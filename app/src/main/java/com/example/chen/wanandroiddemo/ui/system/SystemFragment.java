@@ -59,5 +59,6 @@ public class SystemFragment extends BaseRefreshFragment<SystemPresenter> impleme
         mSystems.clear();
         mSystems.addAll(systemList);
         mSystemAdapter.notifyDataSetChanged();
+        showNormalView();
     }
 }

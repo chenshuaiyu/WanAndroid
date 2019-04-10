@@ -40,9 +40,14 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         mUnbinder = ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
-        return view;
     }
 
     @Override
@@ -59,6 +64,11 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         if (presenter != null)
             presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void reload() {
+
     }
 
     @Override
