@@ -1,7 +1,7 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.search;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
+import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
@@ -14,17 +14,17 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Coder : chenshuaiyu
- * Time : 2019/3/22 20:16
+ * Time : 2019/3/23 9:57
  */
-public class SystemArticlePresenter extends BasePresenter<SystemArticleContract.View> implements SystemArticleContract.Presenter {
+public class SearchArticlesPresenter extends BasePresenter<SearchArticlesContract.View> implements SearchArticlesContract.Presenter {
     @Inject
-    public SystemArticlePresenter(DataManager dataManager) {
+    public SearchArticlesPresenter(DataManager dataManager) {
         super(dataManager);
     }
 
     @Override
-    public void getSystemArticles(int page, int cid) {
-        mDataManager.getSystemArticles(page, cid)
+    public void getSearchArticles(int page, String key) {
+        mDataManager.getSearchArticles(page, key)
                 .compose(RxUtils.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
@@ -32,7 +32,8 @@ public class SystemArticlePresenter extends BasePresenter<SystemArticleContract.
                     }
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        mView.showSystemArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showSearchArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showNormalView();
                     }
                     @Override
                     public void onError(Throwable e) {

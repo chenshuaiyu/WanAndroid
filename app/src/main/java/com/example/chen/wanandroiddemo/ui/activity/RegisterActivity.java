@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerRegisterComponent;
 import com.example.chen.wanandroiddemo.di.module.RegisterModule;
-import com.example.chen.wanandroiddemo.presenter.RegisterPresenter;
+import com.example.chen.wanandroiddemo.presenter.activity.RegisterPresenter;
 import butterknife.BindView;
 
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {

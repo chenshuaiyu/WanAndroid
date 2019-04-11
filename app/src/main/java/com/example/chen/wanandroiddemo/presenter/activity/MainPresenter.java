@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.activity;
 
 import android.util.Log;
 

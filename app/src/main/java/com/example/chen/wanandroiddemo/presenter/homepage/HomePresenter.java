@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.homepage;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.HomeContract;
@@ -33,6 +33,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<List<Banner>> listBaseResponse) {
                         mView.showBanner(listBaseResponse.getData());
+                        mView.showNormalView();
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -54,6 +55,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         mView.showArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showNormalView();
                     }
                     @Override
                     public void onError(Throwable e) {

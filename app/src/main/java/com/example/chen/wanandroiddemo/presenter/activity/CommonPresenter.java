@@ -1,10 +1,10 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.activity;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.contract.ProjectContract;
+import com.example.chen.wanandroiddemo.contract.CommonContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,25 +13,26 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Coder : chenshuaiyu
- * Time : 2019/3/21 8:35
+ * Time : 2019/3/24 17:43
  */
-public class ProjectPresenter extends BasePresenter<ProjectContract.View> implements ProjectContract.Presenter {
+public class CommonPresenter extends BasePresenter<CommonContract.View> implements CommonContract.Presenter {
     @Inject
-    public ProjectPresenter(DataManager dataManager) {
+    public CommonPresenter(DataManager dataManager) {
         super(dataManager);
     }
 
     @Override
-    public void getProjectTab() {
-        mDataManager.getProjectTab()
+    public void getCommonWebsite() {
+        mDataManager.getCommonWebsite()
                 .compose(RxUtils.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<List<Tab>>>() {
+                .subscribe(new Observer<BaseResponse<List<Website>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
-                    public void onNext(BaseResponse<List<Tab>> listBaseResponse) {
-                        mView.showTab(listBaseResponse.getData());
+                    public void onNext(BaseResponse<List<Website>> listBaseResponse) {
+                        mView.showCommonWebsite(listBaseResponse.getData());
+                        mView.showNormalView();
                     }
                     @Override
                     public void onError(Throwable e) {

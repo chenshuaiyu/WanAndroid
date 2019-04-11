@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.SettingsContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerSettingsComponent;
 import com.example.chen.wanandroiddemo.di.module.SettingsModule;
-import com.example.chen.wanandroiddemo.presenter.SettingsPresenter;
+import com.example.chen.wanandroiddemo.presenter.activity.SettingsPresenter;
 
 public class SettingsActivity extends BaseActivity<SettingsPresenter> implements SettingsContract.View {
 

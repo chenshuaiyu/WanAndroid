@@ -23,7 +23,7 @@ import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchModule;
-import com.example.chen.wanandroiddemo.presenter.SearchPresenter;
+import com.example.chen.wanandroiddemo.presenter.search.SearchPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;

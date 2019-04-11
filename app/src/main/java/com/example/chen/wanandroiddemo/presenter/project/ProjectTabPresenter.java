@@ -1,40 +1,38 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.project;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.contract.SystemContract;
+import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
  * Coder : chenshuaiyu
- * Time : 2019/3/22 14:20
+ * Time : 2019/3/21 8:48
  */
-public class SystemPresenter extends BasePresenter<SystemContract.View> implements SystemContract.Presenter {
+public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.View> implements ProjectTabContract.Presenter {
     @Inject
-    public SystemPresenter(DataManager dataManager) {
+    public ProjectTabPresenter(DataManager dataManager) {
         super(dataManager);
     }
 
     @Override
-    public void getSystem() {
-        mDataManager.getSystem()
+    public void getProjectTabArticles(int page, int cid) {
+        mDataManager.getProjectTabArticles(page, cid)
                 .compose(RxUtils.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<List<System>>>() {
+                .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
                     @Override
-                    public void onNext(BaseResponse<List<System>> listBaseResponse) {
-                        mView.showSystem(listBaseResponse.getData());
+                    public void onNext(BaseResponse<Articles> articlesBaseResponse) {
+                        mView.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
+                        mView.showNormalView();
                     }
                     @Override
                     public void onError(Throwable e) {

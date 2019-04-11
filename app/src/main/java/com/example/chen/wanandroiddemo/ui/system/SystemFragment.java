@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.contract.SystemContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemModule;
-import com.example.chen.wanandroiddemo.presenter.SystemPresenter;
+import com.example.chen.wanandroiddemo.presenter.system.SystemPresenter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,10 @@ public class SystemFragment extends BaseRefreshFragment<SystemPresenter> impleme
             intent.putExtra(Constants.SYSTEM, system);
             startActivity(intent);
         });
+    }
 
+    @Override
+    public void reLoad() {
         presenter.getSystem();
     }
 
@@ -59,6 +62,5 @@ public class SystemFragment extends BaseRefreshFragment<SystemPresenter> impleme
         mSystems.clear();
         mSystems.addAll(systemList);
         mSystemAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 }

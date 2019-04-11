@@ -15,9 +15,8 @@ import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchArticlesModule;
-import com.example.chen.wanandroiddemo.presenter.SearchArticlesPresenter;
+import com.example.chen.wanandroiddemo.presenter.search.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +102,6 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
     public void showSearchArticles(List<Article> articles) {
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 
     private void jumpToDetail(String link, String title) {

@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
-import com.example.chen.wanandroiddemo.presenter.SystemArticlePresenter;
+import com.example.chen.wanandroiddemo.presenter.system.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -47,7 +47,11 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
             Article article = mArticles.get(position);
             jumpToDetail(article.getLink(), article.getTitle());
         });
+    }
 
+    @Override
+    public void reLoad() {
+        curPage = 0;
         presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
     }
 
@@ -68,7 +72,6 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
             mArticles.clear();
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 
     @Override

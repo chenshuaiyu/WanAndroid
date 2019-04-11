@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.ui.homepager;
+package com.example.chen.wanandroiddemo.ui.homepage;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +12,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.di.component.DaggerHomeComponent;
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
-import com.example.chen.wanandroiddemo.presenter.HomePresenter;
+import com.example.chen.wanandroiddemo.presenter.homepage.HomePresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -55,10 +55,14 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             jumpToDetail(article.getLink(), article.getTitle());
         });
 
-        presenter.getBanner();
-        presenter.getArticles(curPage++);
-
         getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
+    }
+
+    @Override
+    public void reLoad() {
+        presenter.getBanner();
+        curPage = 0;
+        presenter.getArticles(curPage++);
     }
 
     @Override
@@ -80,7 +84,6 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             mBannerList.addAll(banners);
         }
         setBanner();
-        showNormalView();
     }
 
     @Override
@@ -89,7 +92,6 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             mArticleList.clear();
         mArticleList.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 
     private void setBanner() {

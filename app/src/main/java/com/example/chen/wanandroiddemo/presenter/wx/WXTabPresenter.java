@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.presenter;
+package com.example.chen.wanandroiddemo.presenter.wx;
 
 import android.text.TextUtils;
 
@@ -37,6 +37,7 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
                     @Override
                     public void onNext(BaseResponse<Articles> wxTabArticlesBaseResponse) {
                         mView.showWXTabArticles(wxTabArticlesBaseResponse.getData().getDatas());
+                        mView.showNormalView();
                     }
 
                     @Override

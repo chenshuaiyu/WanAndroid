@@ -1,10 +1,8 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
@@ -13,7 +11,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.LoginContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerLoginComponent;
 import com.example.chen.wanandroiddemo.di.module.LoginActivityModule;
-import com.example.chen.wanandroiddemo.presenter.LoginPresenter;
+import com.example.chen.wanandroiddemo.presenter.activity.LoginPresenter;
 
 import butterknife.BindView;
 

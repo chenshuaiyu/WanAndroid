@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
@@ -14,8 +13,9 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerProjectTabComponent;
 import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
-import com.example.chen.wanandroiddemo.presenter.ProjectTabPresenter;
+import com.example.chen.wanandroiddemo.presenter.project.ProjectTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.NetUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,11 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
             Article article = mArticles.get(position);
             jumpToDetail(article.getLink(), article.getTitle());
         });
+    }
 
+    @Override
+    public void reLoad() {
+        curPage = 1;
         presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
     }
 
@@ -72,7 +76,6 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
             mArticles.clear();
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 
     private void jumpToDetail(String link, String title) {
@@ -83,13 +86,5 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
     @Override
     public String toString() {
         return mProjectTab.getName();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mProjectsAdapter != null){
-            presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-        }
     }
 }

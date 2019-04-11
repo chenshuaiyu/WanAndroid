@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.example.chen.wanandroiddemo.contract.CommonContract;
 import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.di.component.DaggerCommonComponent;
 import com.example.chen.wanandroiddemo.di.module.CommonModule;
-import com.example.chen.wanandroiddemo.presenter.CommonPresenter;
+import com.example.chen.wanandroiddemo.presenter.activity.CommonPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -87,6 +88,5 @@ public class CommonActivity extends BaseLoadActivity<CommonPresenter> implements
     public void showCommonWebsite(List<Website> websites) {
         mWebsites.addAll(websites);
         mTagAdapter.notifyDataChanged();
-        showNormalView();
     }
 }

@@ -12,7 +12,7 @@ import com.example.chen.wanandroiddemo.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SystemArticlesModule;
-import com.example.chen.wanandroiddemo.presenter.SystemArticlesPresenter;
+import com.example.chen.wanandroiddemo.presenter.system.SystemArticlesPresenter;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;

@@ -17,7 +17,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.ArticleDetailContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerArticleDetailComponent;
 import com.example.chen.wanandroiddemo.di.module.ArticleDetailModule;
-import com.example.chen.wanandroiddemo.presenter.ArticleDetailPresenter;
+import com.example.chen.wanandroiddemo.presenter.activity.ArticleDetailPresenter;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 

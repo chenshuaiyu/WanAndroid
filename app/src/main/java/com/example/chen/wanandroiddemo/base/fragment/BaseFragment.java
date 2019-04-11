@@ -8,12 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
+import com.example.chen.wanandroiddemo.utils.NetUtils;
 
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -33,7 +32,6 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     protected abstract void inject();
     protected abstract void initView();
     protected abstract void initData();
-
 
     @Nullable
     @Override
@@ -64,11 +62,6 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         if (presenter != null)
             presenter.detachView();
         super.onDestroy();
-    }
-
-    @Override
-    public void reload() {
-
     }
 
     @Override

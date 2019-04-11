@@ -1,11 +1,16 @@
 package com.example.chen.wanandroiddemo.base.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtils;
+
 import static com.example.chen.wanandroiddemo.app.Constants.*;
 
 /**
@@ -44,8 +49,34 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        reLoad();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && presenter != null) {
+            reLoad();
+            if (!NetUtils.isNetworkConnected())
+                showErrorView();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && presenter != null) {
+            reLoad();
+            if (!NetUtils.isNetworkConnected())
+                showErrorView();
+        }
+    }
+
+    @Override
     public void showErrorView() {
-        if (mCurrentState != ERROR_VIEW_STATE){
+        if (mCurrentState != ERROR_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = ERROR_VIEW_STATE;
             showCurrentView();
@@ -54,7 +85,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
 
     @Override
     public void showLoadingView() {
-        if (mCurrentState != LOADING_VIEW_STATE){
+        if (mCurrentState != LOADING_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = LOADING_VIEW_STATE;
             showCurrentView();
@@ -63,7 +94,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
 
     @Override
     public void showNormalView() {
-        if (mCurrentState != NORMAL_VIEW_STATE){
+        if (mCurrentState != NORMAL_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = NORMAL_VIEW_STATE;
             showCurrentView();

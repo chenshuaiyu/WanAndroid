@@ -16,7 +16,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
-import com.example.chen.wanandroiddemo.presenter.WXTabPresenter;
+import com.example.chen.wanandroiddemo.presenter.wx.WXTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
@@ -80,7 +80,11 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
                         presenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage, searchContent);
                 }
         );
+    }
 
+    @Override
+    public void reLoad() {
+        curSearchPage = 1;
         presenter.getWXTabArticles(mWXTab.getId(), curPage++);
     }
 
@@ -107,7 +111,6 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
             mWXTabArticleList.clear();
         mWXTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 
     @Override

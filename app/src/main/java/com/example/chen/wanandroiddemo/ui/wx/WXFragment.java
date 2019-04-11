@@ -8,7 +8,7 @@ import com.example.chen.wanandroiddemo.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXComponent;
 import com.example.chen.wanandroiddemo.di.module.WXModule;
-import com.example.chen.wanandroiddemo.presenter.WXPresenter;
+import com.example.chen.wanandroiddemo.presenter.wx.WXPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +32,18 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
 
+    @Override
+    public void reLoad() {
         presenter.getWXTab();
     }
 
     @Override
     public void showTab(List<Tab> wxTabList) {
-        for (Tab tab : wxTabList) {
+        mFragments.clear();
+        for (Tab tab : wxTabList)
             mFragments.add(new WxTabFragment(tab));
-        }
         mPagerAdapter.notifyDataSetChanged();
-        showNormalView();
     }
 }

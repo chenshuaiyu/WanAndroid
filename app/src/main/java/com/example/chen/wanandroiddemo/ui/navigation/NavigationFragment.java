@@ -3,8 +3,6 @@ package com.example.chen.wanandroiddemo.ui.navigation;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseLoadFragment;
@@ -12,11 +10,9 @@ import com.example.chen.wanandroiddemo.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.di.component.DaggerNavigationComponent;
 import com.example.chen.wanandroiddemo.di.module.NavigationModule;
-import com.example.chen.wanandroiddemo.presenter.NavigationPresenter;
-
+import com.example.chen.wanandroiddemo.presenter.navigation.NavigationPresenter;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import q.rorbin.verticaltablayout.VerticalTabLayout;
 import q.rorbin.verticaltablayout.adapter.TabAdapter;
@@ -53,15 +49,18 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mNavigationAdapter);
+    }
 
+    @Override
+    public void reLoad() {
         presenter.getNavigationTab();
     }
 
     @Override
     public void showNavigationTab(List<Navigation> navigations) {
+        mNavigations.clear();
         mNavigations.addAll(navigations);
         mNavigationAdapter.notifyDataSetChanged();
-        showNormalView();
 
         mTabAdapter = new TabAdapter() {
             @Override
@@ -94,5 +93,6 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
             }
         };
         mVerticalTabLayout.setTabAdapter(mTabAdapter);
+        mVerticalTabLayout.setIndicatorColor(R.color.white);
     }
 }

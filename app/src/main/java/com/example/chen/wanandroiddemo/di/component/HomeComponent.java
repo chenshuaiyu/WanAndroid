@@ -1,7 +1,7 @@
 package com.example.chen.wanandroiddemo.di.component;
 
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
-import com.example.chen.wanandroiddemo.ui.homepager.HomeFragment;
+import com.example.chen.wanandroiddemo.ui.homepage.HomeFragment;
 
 import javax.inject.Singleton;
 

@@ -6,7 +6,7 @@ package com.example.chen.wanandroiddemo.base.view;
  */
 public interface BaseView {
 
-    void reload();
+    void reLoad();
 
     void showErrorView();
 

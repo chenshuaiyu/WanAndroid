@@ -9,8 +9,6 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import butterknife.BindView;
 
 /**
@@ -43,6 +41,5 @@ public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseL
             loadMore(refreshLayout);
             refreshLayout.finishLoadMore(1500);
         });
-
     }
 }
