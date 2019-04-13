@@ -84,6 +84,7 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
 
     @Override
     public void reLoad() {
+        curPage = 1;
         curSearchPage = 1;
         presenter.getWXTabArticles(mWXTab.getId(), curPage++);
     }

@@ -29,7 +29,7 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
         mFragments = new ArrayList<>();
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setViewPager(mViewPager);
     }
 
     @Override
@@ -43,5 +43,6 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
         for (Tab tab : projectTabList)
             mFragments.add(new ProjectTabFragment(tab));
         mPagerAdapter.notifyDataSetChanged();
+        mTabLayout.notifyDataSetChanged();
     }
 }

@@ -3,7 +3,11 @@ package com.example.chen.wanandroiddemo.ui.system;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
@@ -41,7 +45,14 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     protected void initData() {
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+
+
+
         mFragmentList = new ArrayList<>();
         mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
         for (System childrenSystem : mSystem.getChildren()) {
@@ -63,5 +74,15 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         }
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }
