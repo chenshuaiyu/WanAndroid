@@ -2,11 +2,12 @@ package com.example.chen.wanandroiddemo.base.activity;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtils;
-
+import com.ldoublem.loadingviewlib.view.LVEatBeans;
 import static com.example.chen.wanandroiddemo.app.Constants.ERROR_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.LOADING_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.NORMAL_VIEW_STATE;
@@ -32,6 +33,17 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         View.inflate(this, R.layout.loading_view, parent);
         mErrorView = parent.findViewById(R.id.error);
         mLoadingView = parent.findViewById(R.id.loading);
+        mLoadingView = parent.findViewById(R.id.loading);
+
+        //设置重加载
+        ImageView reloadView = mErrorView.findViewById(R.id.reload_view);
+        reloadView.setOnClickListener(v -> reLoad());
+
+        //设置加载动画
+        LVEatBeans lvEatBeans =  mLoadingView.findViewById(R.id.loading_view);
+        lvEatBeans.setViewColor(R.color.colorPrimary);
+        lvEatBeans.setEyeColor(R.color.colorAccent);
+        lvEatBeans.startAnim();
 
         mNormalView.setVisibility(View.VISIBLE);
         mLoadingView.setVisibility(View.GONE);

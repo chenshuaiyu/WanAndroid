@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
-
 import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
