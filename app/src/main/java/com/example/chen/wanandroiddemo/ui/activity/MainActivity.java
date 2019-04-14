@@ -28,6 +28,8 @@ import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BNVUtils;
+import com.tencent.bugly.crashreport.CrashReport;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>

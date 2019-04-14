@@ -45,16 +45,16 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     protected void initData() {
+        mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
+
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setTitle(mSystem.getName());
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
-
-
         mFragmentList = new ArrayList<>();
-        mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
         for (System childrenSystem : mSystem.getChildren()) {
             mFragmentList.add(new SystemArticleFragment(childrenSystem));
         }

@@ -36,30 +36,39 @@
                 android:layout_toRightOf="@id/avatar"
                 tools:text="作者" />
 
-            <TextView
-                android:id="@+id/superChapterName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/separator"
-                tools:text="常用控件" />
-
-            <TextView
-                android:id="@+id/separator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/chapterName"
-                android:text="/" />
-
-            <TextView
-                android:id="@+id/chapterName"
+            <LinearLayout
+                android:id="@+id/chapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="6dp"
-                tools:text="开源项目" />
+                android:layout_marginRight="6dp">
+
+                <TextView
+                    android:id="@+id/superChapterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/separator"
+                    android:textColor="@color/sky_blue"
+                    tools:text="常用控件" />
+
+                <TextView
+                    android:id="@+id/separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/chapterName"
+                    android:text="/"
+                    android:textColor="@color/sky_blue" />
+
+                <TextView
+                    android:id="@+id/chapterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/sky_blue"
+                    tools:text="开源项目" />
+
+            </LinearLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -88,13 +97,13 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/zan"
+                android:id="@+id/collect"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="6dp"
-                android:src="@drawable/ic_zan_unselecred" />
+                android:src="@drawable/ic_dislike" />
 
 
             <ImageView

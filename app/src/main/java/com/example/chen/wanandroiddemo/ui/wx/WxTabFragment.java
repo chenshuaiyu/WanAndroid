@@ -18,6 +18,7 @@ import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.wx.WXTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mWXTabArticleList.get(position);
-            jumpToDetail(article.getLink(), article.getTitle());
+            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
         mSearchButton.setOnClickListener(
                 v -> {
@@ -120,11 +121,6 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
             mWXTabArticleList.clear();
         mWXTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
-    }
-
-    private void jumpToDetail(String link, String title) {
-        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
-        startActivity(intent);
     }
 
     @Override

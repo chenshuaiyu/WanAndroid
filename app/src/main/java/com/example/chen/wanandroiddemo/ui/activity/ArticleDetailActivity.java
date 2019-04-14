@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -102,6 +103,12 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 finish();
                 break;
             case R.id.menu_collect:
+                break;
+            case R.id.menu_open_with_browser:
+                Intent intent= new Intent();
+                intent.setData(Uri.parse(url));
+                intent.setAction(Intent.ACTION_VIEW);
+                startActivity(intent);
                 break;
             default:
                 break;

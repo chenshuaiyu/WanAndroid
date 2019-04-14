@@ -1,6 +1,8 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.Html;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chen.wanandroiddemo.R;
@@ -22,8 +24,9 @@ public class ArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         helper.setText(R.id.author, item.getAuthor())
                 .setText(R.id.superChapterName, item.getSuperChapterName())
                 .setText(R.id.chapterName, item.getChapterName())
-                .setText(R.id.title, item.getTitle())
+                .setText(R.id.title, Html.fromHtml(item.getTitle()))
                 .setText(R.id.time, item.getNiceDate());
-        helper.addOnClickListener(R.id.zan);
+        helper.addOnClickListener(R.id.collect);
+        helper.addOnClickListener(R.id.chapter);
     }
 }

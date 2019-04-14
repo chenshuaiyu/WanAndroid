@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.ui.system;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -13,7 +14,9 @@ import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
 import com.example.chen.wanandroiddemo.presenter.system.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            jumpToDetail(article.getLink(), article.getTitle());
+            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
     }
 
@@ -77,10 +80,5 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
     @Override
     public String toString() {
         return mChildrenSystem.getName();
-    }
-
-    private void jumpToDetail(String link, String title) {
-        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
-        startActivity(intent);
     }
 }

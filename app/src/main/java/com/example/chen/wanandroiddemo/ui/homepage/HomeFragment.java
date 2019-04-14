@@ -1,9 +1,9 @@
 package com.example.chen.wanandroiddemo.ui.homepage;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -13,11 +13,12 @@ import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.di.component.DaggerHomeComponent;
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
 import com.example.chen.wanandroiddemo.presenter.homepage.HomePresenter;
-import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
+import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,21 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            jumpToDetail(article.getLink(), article.getTitle());
+            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+        });
+        mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            Article article = mArticleList.get(position);
+
+            switch (view.getId()) {
+                case R.id.chapter:
+                    JumpUtils.jumpToSystemArticlesActivity(getActivity(),
+                            article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
+                    break;
+                case R.id.collect:
+                    break;
+                default:
+                    break;
+            }
         });
 
         getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
@@ -106,13 +121,8 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            jumpToDetail(banner.getUrl(), banner.getTitle());
+            JumpUtils.jumpToArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
         });
         mBanner.start();
-    }
-
-    private void jumpToDetail(String link, String title) {
-        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
-        startActivity(intent);
     }
 }

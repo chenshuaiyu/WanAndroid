@@ -23,6 +23,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
+    private LVEatBeans mLVEatBeans;
     private int mCurrentState = NORMAL_VIEW_STATE;
 
     @Override
@@ -45,10 +46,10 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         reloadView.setOnClickListener(v -> reLoad());
 
         //设置加载动画
-        LVEatBeans lvEatBeans =  mLoadingView.findViewById(R.id.loading_view);
-        lvEatBeans.setViewColor(R.color.colorPrimary);
-        lvEatBeans.setEyeColor(R.color.colorAccent);
-        lvEatBeans.startAnim();
+        mLVEatBeans =  mLoadingView.findViewById(R.id.loading_view);
+        mLVEatBeans.setViewColor(R.color.colorPrimary);
+        mLVEatBeans.setEyeColor(R.color.colorAccent);
+        mLVEatBeans.startAnim();
 
         mNormalView.setVisibility(View.VISIBLE);
         mLoadingView.setVisibility(View.GONE);
@@ -64,6 +65,13 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         reLoad();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mLVEatBeans != null)
+            mLVEatBeans.stopAnim();
+        super.onDestroyView();
     }
 
     @Override

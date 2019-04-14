@@ -15,8 +15,10 @@ import com.example.chen.wanandroiddemo.di.component.DaggerProjectTabComponent;
 import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
 import com.example.chen.wanandroiddemo.presenter.project.ProjectTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.example.chen.wanandroiddemo.utils.NetUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
         mRecyclerView.setAdapter(mProjectsAdapter);
         mProjectsAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            jumpToDetail(article.getLink(), article.getTitle());
+            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
     }
 
@@ -76,11 +78,6 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
             mArticles.clear();
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
-    }
-
-    private void jumpToDetail(String link, String title) {
-        Intent intent = ArticleDetailActivity.newIntent(getActivity(), link, title);
-        startActivity(intent);
     }
 
     @Override

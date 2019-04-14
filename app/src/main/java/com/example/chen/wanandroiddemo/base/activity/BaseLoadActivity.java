@@ -20,6 +20,7 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
+    private LVEatBeans mLVEatBeans;
     private int mCurrentState = Constants.NORMAL_VIEW_STATE;
 
     @Override
@@ -40,10 +41,9 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         reloadView.setOnClickListener(v -> reLoad());
 
         //设置加载动画
-        LVEatBeans lvEatBeans =  mLoadingView.findViewById(R.id.loading_view);
-        lvEatBeans.setViewColor(R.color.colorPrimary);
-        lvEatBeans.setEyeColor(R.color.colorAccent);
-        lvEatBeans.startAnim();
+        mLVEatBeans =  mLoadingView.findViewById(R.id.loading_view);
+        mLVEatBeans.setViewColor(R.color.colorPrimary);
+        mLVEatBeans.setEyeColor(R.color.colorAccent);
 
         mNormalView.setVisibility(View.VISIBLE);
         mLoadingView.setVisibility(View.GONE);
@@ -53,6 +53,13 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
             showLoadingView();
         else
             showErrorView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mLVEatBeans != null)
+            mLVEatBeans.stopAnim();
+        super.onDestroy();
     }
 
     @Override
