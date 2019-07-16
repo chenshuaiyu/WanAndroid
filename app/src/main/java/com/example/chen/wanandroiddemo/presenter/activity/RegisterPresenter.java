@@ -16,8 +16,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/25 22:24
+ * @author : chenshuaiyu
+ * @date : 2019/3/25 22:24
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {
     @Inject
@@ -43,10 +43,11 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                     public void onNext(BaseResponse<LoginData> loginDataBaseResponse) {
                         LoginData data = loginDataBaseResponse.getData();
                         if (loginDataBaseResponse.getErrorCode() == Constants.SUCCESS_CODE
-                                && data != null)
+                                && data != null) {
                             mView.showSuccessfulMesssage();
-                        else
+                        } else {
                             mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
+                        }
                     }
 
                     @Override
