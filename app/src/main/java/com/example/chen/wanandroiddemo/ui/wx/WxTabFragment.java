@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -20,12 +21,15 @@ import com.example.chen.wanandroiddemo.presenter.wx.WXTabPresenter;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import org.greenrobot.greendao.annotation.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 18:13
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 18:13
  */
 @SuppressLint("ValidFragment")
 public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implements WXTabContract.View {
@@ -56,6 +60,8 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mWXTabArticleList = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWXTabArticleList);
 
@@ -77,8 +83,9 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
                     mode = SEARCH_MODE;
                     curSearchPage = 1;
                     searchContent = search.getText().toString();
-                    if (!TextUtils.isEmpty(searchContent))
+                    if (!TextUtils.isEmpty(searchContent)) {
                         presenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage, searchContent);
+                    }
                 }
         );
     }
@@ -101,24 +108,26 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
 
     @Override
     public void loadMore(RefreshLayout refreshLayout) {
-        if (mode == NORMAL_MODE)
+        if (mode == NORMAL_MODE) {
             presenter.getWXTabArticles(mWXTab.getId(), curPage++);
-        else
+        } else {
             presenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage++, searchContent);
+        }
     }
 
     @Override
     public void showWXTabArticles(List<Article> wxTabArticles) {
-        if (curPage == 1)
+        if (curPage == 1) {
             mWXTabArticleList.clear();
+        }
         mWXTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showWXTabSearchArticles(List<Article> wxTabArticles) {
-        if (curSearchPage == 1)
-            mWXTabArticleList.clear();
+        if (curSearchPage == 1){
+            mWXTabArticleList.clear();}
         mWXTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
     }
