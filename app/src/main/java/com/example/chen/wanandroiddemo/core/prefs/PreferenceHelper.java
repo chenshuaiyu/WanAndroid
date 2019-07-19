@@ -1,8 +1,8 @@
 package com.example.chen.wanandroiddemo.core.prefs;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 10:51
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 10:51
  */
 public interface PreferenceHelper {
     /**
@@ -47,5 +47,32 @@ public interface PreferenceHelper {
      */
     String getLoginPassword();
 
+    /**
+     * 设置夜间模式
+     *
+     * @param mode
+     */
+    void setNightMode(boolean mode);
+
+    /**
+     * 获取夜间模式
+     *
+     * @return
+     */
+    boolean getNightMode();
+
+    /**
+     * 设置网络状态
+     *
+     * @param state
+     */
+    void setNetState(String state);
+
+    /**
+     * 获取网络状态
+     *
+     * @return
+     */
+    String getNetState();
 
 }
