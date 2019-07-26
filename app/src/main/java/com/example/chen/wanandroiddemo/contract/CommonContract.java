@@ -7,8 +7,8 @@ import com.example.chen.wanandroiddemo.core.bean.Website;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/24 17:43
+ * @author : chenshuaiyu
+ * @date : 2019/3/24 17:43
  */
 public interface CommonContract {
     interface Presenter extends IPresenter<View> {

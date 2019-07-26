@@ -15,8 +15,8 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 10:51
+ * @author  : chenshuaiyu
+ * @date : 2019/3/16 10:51
  */
 public interface HttpHelper {
 

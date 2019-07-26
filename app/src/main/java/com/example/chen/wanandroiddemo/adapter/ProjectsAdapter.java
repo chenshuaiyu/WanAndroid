@@ -10,8 +10,8 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/30 20:03
+ * @author : chenshuaiyu
+ * @date : 2019/3/30 20:03
  */
 public class ProjectsAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
 

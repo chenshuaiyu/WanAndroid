@@ -2,18 +2,16 @@ package com.example.chen.wanandroiddemo.utils;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.ui.activity.LoginActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemArticlesActivity;
-
 import java.util.Arrays;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/4/14 11:24
+ * @author : chenshuaiyu
+ * @date : 2019/4/14 11:24
  */
 public class JumpUtils {
     public static void jumpToArticleDetailActivity(Context context, String link, String title){

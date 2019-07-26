@@ -15,8 +15,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 17:22
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 17:22
  */
 public class WXPresenter extends BasePresenter<WXContract.View> implements WXContract.Presenter {
 

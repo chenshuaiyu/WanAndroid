@@ -3,8 +3,8 @@ package com.example.chen.wanandroiddemo.core.bean;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 15:15
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 15:15
  */
 public class Navigation {
     /**

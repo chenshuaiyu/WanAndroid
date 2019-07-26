@@ -9,11 +9,12 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 21:36
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 21:36
  */
 @Module
 public class SettingsModule {
+
     @Provides
     @Singleton
     DataManager getDataManager() {

@@ -44,6 +44,8 @@ public class CommonActivity extends BaseLoadActivity<CommonPresenter> implements
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mToolbar.setTitle(getResources().getString(R.string.commom_website));
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);

@@ -5,8 +5,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 11:36
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 11:36
  */
 @Entity
 public class HistoryRecord {

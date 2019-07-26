@@ -6,8 +6,8 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 17:23
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 17:23
  */
 public interface WXContract {
     interface Presenter extends IPresenter<View> {

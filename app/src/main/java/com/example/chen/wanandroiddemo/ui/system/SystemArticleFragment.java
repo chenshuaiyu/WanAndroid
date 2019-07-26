@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 20:12
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 20:12
  */
 @SuppressLint("ValidFragment")
 public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePresenter> implements SystemArticleContract.View {
@@ -42,6 +42,8 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mArticles = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

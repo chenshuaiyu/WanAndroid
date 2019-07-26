@@ -7,8 +7,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/24 17:46
+ * @author : chenshuaiyu
+ * @date : 2019/3/24 17:46
  */
 @Module
 public class CommonModule {

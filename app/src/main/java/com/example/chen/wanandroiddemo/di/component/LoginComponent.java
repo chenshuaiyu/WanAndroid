@@ -8,8 +8,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/21 11:51
+ * @author : chenshuaiyu
+ * @date : 2019/3/21 11:51
  */
 @Singleton
 @Component(modules = LoginActivityModule.class)

@@ -4,8 +4,8 @@ import com.example.chen.wanandroiddemo.app.Constants;
 import java.util.Random;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/23 9:29
+ * @author : chenshuaiyu
+ * @date : 2019/3/23 9:29
  */
 public class ColorUtils {
     public static int randomTagColor() {

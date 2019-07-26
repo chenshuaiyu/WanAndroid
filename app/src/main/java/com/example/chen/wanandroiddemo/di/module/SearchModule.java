@@ -9,8 +9,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 14:32
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 14:32
  */
 @Module
 public class SearchModule {

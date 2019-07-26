@@ -16,10 +16,11 @@ import com.ldoublem.loadingviewlib.view.LVEatBeans;
 import static com.example.chen.wanandroiddemo.app.Constants.*;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/4/9 21:35
+ * @author : chenshuaiyu
+ * @date : 2019/4/9 21:35
  */
 public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragment<T> {
+
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
@@ -28,12 +29,16 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
 
     @Override
     protected void initView() {
-        if (getView() == null) return;
+        if (getView() == null) {
+            return;
+        }
         mNormalView = getView().findViewById(R.id.normal_view);
-        if (mNormalView == null)
+        if (mNormalView == null) {
             throw new IllegalStateException("mNormalView is null.");
-        if (!(mNormalView.getParent() instanceof ViewGroup))
+        }
+        if (!(mNormalView.getParent() instanceof ViewGroup)) {
             throw new IllegalStateException("mNormalView is not instanceof ViewGroup.");
+        }
 
         ViewGroup parent = (ViewGroup) mNormalView.getParent();
         View.inflate(getActivity(), R.layout.error_view, parent);
@@ -43,10 +48,10 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
 
         //设置重加载
         ImageView reloadView = mErrorView.findViewById(R.id.reload_view);
-        reloadView.setOnClickListener(v -> reLoad());
+        reloadView.setOnClickListener(v ->reLoad());
 
         //设置加载动画
-        mLVEatBeans =  mLoadingView.findViewById(R.id.loading_view);
+        mLVEatBeans = mLoadingView.findViewById(R.id.loading_view);
         mLVEatBeans.setViewColor(R.color.colorPrimary);
         mLVEatBeans.setEyeColor(R.color.colorAccent);
         mLVEatBeans.startAnim();
@@ -55,10 +60,11 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
 
-        if (NetUtils.isNetworkConnected())
+        if (NetUtils.isNetworkConnected()) {
             showLoadingView();
-        else
+        } else {
             showErrorView();
+        }
     }
 
     @Override
@@ -69,8 +75,9 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
 
     @Override
     public void onDestroyView() {
-        if (mLVEatBeans != null)
+        if (mLVEatBeans != null) {
             mLVEatBeans.stopAnim();
+        }
         super.onDestroyView();
     }
 
@@ -79,8 +86,9 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         super.onHiddenChanged(hidden);
         if (!hidden && presenter != null) {
             reLoad();
-            if (!NetUtils.isNetworkConnected())
+            if (!NetUtils.isNetworkConnected()) {
                 showErrorView();
+            }
         }
     }
 
@@ -89,8 +97,9 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && presenter != null) {
             reLoad();
-            if (!NetUtils.isNetworkConnected())
+            if (!NetUtils.isNetworkConnected()) {
                 showErrorView();
+            }
         }
     }
 
@@ -136,7 +145,9 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
             default:
                 break;
         }
-        if (showView == null) return;
+        if (showView == null) {
+            return;
+        }
         showView.setVisibility(View.VISIBLE);
     }
 
@@ -155,7 +166,9 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
             default:
                 break;
         }
-        if (hideView == null) return;
+        if (hideView == null) {
+            return;
+        }
         hideView.setVisibility(View.GONE);
     }
 }

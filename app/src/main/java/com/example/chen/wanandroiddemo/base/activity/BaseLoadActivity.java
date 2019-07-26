@@ -13,10 +13,11 @@ import static com.example.chen.wanandroiddemo.app.Constants.LOADING_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.NORMAL_VIEW_STATE;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/4/9 20:32
+ * @author : chenshuaiyu
+ * @date : 2019/4/9 20:32
  */
 public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivity<T> {
+
     private View mErrorView;
     private View mLoadingView;
     private ViewGroup mNormalView;
@@ -26,8 +27,9 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
     @Override
     protected void initView() {
         mNormalView = findViewById(R.id.normal_view);
-        if (mNormalView == null || !(mNormalView.getParent() instanceof ViewGroup))
+        if (mNormalView == null || !(mNormalView.getParent() instanceof ViewGroup)) {
             throw new IllegalStateException("mNormalView error.");
+        }
 
         ViewGroup parent = (ViewGroup) mNormalView.getParent();
         View.inflate(this, R.layout.error_view, parent);
@@ -41,7 +43,7 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         reloadView.setOnClickListener(v -> reLoad());
 
         //设置加载动画
-        mLVEatBeans =  mLoadingView.findViewById(R.id.loading_view);
+        mLVEatBeans = mLoadingView.findViewById(R.id.loading_view);
         mLVEatBeans.setViewColor(R.color.colorPrimary);
         mLVEatBeans.setEyeColor(R.color.colorAccent);
 
@@ -49,22 +51,24 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
 
-        if (NetUtils.isNetworkConnected())
+        if (NetUtils.isNetworkConnected()) {
             showLoadingView();
-        else
+        } else {
             showErrorView();
+        }
     }
 
     @Override
     protected void onDestroy() {
-        if (mLVEatBeans != null)
+        if (mLVEatBeans != null) {
             mLVEatBeans.stopAnim();
+        }
         super.onDestroy();
     }
 
     @Override
     public void showErrorView() {
-        if (mCurrentState != ERROR_VIEW_STATE){
+        if (mCurrentState != ERROR_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = ERROR_VIEW_STATE;
             showCurrentView();
@@ -73,7 +77,7 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
 
     @Override
     public void showLoadingView() {
-        if (mCurrentState != LOADING_VIEW_STATE){
+        if (mCurrentState != LOADING_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = LOADING_VIEW_STATE;
             showCurrentView();
@@ -82,7 +86,7 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
 
     @Override
     public void showNormalView() {
-        if (mCurrentState != NORMAL_VIEW_STATE){
+        if (mCurrentState != NORMAL_VIEW_STATE) {
             hideCurrentView();
             mCurrentState = NORMAL_VIEW_STATE;
             showCurrentView();
@@ -104,7 +108,9 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
             default:
                 break;
         }
-        if (showView == null) return;
+        if (showView == null) {
+            return;
+        }
         showView.setVisibility(View.VISIBLE);
     }
 
@@ -123,7 +129,9 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
             default:
                 break;
         }
-        if (hideView == null) return;
+        if (hideView == null) {
+            return;
+        }
         hideView.setVisibility(View.GONE);
     }
 }

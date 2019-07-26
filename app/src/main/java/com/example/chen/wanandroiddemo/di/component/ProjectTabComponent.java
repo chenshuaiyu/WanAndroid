@@ -6,8 +6,8 @@ import com.example.chen.wanandroiddemo.ui.project.ProjectTabFragment;
 import dagger.Component;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 14:30
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 14:30
  */
 @Component(modules = ProjectTabModule.class)
 public interface ProjectTabComponent {

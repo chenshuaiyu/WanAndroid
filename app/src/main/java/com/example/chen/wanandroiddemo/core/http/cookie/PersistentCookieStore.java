@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,12 +16,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/31 17:00
+ * @author : chenshuaiyu
+ * @date : 2019/3/31 17:00
  */
 public class PersistentCookieStore {
     private static final String LOG_TAG = "PersistentCookieStore";
@@ -63,7 +65,7 @@ public class PersistentCookieStore {
         //将cookies缓存到内存中 如果缓存过期 就重置此cookie
         if (!cookie.persistent()) {
             if (!cookies.containsKey(url.host())) {
-                cookies.put(url.host(), new ConcurrentHashMap<String, Cookie>());
+                cookies.put(url.host(), new ConcurrentHashMap<>());
             }
             cookies.get(url.host()).put(name, cookie);
         } else {
@@ -81,8 +83,9 @@ public class PersistentCookieStore {
 
     public List<Cookie> get(HttpUrl url) {
         ArrayList<Cookie> ret = new ArrayList<>();
-        if (cookies.containsKey(url.host()))
+        if (cookies.containsKey(url.host())) {
             ret.addAll(cookies.get(url.host()).values());
+        }
         return ret;
     }
 
@@ -115,8 +118,9 @@ public class PersistentCookieStore {
 
     public List<Cookie> getCookies() {
         ArrayList<Cookie> ret = new ArrayList<>();
-        for (String key : cookies.keySet())
+        for (String key : cookies.keySet()) {
             ret.addAll(cookies.get(key).values());
+        }
 
         return ret;
     }
@@ -128,8 +132,9 @@ public class PersistentCookieStore {
      * @return 序列化之后的string
      */
     protected String encodeCookie(OkHttpCookies cookie) {
-        if (cookie == null)
+        if (cookie == null) {
             return null;
+        }
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(os);

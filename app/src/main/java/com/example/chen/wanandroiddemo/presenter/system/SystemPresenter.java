@@ -15,8 +15,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 14:20
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 14:20
  */
 public class SystemPresenter extends BasePresenter<SystemContract.View> implements SystemContract.Presenter {
     @Inject

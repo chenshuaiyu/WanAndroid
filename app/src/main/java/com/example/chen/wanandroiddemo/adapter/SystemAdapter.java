@@ -8,8 +8,8 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 14:39
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 14:39
  */
 public class SystemAdapter extends BaseQuickAdapter<System, BaseViewHolder> {
 

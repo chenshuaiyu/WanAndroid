@@ -6,8 +6,8 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import javax.inject.Inject;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 20:09
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 20:09
  */
 public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.View> implements ArticleDetailContract.Presenter {
 

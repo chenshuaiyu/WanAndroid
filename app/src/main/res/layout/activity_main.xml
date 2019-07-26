@@ -23,6 +23,7 @@
                 android:layout_alignParentTop="true">
 
                 <include layout="@layout/common_toolbar" />
+
             </android.support.design.widget.AppBarLayout>
 
             <FrameLayout

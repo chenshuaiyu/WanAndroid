@@ -7,8 +7,8 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/21 8:34
+ * @author : chenshuaiyu
+ * @date : 2019/3/21 8:34
  */
 public interface ProjectContract {
     interface Presenter extends IPresenter<View> {

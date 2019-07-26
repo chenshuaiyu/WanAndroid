@@ -21,8 +21,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 14:34
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 14:34
  */
 public interface Api {
 

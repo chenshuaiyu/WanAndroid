@@ -1,7 +1,6 @@
 package com.example.chen.wanandroiddemo.presenter.activity;
 
 import android.util.Log;
-
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.MainContract;
@@ -9,15 +8,13 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
-
 import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 17:10
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 17:10
  */
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 

@@ -45,6 +45,8 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
 
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));

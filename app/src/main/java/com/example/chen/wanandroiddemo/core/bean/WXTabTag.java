@@ -1,8 +1,8 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/20 22:16
+ * @author : chenshuaiyu
+ * @date : 2019/3/20 22:16
  */
 public class WXTabTag {
     /**

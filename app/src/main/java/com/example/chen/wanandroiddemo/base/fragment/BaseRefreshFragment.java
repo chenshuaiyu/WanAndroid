@@ -12,8 +12,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import butterknife.BindView;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 19:05
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 19:05
  */
 public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseLoadFragment<T> {
     @BindView(R.id.recycler_view)
@@ -21,8 +21,19 @@ public abstract class BaseRefreshFragment<T extends BasePresenter> extends BaseL
     @BindView(R.id.refresh_layout)
     protected SmartRefreshLayout mSmartRefreshLayout;
 
-    public abstract void refresh(RefreshLayout refreshLayout);//上拉刷新
-    public abstract void loadMore(RefreshLayout refreshLayout);//下拉加载
+    /**
+     * 上拉刷新
+     *
+     * @param refreshLayout
+     */
+    public abstract void refresh(RefreshLayout refreshLayout);
+
+    /**
+     * 下拉加载
+     *
+     * @param refreshLayout
+     */
+    public abstract void loadMore(RefreshLayout refreshLayout);
 
     @Override
     protected int getLayoutId() {

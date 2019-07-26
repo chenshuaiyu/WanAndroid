@@ -8,8 +8,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 20:13
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 20:13
  */
 @Singleton
 @Component(modules = ArticleDetailModule.class)

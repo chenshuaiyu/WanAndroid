@@ -7,8 +7,8 @@ import dagger.Component;
 
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/17 10:31
+ * @author : chenshuaiyu
+ * @date : 2019/3/17 10:31
  */
 @Singleton
 @Component(modules = MainActivityModule.class)

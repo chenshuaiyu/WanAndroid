@@ -1,15 +1,15 @@
-package com.example.chen.wanandroiddemo.utils;
-
+package com.example.chen.wanandroiddemo.bus;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 22:07
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 22:07
  */
 public class RxBus {
+
     private final Subject<Object> mSubject;
 
     private RxBus() {
@@ -26,12 +26,11 @@ public class RxBus {
     }
 
     //根据事件类型生成 Observable 对象
-    public <T> Observable<T> toObservable(Class<T> eventType){
+    public <T> Observable<T> toObservable(Class<T> eventType) {
         return mSubject.ofType(eventType);
     }
 
     private static class Holder {
         static final RxBus INSTANCE = new RxBus();
     }
-
 }

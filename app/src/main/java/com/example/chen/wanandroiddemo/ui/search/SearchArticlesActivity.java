@@ -54,6 +54,8 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         Intent intent = getIntent();
         key = intent.getStringExtra(Constants.SEARCH_KEY);
 

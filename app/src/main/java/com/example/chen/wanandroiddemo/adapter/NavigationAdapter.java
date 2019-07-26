@@ -18,8 +18,8 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/24 21:13
+ * @author : chenshuaiyu
+ * @date : 2019/3/24 21:13
  */
 public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHolder> {
 

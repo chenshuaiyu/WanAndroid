@@ -4,8 +4,8 @@ import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 21:33
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 21:33
  */
 public interface SettingsContract {
     interface Presenter extends IPresenter<View> {

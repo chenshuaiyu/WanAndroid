@@ -3,8 +3,8 @@ package com.example.chen.wanandroiddemo.core.bean;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/9 21:51
+ * @author : chenshuaiyu
+ * @date : 2019/3/9 21:51
  */
 public class Article {
     /**
@@ -22,7 +22,7 @@ public class Article {
      * niceDate : 1天前
      * origin :
      * projectLink :
-     * publishTime : 1551974400000
+     * publish@date : 1551974400000
      * superChapterId : 408
      * superChapterName : 公众号
      * tags : [{"name":"公众号","url":"/wxarticle/list/408/1"}]

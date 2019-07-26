@@ -17,8 +17,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/21 11:49
+ * @author : chenshuaiyu
+ * @date : 2019/3/21 11:49
  */
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
     @Inject
@@ -49,8 +49,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                             mDataManager.setLoginAccount(data.getUsername());
                             mDataManager.setLoginPassword(data.getPassword());
                             mView.showSuccessfulMesssage();
-                        } else
+                        } else {
                             mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
+                        }
                     }
 
                     @Override

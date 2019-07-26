@@ -1,14 +1,12 @@
 package com.example.chen.wanandroiddemo.ui.wx;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
@@ -18,12 +16,8 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.wx.WXTabPresenter;
-import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
 import com.example.chen.wanandroiddemo.utils.JumpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-
-import org.greenrobot.greendao.annotation.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 

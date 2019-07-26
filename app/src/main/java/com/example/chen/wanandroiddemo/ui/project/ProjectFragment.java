@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/21 8:34
+ * @author : chenshuaiyu
+ * @date : 2019/3/21 8:34
  */
 public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> implements ProjectContract.View {
     private List<Fragment> mFragments;
@@ -26,6 +26,8 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mFragments = new ArrayList<>();
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(mPagerAdapter);

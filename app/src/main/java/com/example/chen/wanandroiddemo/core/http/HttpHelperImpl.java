@@ -10,16 +10,13 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 11:54
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 11:54
  */
 public class HttpHelperImpl implements HttpHelper {
     private Api mApi;

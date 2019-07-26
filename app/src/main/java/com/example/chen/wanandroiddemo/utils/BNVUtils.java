@@ -6,8 +6,8 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/17 15:10
+ * @author : chenshuaiyu
+ * @date : 2019/3/17 15:10
  */
 public class BNVUtils {
     @SuppressLint("RestrictedApi")

@@ -12,8 +12,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 15:20
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 15:20
  */
 public class NavigationPresenter extends BasePresenter<NavigationContract.View> implements NavigationContract.Presenter {
     @Inject

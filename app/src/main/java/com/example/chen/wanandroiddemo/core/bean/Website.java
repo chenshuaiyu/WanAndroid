@@ -1,8 +1,8 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/24 17:41
+ * @author : chenshuaiyu
+ * @date : 2019/3/24 17:41
  */
 public class Website {
     /**

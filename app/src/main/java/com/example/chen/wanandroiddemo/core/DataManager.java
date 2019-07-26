@@ -24,10 +24,11 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 10:49
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 10:49
  */
 public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
+
     private DbHelperImpl mDbHelper;
     private HttpHelperImpl mHttpHelper;
     private PreferenceHelperImpl mPreferenceHelper;
@@ -167,5 +168,25 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public String getLoginPassword() {
         return mPreferenceHelper.getLoginPassword();
+    }
+
+    @Override
+    public void setNightMode(boolean mode) {
+        mPreferenceHelper.setNightMode(mode);
+    }
+
+    @Override
+    public boolean getNightMode() {
+        return mPreferenceHelper.getNightMode();
+    }
+
+    @Override
+    public void setNetState(String state) {
+        mPreferenceHelper.setNetState(state);
+    }
+
+    @Override
+    public String getNetState() {
+        return mPreferenceHelper.getNetState();
     }
 }

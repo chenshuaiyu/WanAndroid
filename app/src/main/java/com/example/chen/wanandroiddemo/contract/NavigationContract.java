@@ -7,8 +7,8 @@ import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 15:20
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 15:20
  */
 public interface NavigationContract {
     interface Presenter extends IPresenter<View> {

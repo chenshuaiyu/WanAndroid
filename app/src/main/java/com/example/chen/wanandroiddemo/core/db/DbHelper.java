@@ -5,8 +5,8 @@ import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 10:50
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 10:50
  */
 public interface DbHelper {
     void addHistoryRecord(HistoryRecord record);

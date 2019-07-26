@@ -13,8 +13,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/17 16:08
+ * @author : chenshuaiyu
+ * @date : 2019/3/17 16:08
  */
 public class HomePresenter extends BasePresenter<HomeContract.View> implements HomeContract.Presenter {
 
@@ -23,6 +23,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
         super(dataManager);
     }
 
+    @Override
     public void getBanner() {
         mDataManager.getBanner()
                 .compose(RxUtils.switchSchedulers())

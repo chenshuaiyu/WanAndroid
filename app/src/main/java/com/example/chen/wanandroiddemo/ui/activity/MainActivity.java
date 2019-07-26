@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -28,12 +30,15 @@ import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BNVUtils;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+
+    private static final int REQUEST_SETTINGS = 1;
+    private static final int REQUEST_COLLECTION = 2;
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.drawer_layout)
@@ -44,6 +49,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     BottomNavigationView mBottomNavigationView;
 
     private TextView login;
+    private ActionBar mActionBar;
     private MenuItem logout;
 
     private HomeFragment mHomeFragment = new HomeFragment();
@@ -51,6 +57,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private WXFragment mWXFragment = new WXFragment();
     private NavigationFragment mNavigationFragment = new NavigationFragment();
     private ProjectFragment mProjectFragment = new ProjectFragment();
+    private SettingsActivity mSettingsActivity = new SettingsActivity();
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment curFragment;
@@ -71,12 +78,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         mNavigationView.setNavigationItemSelectedListener(this);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         BNVUtils.disableShiftMode(mBottomNavigationView);
 
@@ -98,24 +107,29 @@ public class MainActivity extends BaseActivity<MainPresenter>
             FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(curFragment);
             switch (menuItem.getItemId()) {
                 case R.id.menu_home:
-                    if (curFragment != mHomeFragment)
+                    if (curFragment != mHomeFragment) {
                         curFragment = mHomeFragment;
+                    }
                     break;
                 case R.id.menu_system:
-                    if (curFragment != mSystemFragment)
+                    if (curFragment != mSystemFragment) {
                         curFragment = mSystemFragment;
+                    }
                     break;
                 case R.id.menu_wxarticle:
-                    if (curFragment != mWXFragment)
+                    if (curFragment != mWXFragment) {
                         curFragment = mWXFragment;
+                    }
                     break;
                 case R.id.menu_navigation:
-                    if (curFragment != mNavigationFragment)
+                    if (curFragment != mNavigationFragment) {
                         curFragment = mNavigationFragment;
+                    }
                     break;
                 case R.id.menu_project:
-                    if (curFragment != mProjectFragment)
+                    if (curFragment != mProjectFragment) {
                         curFragment = mProjectFragment;
+                    }
                     break;
                 default:
                     break;
@@ -141,10 +155,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        else
+        } else {
             super.onBackPressed();
+        }
     }
 
     @Override
@@ -174,15 +189,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         item.setChecked(true);
+        FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(curFragment);
         switch (item.getItemId()) {
             case R.id.menu_wanandroid:
 
                 break;
             case R.id.menu_collection:
-
+                startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
                 break;
             case R.id.menu_settings:
-
+                startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_SETTINGS);
                 break;
             case R.id.menu_logout:
                 presenter.logout();
@@ -190,8 +206,26 @@ public class MainActivity extends BaseActivity<MainPresenter>
             default:
                 break;
         }
+        transaction.show(curFragment).commit();
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_SETTINGS:
+                    mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+                    break;
+                case REQUEST_COLLECTION:
+                    mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override

@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/11 22:25
+ * @author : chenshuaiyu
+ * @date : 2019/3/11 22:25
  */
 public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements HomeContract.View {
     private com.youth.banner.Banner mBanner;
@@ -42,6 +42,8 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mBannerList = new ArrayList<>();
         mArticleList = new ArrayList<>();
 

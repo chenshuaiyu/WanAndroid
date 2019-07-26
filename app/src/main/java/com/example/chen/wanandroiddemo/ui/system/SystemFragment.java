@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 14:19
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 14:19
  */
 public class SystemFragment extends BaseRefreshFragment<SystemPresenter> implements SystemContract.View {
     private List<System> mSystems;

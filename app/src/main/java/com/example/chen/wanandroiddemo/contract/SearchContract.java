@@ -9,8 +9,8 @@ import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/22 22:14
+ * @author : chenshuaiyu
+ * @date : 2019/3/22 22:14
  */
 public interface SearchContract {
     interface Presenter extends IPresenter<View> {

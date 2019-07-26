@@ -8,8 +8,8 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import javax.inject.Inject;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 21:33
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 21:33
  */
 public class SettingsPresenter extends BasePresenter<SettingsContract.View> implements SettingsContract.Presenter {
     @Inject

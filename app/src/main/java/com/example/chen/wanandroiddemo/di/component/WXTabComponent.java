@@ -6,8 +6,8 @@ import com.example.chen.wanandroiddemo.ui.wx.WxTabFragment;
 import dagger.Component;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/19 14:30
+ * @author : chenshuaiyu
+ * @date : 2019/3/19 14:30
  */
 @Component(modules = WXTabModule.class)
 public interface WXTabComponent {

@@ -3,8 +3,8 @@ package com.example.chen.wanandroiddemo.core.bean;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/31 16:43
+ * @author : chenshuaiyu
+ * @date : 2019/3/31 16:43
  */
 public class LoginData {
     private String username;

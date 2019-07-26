@@ -7,8 +7,8 @@ import java.io.Serializable;
 import okhttp3.Cookie;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/31 16:59
+ * @author : chenshuaiyu
+ * @date : 2019/3/31 16:59
  */
 public class OkHttpCookies implements Serializable {
     private transient final Cookie cookies;

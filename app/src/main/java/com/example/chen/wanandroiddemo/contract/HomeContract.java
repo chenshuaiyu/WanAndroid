@@ -8,8 +8,8 @@ import com.example.chen.wanandroiddemo.core.bean.Banner;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/17 16:09
+ * @author : chenshuaiyu
+ * @date : 2019/3/17 16:09
  */
 public interface HomeContract {
     interface Presenter extends IPresenter<View>{

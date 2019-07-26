@@ -7,8 +7,8 @@ import com.flyco.tablayout.SlidingTabLayout;
 import butterknife.BindView;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/26 19:46
+ * @author : chenshuaiyu
+ * @date : 2019/3/26 19:46
  */
 public abstract class BaseViewPagerFragment<T extends BasePresenter> extends BaseLoadFragment<T>  {
     @BindView(R.id.view_pager)

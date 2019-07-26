@@ -7,8 +7,8 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/23 9:57
+ * @author : chenshuaiyu
+ * @date : 2019/3/23 9:57
  */
 public interface SearchArticlesContract {
     interface Presenter extends IPresenter<View> {

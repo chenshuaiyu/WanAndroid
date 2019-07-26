@@ -68,6 +68,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.setDisplayHomeAsUpEnabled(true);

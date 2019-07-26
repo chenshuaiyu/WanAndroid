@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/30 21:05
+ * @author : chenshuaiyu
+ * @date : 2019/3/30 21:05
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;

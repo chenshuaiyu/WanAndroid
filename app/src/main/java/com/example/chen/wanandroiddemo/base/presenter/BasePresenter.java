@@ -1,7 +1,11 @@
 package com.example.chen.wanandroiddemo.base.presenter;
 
 import com.example.chen.wanandroiddemo.base.view.BaseView;
+import com.example.chen.wanandroiddemo.bus.RxBus;
+import com.example.chen.wanandroiddemo.bus.event.NetChangeEvent;
+import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import javax.inject.Inject;
 
@@ -9,8 +13,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 16:45
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 16:45
  */
 public class BasePresenter<T extends BaseView> implements IPresenter<T> {
 
@@ -31,21 +35,27 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
     @Override
     public void detachView() {
         mView = null;
-        if (mCompositeDisposable != null)
+        if (mCompositeDisposable != null) {
             mCompositeDisposable.clear();
+        }
     }
 
     @Override
     public void addSubcriber(Disposable disposable) {
-        if (mCompositeDisposable == null)
+        if (mCompositeDisposable == null) {
             mCompositeDisposable = new CompositeDisposable();
+        }
         mCompositeDisposable.add(disposable);
     }
 
     @Override
     public void subscribeEvent() {
-//        addSubcriber(
-//                RxBus.getInstance().toObservable()
-//        );
+        addSubcriber(
+                RxBus.getInstance().toObservable(NetChangeEvent.class)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(
+                                netChangeEvent -> mView.showNetChangeTips()
+                        )
+        );
     }
 }

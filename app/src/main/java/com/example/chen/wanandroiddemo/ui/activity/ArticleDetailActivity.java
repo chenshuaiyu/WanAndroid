@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -58,11 +59,13 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         Intent intent = getIntent();
         url = intent.getStringExtra(Constants.ARTICLE_URL);
         title = intent.getStringExtra(Constants.ARTICLE_TITLE);
 
-        mToolbar.setTitle(title);
+        mToolbar.setTitle(Html.fromHtml(title));
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();

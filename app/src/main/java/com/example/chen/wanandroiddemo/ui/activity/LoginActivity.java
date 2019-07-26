@@ -41,6 +41,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         register.setOnClickListener(
                 v -> {
                     startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

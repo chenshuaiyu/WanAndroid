@@ -43,6 +43,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         login.setOnClickListener(
                 v -> {
                     JumpUtils.jumpToLoginActivity(this);

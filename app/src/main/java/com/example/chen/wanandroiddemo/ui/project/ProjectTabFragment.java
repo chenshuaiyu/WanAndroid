@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/21 20:33
+ * @author : chenshuaiyu
+ * @date : 2019/3/21 20:33
  */
 @SuppressLint("ValidFragment")
 public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter> implements ProjectTabContract.View {
@@ -45,6 +45,8 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
 
     @Override
     protected void initData() {
+        presenter.subscribeEvent();
+
         mArticles = new ArrayList<>();
         mProjectsAdapter = new ProjectsAdapter(R.layout.item_projecttab, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

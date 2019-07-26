@@ -4,11 +4,8 @@ import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
 import com.example.chen.wanandroiddemo.core.http.cookie.CookieManger;
-
 import java.util.concurrent.TimeUnit;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -17,8 +14,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/16 10:38
+ * @author : chenshuaiyu
+ * @date : 2019/3/16 10:38
  */
 @Module
 public class AppModule {

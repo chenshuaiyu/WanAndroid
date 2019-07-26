@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/9 21:54
+ * @author : chenshuaiyu
+ * @date : 2019/3/9 21:54
  */
 public class System implements Serializable {
     private static final long serialVersionUID = 4556371791002390294L;

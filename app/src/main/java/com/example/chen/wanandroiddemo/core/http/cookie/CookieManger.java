@@ -9,8 +9,8 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
 /**
- * Coder : chenshuaiyu
- * Time : 2019/3/31 17:00
+ * @author : chenshuaiyu
+ * @date : 2019/3/31 17:00
  */
 public class CookieManger implements CookieJar {
     public static String APP_PLATFORM = "app-platform";
@@ -40,20 +40,20 @@ public class CookieManger implements CookieJar {
     }
 
     static class Customer {
-        private String userID;
+        private String userId;
         private String token;
 
-        public Customer(String userID, String token) {
-            this.userID = userID;
+        public Customer(String userId, String token) {
+            this.userId = userId;
             this.token = token;
         }
 
-        public String getUserID() {
-            return userID;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setUserID(String userID) {
-            this.userID = userID;
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
         public String getToken() {
