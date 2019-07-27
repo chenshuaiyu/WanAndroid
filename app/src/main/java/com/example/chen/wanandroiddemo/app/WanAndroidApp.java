@@ -42,6 +42,8 @@ public class WanAndroidApp extends Application {
         mAppComponent.inject(this);
 
         mAppComponent.getDataManager().setNetState(NetUtils.getNetworkType());
+        mAppComponent.getDataManager().setNightMode(false);
+
 
         initGreenDao();
     }

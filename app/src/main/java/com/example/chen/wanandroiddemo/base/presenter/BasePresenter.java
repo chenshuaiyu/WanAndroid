@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.base.presenter;
 
+import android.util.Log;
+
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NetChangeEvent;
@@ -56,6 +58,12 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
                         .subscribe(
                                 netChangeEvent -> mView.showNetChangeTips()
                         )
+        );
+        addSubcriber(RxBus.getInstance().toObservable(NightModeEvent.class)
+                .compose(RxUtils.switchSchedulers())
+                .subscribe(
+                        nightModeEvent -> mView.useNightMode(nightModeEvent.isNightMode())
+                )
         );
     }
 }

@@ -13,6 +13,6 @@
 
     <color name="light_gray">#E0E0E0</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="bg_search_edit">#FFFFFF</color>
 
 </resources>

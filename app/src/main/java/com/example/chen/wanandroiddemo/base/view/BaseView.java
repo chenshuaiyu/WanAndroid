@@ -29,7 +29,7 @@ public interface BaseView {
     /**
      * 设置夜间模式
      */
-    void useNightNode(boolean isNight);
+    void useNightMode(boolean isNightMode);
 
     /**
      * 显示网络变化提示

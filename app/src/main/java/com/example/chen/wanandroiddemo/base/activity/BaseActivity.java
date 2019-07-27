@@ -1,11 +1,13 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.app.Constants;
@@ -66,6 +68,26 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     @Override
+    public void recreate() {
+        super.recreate();
+        presenter.attachView(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.attachView(this);
+    }
+
+    @Override
+    protected void onPause() {
+        if (presenter != null) {
+            presenter.detachView();
+        }
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
@@ -97,16 +119,13 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
 
     @Override
-    public void useNightNode(boolean isNight) {
-        if (WanAndroidApp
-                .getInstance()
-                .getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE)
-                .getBoolean(Constants.NIGHT_MODE, false)) {
+    public void useNightMode(boolean isNightMode) {
+        if (isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        recreate();
+//        recreate();
     }
 
     @Override

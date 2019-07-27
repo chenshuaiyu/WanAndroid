@@ -9,10 +9,11 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
  */
 public interface SettingsContract {
     interface Presenter extends IPresenter<View> {
-
+        void setNightMode(boolean isNightMode);
+        void getNightMode();
     }
 
     interface View extends BaseView {
-
+        void showNightMode(boolean isNightMode);
     }
 }

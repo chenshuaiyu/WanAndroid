@@ -55,4 +55,10 @@ public class CollectionActivity extends BaseActivity<SettingsPresenter> implemen
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+    }
 }

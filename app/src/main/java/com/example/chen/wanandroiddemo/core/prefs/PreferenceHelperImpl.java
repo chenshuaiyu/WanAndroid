@@ -58,7 +58,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Override
     public boolean getNightMode() {
-        return mPreferences.getBoolean(Constants.LOGIN_PASSWORD, false);
+        return mPreferences.getBoolean(Constants.NIGHT_MODE, false);
     }
 
     @Override

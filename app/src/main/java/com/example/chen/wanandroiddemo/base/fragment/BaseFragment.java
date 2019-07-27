@@ -102,7 +102,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     }
 
     @Override
-    public void useNightNode(boolean isNight) {
+    public void useNightMode(boolean isNightMode) {
 
     }
 

@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -23,6 +22,7 @@ import com.example.chen.wanandroiddemo.contract.MainContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
 import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.presenter.activity.MainPresenter;
+import com.example.chen.wanandroiddemo.receiver.NightModeChangeReceiver;
 import com.example.chen.wanandroiddemo.ui.homepage.HomeFragment;
 import com.example.chen.wanandroiddemo.ui.navigation.NavigationFragment;
 import com.example.chen.wanandroiddemo.ui.project.ProjectFragment;
@@ -30,7 +30,6 @@ import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BNVUtils;
-
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -145,6 +144,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
+
+        NightModeChangeReceiver.setCallback(new NightModeChangeReceiver.Callback() {
+            @Override
+            public void call() {
+                mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -217,7 +225,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_SETTINGS:
-                    mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+
                     break;
                 case REQUEST_COLLECTION:
                     mNavigationView.setCheckedItem(R.id.menu_wanandroid);

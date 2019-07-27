@@ -23,7 +23,7 @@ public class Constants {
     public static final String LOGIN_ACCOUNT = "login_account";
     public static final String LOGIN_PASSWORD = "login_password";
     public static final String NIGHT_MODE = "night_mode";
-    public static final String NET_STATE = "night_mode";
+    public static final String NET_STATE = "net_state";
 
     /**
      * db
