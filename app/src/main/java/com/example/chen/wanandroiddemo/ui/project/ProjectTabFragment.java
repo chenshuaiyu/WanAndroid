@@ -1,9 +1,7 @@
 package com.example.chen.wanandroiddemo.ui.project;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
@@ -14,9 +12,7 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerProjectTabComponent;
 import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
 import com.example.chen.wanandroiddemo.presenter.project.ProjectTabPresenter;
-import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
@@ -53,7 +49,7 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
         mRecyclerView.setAdapter(mProjectsAdapter);
         mProjectsAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
     }
 

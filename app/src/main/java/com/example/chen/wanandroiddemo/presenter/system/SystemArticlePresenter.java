@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,7 @@ public class SystemArticlePresenter extends BasePresenter<SystemArticleContract.
     @Override
     public void getSystemArticles(int page, int cid) {
         mDataManager.getSystemArticles(page, cid)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

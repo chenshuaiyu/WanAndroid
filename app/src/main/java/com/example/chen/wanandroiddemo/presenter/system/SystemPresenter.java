@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.contract.SystemContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class SystemPresenter extends BasePresenter<SystemContract.View> implemen
     @Override
     public void getSystem() {
         mDataManager.getSystem()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<System>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

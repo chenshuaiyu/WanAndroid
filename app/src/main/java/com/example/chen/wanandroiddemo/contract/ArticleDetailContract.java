@@ -9,7 +9,8 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
  */
 public interface ArticleDetailContract {
     interface Presenter extends IPresenter<View> {
-
+        boolean getNoImageMode();
+        boolean getAutoCache();
     }
 
     interface View extends BaseView {

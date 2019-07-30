@@ -13,6 +13,9 @@ public class Constants {
      */
     public static final String BASE_URL = "https://www.wanandroid.com/";
 
+    /**
+     * 状态码
+     */
     public static final int SUCCESS_CODE = 0;
 
     /**
@@ -24,6 +27,8 @@ public class Constants {
     public static final String LOGIN_PASSWORD = "login_password";
     public static final String NIGHT_MODE = "night_mode";
     public static final String NET_STATE = "net_state";
+    public static final String NO_IMAGE_MODE = "no_image_mode";
+    public static final String AUTO_CACHE = "auto_cache";
 
     /**
      * db
@@ -65,5 +70,8 @@ public class Constants {
     public static final String MOBILE = "正在使用数据网络";
     public static final String NO_NETWORK = "当前无网络";
 
-
+    /**
+     * 邮箱地址
+     */
+    public static final String EMAIL_ADDRESS = "664251867@qq.com";
 }

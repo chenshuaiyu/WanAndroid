@@ -1,7 +1,6 @@
 package com.example.chen.wanandroiddemo.ui.system;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -13,8 +12,7 @@ import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent
 import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
 import com.example.chen.wanandroiddemo.presenter.system.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
     }
 

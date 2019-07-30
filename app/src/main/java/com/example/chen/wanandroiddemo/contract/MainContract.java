@@ -11,6 +11,7 @@ public interface MainContract {
 
     interface Presenter extends IPresenter<View> {
         void setLoginUser();
+        boolean isLogin();
         void logout();
     }
 

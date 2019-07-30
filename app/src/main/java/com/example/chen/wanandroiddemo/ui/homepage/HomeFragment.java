@@ -14,7 +14,7 @@ import com.example.chen.wanandroiddemo.di.component.DaggerHomeComponent;
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
 import com.example.chen.wanandroiddemo.presenter.homepage.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -55,14 +55,14 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
 
             switch (view.getId()) {
                 case R.id.chapter:
-                    JumpUtils.jumpToSystemArticlesActivity(getActivity(),
+                    JumpUtil.jumpToSystemArticlesActivity(getActivity(),
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.collect:
@@ -123,7 +123,7 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            JumpUtils.jumpToArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
         });
         mBanner.start();
     }

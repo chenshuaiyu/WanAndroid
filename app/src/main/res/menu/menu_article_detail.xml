@@ -4,15 +4,14 @@
 
     <item
         android:id="@+id/menu_collect"
-        android:icon="@drawable/ic_dislike"
+        android:icon="@drawable/ic_collect"
         android:title="@string/collect"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_open_with_browser"
-        android:icon="@drawable/ic_brower"
+        android:icon="@drawable/ic_browser"
         android:title="@string/open_with_browser"
         app:showAsAction="ifRoom" />
-
 
 </menu>

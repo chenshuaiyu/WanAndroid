@@ -3,7 +3,6 @@ package com.example.chen.wanandroiddemo.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.di.component.DaggerCommonComponent;
 import com.example.chen.wanandroiddemo.di.module.CommonModule;
 import com.example.chen.wanandroiddemo.presenter.activity.CommonPresenter;
-import com.example.chen.wanandroiddemo.utils.ColorUtils;
+import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -60,7 +59,7 @@ public class CommonActivity extends BaseLoadActivity<CommonPresenter> implements
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
                 TextView textView = view.findViewById(R.id.text_view);
                 textView.setText(website.getName());
-                view.setBackgroundColor(ColorUtils.randomTagColor());
+                view.setBackgroundColor(ColorUtil.randomTagColor());
 
                 view.setOnClickListener(v -> {
                     Intent intent = ArticleDetailActivity.newIntent(CommonActivity.this, website.getLink(), website.getName());

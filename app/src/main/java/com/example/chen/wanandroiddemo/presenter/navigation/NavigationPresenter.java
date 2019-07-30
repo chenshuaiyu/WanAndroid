@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observer;
@@ -24,7 +24,7 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
     @Override
     public void getNavigationTab() {
         mDataManager.getNavigation()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<Navigation>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

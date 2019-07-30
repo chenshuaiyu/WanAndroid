@@ -8,7 +8,7 @@ import com.example.chen.wanandroiddemo.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import javax.inject.Inject;
 
@@ -33,7 +33,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
         }
 
         mDataManager.getRegisterData(useranme, password, repassword)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<LoginData>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

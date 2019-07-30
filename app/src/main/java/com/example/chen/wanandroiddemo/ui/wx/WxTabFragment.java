@@ -16,7 +16,7 @@ import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.di.component.DaggerWXTabComponent;
 import com.example.chen.wanandroiddemo.di.module.WXTabModule;
 import com.example.chen.wanandroiddemo.presenter.wx.WXTabPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mWXTabArticleList.get(position);
-            JumpUtils.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
         mSearchButton.setOnClickListener(
                 v -> {

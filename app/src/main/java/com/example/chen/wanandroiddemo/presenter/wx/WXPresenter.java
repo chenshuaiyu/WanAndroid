@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class WXPresenter extends BasePresenter<WXContract.View> implements WXCon
     @Override
     public void getWXTab() {
         mDataManager.getWXTab()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<Tab>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

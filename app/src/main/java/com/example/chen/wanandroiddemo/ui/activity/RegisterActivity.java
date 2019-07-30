@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
-import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,7 +10,7 @@ import com.example.chen.wanandroiddemo.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerRegisterComponent;
 import com.example.chen.wanandroiddemo.di.module.RegisterModule;
 import com.example.chen.wanandroiddemo.presenter.activity.RegisterPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 
 import butterknife.BindView;
 
@@ -47,7 +46,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
         login.setOnClickListener(
                 v -> {
-                    JumpUtils.jumpToLoginActivity(this);
+                    JumpUtil.jumpToLoginActivity(this);
                     finish();
                 }
         );
@@ -64,7 +63,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void showSuccessfulMesssage() {
         Toast.makeText(WanAndroidApp.getInstance(), "注册成功", Toast.LENGTH_SHORT).show();
-        JumpUtils.jumpToLoginActivity(this);
+        JumpUtil.jumpToLoginActivity(this);
         finish();
     }
 }

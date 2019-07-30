@@ -1,13 +1,11 @@
 package com.example.chen.wanandroiddemo.presenter.wx;
 
-import android.text.TextUtils;
-
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import javax.inject.Inject;
 
@@ -28,7 +26,7 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
     @Override
     public void getWXTabArticles(int id, int page) {
         mDataManager.getWXTabArticles(id, page)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -53,7 +51,7 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
     @Override
     public void getWXTabSearchArticles(int id, int page, String k) {
         mDataManager.getWxTabSearchArticles(id, page, k)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

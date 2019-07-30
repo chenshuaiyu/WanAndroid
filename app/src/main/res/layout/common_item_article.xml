@@ -105,7 +105,6 @@
                 android:layout_marginLeft="6dp"
                 android:src="@drawable/ic_dislike" />
 
-
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"

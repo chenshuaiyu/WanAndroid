@@ -6,7 +6,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observer;
@@ -26,7 +26,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     @Override
     public void getBanner() {
         mDataManager.getBanner()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<Banner>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -48,7 +48,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     @Override
     public void getArticles(int page) {
         mDataManager.getArticles(page)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<Articles>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

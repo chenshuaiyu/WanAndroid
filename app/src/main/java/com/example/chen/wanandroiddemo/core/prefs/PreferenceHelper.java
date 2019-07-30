@@ -75,4 +75,31 @@ public interface PreferenceHelper {
      */
     String getNetState();
 
+    /**
+     * 设置无图模式
+     *
+     * @param mode
+     */
+    void setNoImageMode(boolean mode);
+
+    /**
+     * 获取无图模式
+     *
+     * @return
+     */
+    boolean getNoImageMode();
+
+    /**
+     * 设置自动缓存
+     *
+     * @param mode
+     */
+    void setAutoCache(boolean autoCache);
+
+    /**
+     * 获取无图模式
+     *
+     * @return
+     */
+    boolean getAutoCache();
 }

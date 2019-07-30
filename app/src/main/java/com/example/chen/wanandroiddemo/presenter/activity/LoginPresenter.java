@@ -1,7 +1,6 @@
 package com.example.chen.wanandroiddemo.presenter.activity;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
@@ -9,7 +8,7 @@ import com.example.chen.wanandroiddemo.contract.LoginContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import javax.inject.Inject;
 
@@ -34,7 +33,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         }
 
         mDataManager.getLoginData(useranme, password)
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<LoginData>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

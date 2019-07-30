@@ -29,7 +29,7 @@ import com.example.chen.wanandroiddemo.ui.project.ProjectFragment;
 import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
-import com.example.chen.wanandroiddemo.utils.BNVUtils;
+import com.example.chen.wanandroiddemo.utils.BNVUtil;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        BNVUtils.disableShiftMode(mBottomNavigationView);
+        BNVUtil.disableShiftMode(mBottomNavigationView);
 
         curFragment = mHomeFragment;
         mFragmentManager.beginTransaction()
@@ -141,8 +141,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
         logout = mNavigationView.getMenu().findItem(R.id.menu_logout);
 
         login.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+            if (!presenter.isLogin()) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         });
 
         NightModeChangeReceiver.setCallback(new NightModeChangeReceiver.Callback() {

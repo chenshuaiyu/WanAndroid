@@ -20,6 +20,7 @@ import com.example.chen.wanandroiddemo.contract.ArticleDetailContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerArticleDetailComponent;
 import com.example.chen.wanandroiddemo.di.module.ArticleDetailModule;
 import com.example.chen.wanandroiddemo.presenter.activity.ArticleDetailPresenter;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 
@@ -80,16 +81,40 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                 .createAgentWeb()
                 .ready()
                 .go(url);
+
         WebView mWebView = mAgentWeb.getWebCreator().getWebView();
         WebSettings mSettings = mWebView.getSettings();
 
-        //进行一系列设置，优化交互效果
+        mSettings.setBlockNetworkImage(presenter.getNoImageMode());
+        if (presenter.getAutoCache()) {
+            mSettings.setAppCacheEnabled(true);
+            mSettings.setDatabaseEnabled(true);
+            if (NetUtil.isNetworkConnected()) {
+                //默认从网络获取
+                mSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            } else {
+                //若有缓存，使用缓存，否则从网络获取
+                mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            }
+        } else {
+            mSettings.setAppCacheEnabled(false);
+            mSettings.setDatabaseEnabled(false);
+            //不使用缓存，只从网络获取
+            mSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        }
+
+        //支持缩放
         mSettings.setJavaScriptEnabled(true);
         mSettings.setSupportZoom(true);
         mSettings.setBuiltInZoomControls(true);
+        //不显示缩放按钮
         mSettings.setDisplayZoomControls(false);
+        //设置自适应屏幕，两者合用
+        //将图片调整到适合WebView的大小
         mSettings.setUseWideViewPort(true);
+        //缩放至屏幕大小
         mSettings.setLoadWithOverviewMode(true);
+        //自适应屏幕
         mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
     }
 

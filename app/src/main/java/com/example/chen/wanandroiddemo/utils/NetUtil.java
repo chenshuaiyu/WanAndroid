@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.app.WanAndroidApp;
  * @author : chenshuaiyu
  * @date : 2019/4/9 21:19
  */
-public class NetUtils {
+public class NetUtil {
 
     public static boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) WanAndroidApp.getInstance()

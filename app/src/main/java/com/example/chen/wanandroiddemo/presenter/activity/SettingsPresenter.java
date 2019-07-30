@@ -1,18 +1,10 @@
 package com.example.chen.wanandroiddemo.presenter.activity;
 
-import android.util.Log;
-
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.bus.RxBus;
-import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.contract.SettingsContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author : chenshuaiyu
@@ -37,5 +29,25 @@ public class SettingsPresenter extends BasePresenter<SettingsContract.View> impl
     @Override
     public void getNightMode() {
         mView.showNightMode(mDataManager.getNightMode());
+    }
+
+    @Override
+    public void setNoImageMode(boolean isNoImageMode) {
+        mDataManager.setNoImageMode(isNoImageMode);
+    }
+
+    @Override
+    public void getNoImageMode() {
+        mView.showNoImageMode(mDataManager.getNoImageMode());
+    }
+
+    @Override
+    public void setAutoCache(boolean isAutoCache) {
+        mDataManager.setAutoCache(isAutoCache);
+    }
+
+    @Override
+    public void getAutoCache() {
+        mView.showAutoCache(mDataManager.getAutoCache());
     }
 }

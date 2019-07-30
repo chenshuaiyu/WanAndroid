@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
 
 import javax.inject.Inject;
 
@@ -69,5 +68,25 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public String getNetState() {
         return mPreferences.getString(Constants.NET_STATE, null);
+    }
+
+    @Override
+    public void setNoImageMode(boolean mode) {
+        mPreferences.edit().putBoolean(Constants.NO_IMAGE_MODE, mode).apply();
+    }
+
+    @Override
+    public boolean getNoImageMode() {
+        return mPreferences.getBoolean(Constants.NO_IMAGE_MODE, false);
+    }
+
+    @Override
+    public void setAutoCache(boolean autoCache) {
+        mPreferences.edit().putBoolean(Constants.AUTO_CACHE, autoCache).apply();
+    }
+
+    @Override
+    public boolean getAutoCache() {
+        return mPreferences.getBoolean(Constants.AUTO_CACHE, false);
     }
 }

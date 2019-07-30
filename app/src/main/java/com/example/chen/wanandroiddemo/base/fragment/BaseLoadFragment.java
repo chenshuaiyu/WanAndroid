@@ -3,14 +3,13 @@ package com.example.chen.wanandroiddemo.base.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.ldoublem.loadingviewlib.view.LVEatBeans;
 
 import static com.example.chen.wanandroiddemo.app.Constants.*;
@@ -60,7 +59,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
 
-        if (NetUtils.isNetworkConnected()) {
+        if (NetUtil.isNetworkConnected()) {
             showLoadingView();
         } else {
             showErrorView();
@@ -86,7 +85,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         super.onHiddenChanged(hidden);
         if (!hidden && presenter != null) {
             reLoad();
-            if (!NetUtils.isNetworkConnected()) {
+            if (!NetUtil.isNetworkConnected()) {
                 showErrorView();
             }
         }
@@ -97,7 +96,7 @@ public abstract class BaseLoadFragment<T extends IPresenter> extends BaseFragmen
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && presenter != null) {
             reLoad();
-            if (!NetUtils.isNetworkConnected()) {
+            if (!NetUtil.isNetworkConnected()) {
                 showErrorView();
             }
         }

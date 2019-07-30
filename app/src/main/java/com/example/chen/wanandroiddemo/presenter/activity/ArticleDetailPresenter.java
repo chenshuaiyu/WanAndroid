@@ -16,5 +16,13 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
         super(dataManager);
     }
 
+    @Override
+    public boolean getNoImageMode() {
+        return mDataManager.getNoImageMode();
+    }
 
+    @Override
+    public boolean getAutoCache() {
+        return mDataManager.getAutoCache();
+    }
 }

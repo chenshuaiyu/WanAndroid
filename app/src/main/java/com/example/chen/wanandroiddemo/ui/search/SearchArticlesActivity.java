@@ -16,7 +16,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchArticlesComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchArticlesModule;
 import com.example.chen.wanandroiddemo.presenter.search.SearchArticlesPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtils;
+import com.example.chen.wanandroiddemo.utils.JumpUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,14 +72,14 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtils.jumpToArticleDetailActivity(this, article.getLink(), article.getTitle());
+            JumpUtil.jumpToArticleDetailActivity(this, article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
 
             switch (view.getId()) {
                 case R.id.chapter:
-                    JumpUtils.jumpToSystemArticlesActivity(this,
+                    JumpUtil.jumpToSystemArticlesActivity(this,
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.collect:

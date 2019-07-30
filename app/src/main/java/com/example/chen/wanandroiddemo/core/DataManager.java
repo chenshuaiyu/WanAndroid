@@ -189,4 +189,24 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     public String getNetState() {
         return mPreferenceHelper.getNetState();
     }
+
+    @Override
+    public void setNoImageMode(boolean mode) {
+        mPreferenceHelper.setNoImageMode(mode);
+    }
+
+    @Override
+    public boolean getNoImageMode() {
+        return mPreferenceHelper.getNoImageMode();
+    }
+
+    @Override
+    public void setAutoCache(boolean autoCache) {
+        mPreferenceHelper.setAutoCache(autoCache);
+    }
+
+    @Override
+    public boolean getAutoCache() {
+        return mPreferenceHelper.getAutoCache();
+    }
 }

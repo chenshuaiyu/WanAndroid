@@ -34,6 +34,14 @@
     <string name="loading">加载中</string>
     <string name="error">出错了</string>
     <string name="open_with_browser">浏览器打开</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="no_image_mode">无图模式</string>
+    <string name="auto_cache">自动缓存</string>
+    <string name="general">通用</string>
+    <string name="others">其它</string>
+    <string name="feedback">意见反馈</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="email_client">邮件客户端</string>
 
 
 </resources>

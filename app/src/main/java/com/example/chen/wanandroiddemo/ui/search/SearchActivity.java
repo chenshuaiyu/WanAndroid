@@ -24,7 +24,7 @@ import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.di.component.DaggerSearchComponent;
 import com.example.chen.wanandroiddemo.di.module.SearchModule;
 import com.example.chen.wanandroiddemo.presenter.search.SearchPresenter;
-import com.example.chen.wanandroiddemo.utils.ColorUtils;
+import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -90,7 +90,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
                 TextView textView = view.findViewById(R.id.text_view);
                 textView.setText(hotWord.getName());
-                view.setBackgroundColor(ColorUtils.randomTagColor());
+                view.setBackgroundColor(ColorUtil.randomTagColor());
 
                 view.setOnClickListener(v -> {
                     setEditSelection(hotWord.getName());

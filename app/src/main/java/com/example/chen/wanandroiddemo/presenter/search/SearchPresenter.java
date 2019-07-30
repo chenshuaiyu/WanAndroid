@@ -6,7 +6,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     @Override
     public void getHotWord() {
         mDataManager.getHotWord()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<HotWord>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

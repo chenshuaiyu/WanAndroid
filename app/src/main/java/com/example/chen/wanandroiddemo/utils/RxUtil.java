@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author : chenshuaiyu
  * @date : 2019/3/29 19:36
  */
-public class RxUtils {
+public class RxUtil {
 
     //切换线程
     public static <T> ObservableTransformer<T, T> switchSchedulers() {

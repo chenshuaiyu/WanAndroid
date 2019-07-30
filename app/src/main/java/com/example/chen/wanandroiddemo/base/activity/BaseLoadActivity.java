@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.ldoublem.loadingviewlib.view.LVEatBeans;
 import static com.example.chen.wanandroiddemo.app.Constants.ERROR_VIEW_STATE;
 import static com.example.chen.wanandroiddemo.app.Constants.LOADING_VIEW_STATE;
@@ -46,12 +46,13 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
         mLVEatBeans = mLoadingView.findViewById(R.id.loading_view);
         mLVEatBeans.setViewColor(R.color.colorPrimary);
         mLVEatBeans.setEyeColor(R.color.colorAccent);
+        mLVEatBeans.startAnim();
 
         mNormalView.setVisibility(View.VISIBLE);
         mLoadingView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
 
-        if (NetUtils.isNetworkConnected()) {
+        if (NetUtil.isNetworkConnected()) {
             showLoadingView();
         } else {
             showErrorView();

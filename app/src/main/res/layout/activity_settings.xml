@@ -9,57 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="通用"
-        android:layout_margin="5dp"/>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <ImageView
-                    android:id="@+id/ic_night_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_night_mode"
-                    android:layout_alignParentLeft="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="夜间模式"
-                    android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/ic_night_mode"
-                    android:layout_marginLeft="10dp"/>
-
-                <Switch
-                    android:id="@+id/switch_night_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="通用"
+        android:text="@string/general"
         android:layout_margin="5dp"/>
 
     <android.support.v7.widget.CardView
@@ -78,25 +28,147 @@
                 android:layout_margin="10dp">
 
                 <ImageView
-                    android:id="@+id/ic_night"
+                    android:id="@+id/iv_night_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_night_mode"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_night_mode" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/night_mode"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/iv_night_mode"
+                    android:layout_marginLeft="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch_night_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_no_image_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_image"
                     android:layout_alignParentLeft="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="夜间模式"
+                    android:text="@string/no_image_mode"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/ic_night"
+                    android:layout_toRightOf="@+id/iv_no_image_mode"
                     android:layout_marginLeft="10dp"/>
 
                 <Switch
-                    android:id="@+id/switch_night"
+                    android:id="@+id/switch_no_image_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_auto_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cache"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/auto_cache"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/iv_auto_cache"
+                    android:layout_marginLeft="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch_auto_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/others"
+        android:layout_margin="5dp"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_feedback"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feedback"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/iv_feedback"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_clear_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_clear_cache"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_cache"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/iv_clear_cache"
+                    android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
 

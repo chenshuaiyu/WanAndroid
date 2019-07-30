@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.utils.RxUtils;
+import com.example.chen.wanandroiddemo.utils.RxUtil;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observer;
@@ -24,7 +24,7 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
     @Override
     public void getProjectTab() {
         mDataManager.getProjectTab()
-                .compose(RxUtils.switchSchedulers())
+                .compose(RxUtil.switchSchedulers())
                 .subscribe(new Observer<BaseResponse<List<Tab>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

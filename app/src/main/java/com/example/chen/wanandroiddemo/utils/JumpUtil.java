@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @author : chenshuaiyu
  * @date : 2019/4/14 11:24
  */
-public class JumpUtils {
+public class JumpUtil {
     public static void jumpToArticleDetailActivity(Context context, String link, String title){
         Intent intent = ArticleDetailActivity.newIntent(context, link, title);
         context.startActivity(intent);

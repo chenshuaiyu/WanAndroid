@@ -1,13 +1,10 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.app.Constants;
@@ -15,7 +12,7 @@ import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.utils.NetUtils;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 
 import javax.inject.Inject;
 
@@ -131,7 +128,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     @Override
     public void showNetChangeTips() {
         DataManager dataManager = WanAndroidApp.getInstance().getAppComponent().getDataManager();
-        String state = NetUtils.getNetworkType();
+        String state = NetUtil.getNetworkType();
         if (dataManager.getNetState().equals(Constants.NO_NETWORK)) {
             //reLoad();
         }
