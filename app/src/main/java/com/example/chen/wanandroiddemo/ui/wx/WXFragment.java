@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.ui.wx;
 import android.support.v4.app.Fragment;
 
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -23,7 +24,11 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
 
     @Override
     protected void inject() {
-        DaggerWXComponent.builder().wXModule(new WXModule()).build().inject(this);
+        DaggerWXComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .wXModule(new WXModule())
+                .build()
+                .inject(this);
     }
 
     @Override

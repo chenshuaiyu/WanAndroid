@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -49,7 +50,11 @@ public class WxTabFragment extends BaseRefreshFragment<WXTabPresenter> implement
 
     @Override
     protected void inject() {
-        DaggerWXTabComponent.builder().wXTabModule(new WXTabModule()).build().inject(this);
+        DaggerWXTabComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .wXTabModule(new WXTabModule())
+                .build()
+                .inject(this);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.CommonContract;
 import com.example.chen.wanandroiddemo.core.bean.Website;
@@ -38,7 +39,11 @@ public class CommonActivity extends BaseLoadActivity<CommonPresenter> implements
 
     @Override
     protected void inject() {
-        DaggerCommonComponent.builder().commonModule(new CommonModule()).build().inject(this);
+        DaggerCommonComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .commonModule(new CommonModule())
+                .build()
+                .inject(this);
     }
 
     @Override

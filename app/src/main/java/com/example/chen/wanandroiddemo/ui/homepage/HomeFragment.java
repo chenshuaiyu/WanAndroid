@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -37,7 +38,11 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
 
     @Override
     protected void inject() {
-        DaggerHomeComponent.builder().homeModule(new HomeModule()).build().inject(this);
+        DaggerHomeComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .homeModule(new HomeModule())
+                .build()
+                .inject(this);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseLoadFragment;
 import com.example.chen.wanandroiddemo.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -42,7 +43,11 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
 
     @Override
     protected void inject() {
-        DaggerNavigationComponent.builder().navigationModule(new NavigationModule()).build().inject(this);
+        DaggerNavigationComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .navigationModule(new NavigationModule())
+                .build()
+                .inject(this);
     }
 
     @Override

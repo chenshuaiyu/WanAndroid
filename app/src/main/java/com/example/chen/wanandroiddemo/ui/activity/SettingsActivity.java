@@ -12,6 +12,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
@@ -78,7 +79,11 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
 
     @Override
     protected void inject() {
-        DaggerSettingsComponent.builder().settingsModule(new SettingsModule()).build().inject(this);
+        DaggerSettingsComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .settingsModule(new SettingsModule())
+                .build()
+                .inject(this);
     }
 
     @Override

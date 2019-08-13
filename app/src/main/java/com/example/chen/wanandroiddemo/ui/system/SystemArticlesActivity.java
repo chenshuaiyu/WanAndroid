@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
@@ -40,7 +41,11 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     protected void inject() {
-        DaggerSystemArticlesComponent.builder().systemArticlesModule(new SystemArticlesModule()).build().inject(this);
+        DaggerSystemArticlesComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .systemArticlesModule(new SystemArticlesModule())
+                .build()
+                .inject(this);
     }
 
     @Override

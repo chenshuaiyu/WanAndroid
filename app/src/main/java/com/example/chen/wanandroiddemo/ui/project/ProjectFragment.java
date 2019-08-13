@@ -2,6 +2,7 @@ package com.example.chen.wanandroiddemo.ui.project;
 
 import android.support.v4.app.Fragment;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -21,7 +22,11 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
 
     @Override
     protected void inject() {
-        DaggerProjectComponent.builder().projectModule(new ProjectModule()).build().inject(this);
+        DaggerProjectComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .projectModule(new ProjectModule())
+                .build()
+                .inject(this);
     }
 
     @Override

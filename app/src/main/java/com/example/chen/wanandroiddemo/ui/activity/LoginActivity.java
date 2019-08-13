@@ -32,7 +32,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void inject() {
-        DaggerLoginComponent.builder().loginActivityModule(new LoginActivityModule()).build().inject(this);
+        DaggerLoginComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .loginActivityModule(new LoginActivityModule())
+                .build()
+                .inject(this);
     }
 
     @Override

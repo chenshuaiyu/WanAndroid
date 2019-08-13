@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -36,7 +37,11 @@ public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter>
 
     @Override
     protected void inject() {
-        DaggerProjectTabComponent.builder().projectTabModule(new ProjectTabModule()).build().inject(this);
+        DaggerProjectTabComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .projectTabModule(new ProjectTabModule())
+                .build()
+                .inject(this);
     }
 
     @Override

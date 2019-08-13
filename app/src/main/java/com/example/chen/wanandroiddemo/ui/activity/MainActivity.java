@@ -1,12 +1,17 @@
 package com.example.chen.wanandroiddemo.ui.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
@@ -22,7 +28,6 @@ import com.example.chen.wanandroiddemo.contract.MainContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
 import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.presenter.activity.MainPresenter;
-import com.example.chen.wanandroiddemo.receiver.NightModeChangeReceiver;
 import com.example.chen.wanandroiddemo.ui.homepage.HomeFragment;
 import com.example.chen.wanandroiddemo.ui.navigation.NavigationFragment;
 import com.example.chen.wanandroiddemo.ui.project.ProjectFragment;
@@ -30,6 +35,7 @@ import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 import com.example.chen.wanandroiddemo.ui.system.SystemFragment;
 import com.example.chen.wanandroiddemo.ui.wx.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BNVUtil;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -37,6 +43,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     private static final int REQUEST_SETTINGS = 1;
     private static final int REQUEST_COLLECTION = 2;
+
+    private long exitTime = 0;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -50,6 +58,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private TextView login;
     private ActionBar mActionBar;
     private MenuItem logout;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
+            finish();
+        }
+    };
 
     private HomeFragment mHomeFragment = new HomeFragment();
     private SystemFragment mSystemFragment = new SystemFragment();
@@ -68,7 +85,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     protected void inject() {
-        DaggerMainActivityComponent.builder().mainActivityModule(new MainActivityModule()).build().inject(this);
+        DaggerMainActivityComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .mainActivityModule(new MainActivityModule())
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -146,21 +167,24 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 startActivity(intent);
             }
         });
+    }
 
-        NightModeChangeReceiver.setCallback(new NightModeChangeReceiver.Callback() {
-            @Override
-            public void call() {
-                mNavigationView.setCheckedItem(R.id.menu_wanandroid);
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-                finish();
-            }
-        });
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        registerReceiver(mReceiver, new IntentFilter("intent.action.night_mode_change"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         presenter.setLoginUser();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -205,7 +229,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
                 break;
             case R.id.menu_collection:
-                startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
+                if (presenter.isLogin()) {
+                    startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
+                } else {
+                    Toast.makeText(this, "未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.menu_settings:
                 startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_SETTINGS);
@@ -236,6 +265,19 @@ public class MainActivity extends BaseActivity<MainPresenter>
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+        }
+        return false;
     }
 
     @Override

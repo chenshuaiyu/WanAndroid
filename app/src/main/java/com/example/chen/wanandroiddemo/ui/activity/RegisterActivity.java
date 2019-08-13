@@ -33,7 +33,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void inject() {
-        DaggerRegisterComponent.builder().registerModule(new RegisterModule()).build().inject(this);
+        DaggerRegisterComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .registerModule(new RegisterModule())
+                .build()
+                .inject(this);
     }
 
     @Override

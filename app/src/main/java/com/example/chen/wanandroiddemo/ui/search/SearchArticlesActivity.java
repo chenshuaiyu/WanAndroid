@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -49,7 +50,11 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
 
     @Override
     protected void inject() {
-        DaggerSearchArticlesComponent.builder().searchArticlesModule(new SearchArticlesModule()).build().inject(this);
+        DaggerSearchArticlesComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .searchArticlesModule(new SearchArticlesModule())
+                .build()
+                .inject(this);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
 import com.example.chen.wanandroiddemo.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
@@ -35,7 +36,11 @@ public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePres
 
     @Override
     protected void inject() {
-        DaggerSystemArticleComponent.builder().systemArticleModule(new SystemArticleModule()).build().inject(this);
+        DaggerSystemArticleComponent.builder()
+                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
+                .systemArticleModule(new SystemArticleModule())
+                .build()
+                .inject(this);
     }
 
     @Override

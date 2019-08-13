@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.chen.wanandroiddemo.R;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.CollectionContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerCollectionComponent;
@@ -25,7 +26,11 @@ public class CollectionActivity extends BaseActivity<SettingsPresenter> implemen
 
     @Override
     protected void inject() {
-        DaggerCollectionComponent.builder().collectionModule(new CollectionModule()).build().inject(this);
+        DaggerCollectionComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .collectionModule(new CollectionModule())
+                .build()
+                .inject(this);
     }
 
     @Override

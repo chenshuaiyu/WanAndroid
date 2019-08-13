@@ -22,14 +22,6 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver
-            android:name=".receiver.NightModeChangeReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="intent.action.night_mode_change" />
-            </intent-filter>
-        </receiver>
 
         <receiver
             android:name=".receiver.NetChangeReceiver"

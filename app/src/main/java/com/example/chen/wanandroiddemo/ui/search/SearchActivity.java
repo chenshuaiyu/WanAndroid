@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.SearchContract;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
@@ -59,7 +60,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void inject() {
-        DaggerSearchComponent.builder().searchModule(new SearchModule()).build().inject(this);
+        DaggerSearchComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .searchModule(new SearchModule())
+                .build()
+                .inject(this);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.example.chen.wanandroiddemo.di.component.AppComponent;
 import com.example.chen.wanandroiddemo.di.component.DaggerAppComponent;
 import com.example.chen.wanandroiddemo.di.module.AppModule;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * @author : chenshuaiyu
@@ -26,10 +27,10 @@ public class WanAndroidApp extends Application {
         super.onCreate();
         app = this;
 
-        //接入腾讯Bugly
+        // 接入腾讯Bugly
 //        CrashReport.initCrashReport(getApplicationContext(), "87a5a6c3e8", true);
 
-        //接入LeakCanary
+        // 接入LeakCanary
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            return;
 //        }

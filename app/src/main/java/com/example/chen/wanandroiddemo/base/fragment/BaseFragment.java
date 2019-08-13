@@ -76,6 +76,12 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.attachView(this);
+    }
+
+    @Override
     public void onDestroy() {
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();

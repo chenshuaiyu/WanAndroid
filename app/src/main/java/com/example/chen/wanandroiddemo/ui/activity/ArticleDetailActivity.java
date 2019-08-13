@@ -13,8 +13,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
+import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.contract.ArticleDetailContract;
 import com.example.chen.wanandroiddemo.di.component.DaggerArticleDetailComponent;
@@ -50,7 +53,11 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     protected void inject() {
-        DaggerArticleDetailComponent.builder().articleDetailModule(new ArticleDetailModule()).build().inject(this);
+        DaggerArticleDetailComponent.builder()
+                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
+                .articleDetailModule(new ArticleDetailModule())
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -133,6 +140,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             case R.id.menu_collect:
                 break;
             case R.id.menu_open_with_browser:
+                Toast.makeText(this, "正在使用浏览器打开", Toast.LENGTH_SHORT).show();
                 Intent intent= new Intent();
                 intent.setData(Uri.parse(url));
                 intent.setAction(Intent.ACTION_VIEW);
