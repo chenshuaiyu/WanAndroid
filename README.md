@@ -6,7 +6,7 @@
 
 ## 应用截图
 
-<img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-08-490_com.example.ch.png" height="520px" width="280px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-13-796_com.example.ch.png" height="520px" width="280px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-21-747_com.example.ch.png" height="520px" width="280px"/><img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-27-013_com.example.ch.png" height="520px" width="280px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-32-189_com.example.ch.png" height="520px" width="280px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-45-997_com.example.ch.png" height="520px" width="280px"/><img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-53-52-962_com.example.ch.png" height="520px" width="280px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_2019-04-29-09-54-15-449_com.example.ch.png" height="520px" width="280px"/>
+<img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526539.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526568.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526572.png" height="480px" width="270px"/><img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526577.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526581.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526597.png" height="480px" width="270px"/><img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526606.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526631.png" height="480px" width="270px"/> <img src="https://github.com/chenshuaiyu/WanAndroid/blob/master/screenshot/Screenshot_1566526642.png" height="480px" width="270px"/>
 
 ## API
 
@@ -17,8 +17,8 @@
 - Butterknife
 - Rxjava
 - Retrofit
+- Gson
 - Dagger2
 - GreenDao
 - Glide
-- Bugly
-- Leakcanary
+- BaseRecyclerViewAdapterHelper

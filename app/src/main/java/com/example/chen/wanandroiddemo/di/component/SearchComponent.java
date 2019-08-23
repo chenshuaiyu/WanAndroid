@@ -1,6 +1,6 @@
 package com.example.chen.wanandroiddemo.di.component;
 
-import com.example.chen.wanandroiddemo.di.MyScoped;
+import com.example.chen.wanandroiddemo.di.scope.MyScoped;
 import com.example.chen.wanandroiddemo.di.module.SearchModule;
 import com.example.chen.wanandroiddemo.ui.search.SearchActivity;
 

@@ -1,6 +1,6 @@
 package com.example.chen.wanandroiddemo.di.component;
 
-import com.example.chen.wanandroiddemo.di.MyScoped;
+import com.example.chen.wanandroiddemo.di.scope.MyScoped;
 import com.example.chen.wanandroiddemo.di.module.HomeModule;
 import com.example.chen.wanandroiddemo.ui.homepage.HomeFragment;
 

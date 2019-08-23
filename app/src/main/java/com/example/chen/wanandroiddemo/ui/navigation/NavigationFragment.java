@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
@@ -35,6 +37,7 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
     private List<Navigation> mNavigations;
     private NavigationAdapter mNavigationAdapter;
     private TabAdapter mTabAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected int getLayoutId() {
@@ -56,13 +59,26 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
 
         mNavigations = new ArrayList<>();
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mNavigationAdapter);
         leftAndRightLinkage();
     }
 
     private void leftAndRightLinkage() {
+        mVerticalTabLayout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabView tab, int position) {
+                selectTag(position);
+            }
+
+            @Override
+            public void onTabReselected(TabView tab, int position) {
+
+            }
+        });
+
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -74,6 +90,26 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+    }
+
+    private void selectTag(int position) {
+        mRecyclerView.stopScroll();
+        scrollToPosition(position);
+    }
+
+    private void scrollToPosition(int currentPosition) {
+        int firstPosition = mLayoutManager.findFirstVisibleItemPosition();
+        int lastPosition = mLayoutManager.findLastVisibleItemPosition();
+        Toast.makeText(getActivity(), firstPosition + " : " + lastPosition, Toast.LENGTH_SHORT).show();
+        if (currentPosition <= firstPosition) {
+            mRecyclerView.smoothScrollToPosition(currentPosition);
+        } else if (currentPosition <= lastPosition) {
+            int top = mRecyclerView.getChildAt(currentPosition - firstPosition).getTop();
+            mRecyclerView.smoothScrollBy(0, top);
+        } else {
+            mRecyclerView.smoothScrollToPosition(currentPosition);
+//            needScroll = true;
+        }
     }
 
     @Override

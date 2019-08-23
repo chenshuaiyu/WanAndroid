@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.di;
+package com.example.chen.wanandroiddemo.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
