@@ -2,7 +2,7 @@
 
 ## 简介
 
-这是一款分享优质技术文章的APP，此项目使用[WanAndroid](https://www.wanandroid.com)网站提供的API，基于`MVP` + `Butterknife` + `Rxjava` + `Retrofit` + `Dagger2` + `GreenDao` + `Glide` + `Material Design`等架构实现。
+这是一款分享优质技术文章的APP，此项目使用[WanAndroid](https://www.wanandroid.com)网站提供的API，基于`MVP` + `Butterknife` + `Rxjava` + `Retrofit` + `GreenDao` + `Glide` + `Material Design`等架构实现。
 
 ## 应用截图
 
@@ -18,7 +18,6 @@
 - Rxjava
 - Retrofit
 - Gson
-- Dagger2
 - GreenDao
 - Glide
 - BaseRecyclerViewAdapterHelper
