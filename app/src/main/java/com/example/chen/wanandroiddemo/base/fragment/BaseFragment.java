@@ -1,20 +1,21 @@
 package com.example.chen.wanandroiddemo.base.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
+import android.widget.LinearLayout;
+
+import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import javax.inject.Inject;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -24,38 +25,19 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment<T extends IPresenter> extends Fragment implements BaseView {
 
+    private boolean isViewCreated = false;
+    private boolean isLoaded = false;
+
+    private StateLayout mStateLayout;
     private Unbinder mUnbinder;
-
-    @Inject
-    protected T presenter;
-
-    /**
-     * 提供布局Id
-     *
-     * @return 布局Id
-     */
-    @LayoutRes
-    protected abstract int getLayoutId();
-
-    /**
-     * 依赖注入
-     */
-    protected abstract void inject();
-
-    /**
-     * 初始化控件
-     */
-    protected abstract void initView();
-
-    /**
-     * 初始化数据
-     */
-    protected abstract void initData();
+    protected T mPresenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
+        View view = inflater.inflate(R.layout.default_state_layout, container, false);
+        initPresenter();
+        initStateLayout(view);
         mUnbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -63,48 +45,134 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
+
+        //控制页面状态
+        if (NetUtil.isNetworkConnected()) {
+            showLoadingView();
+        } else {
+            showNetErrorView();
+        }
 
         initView();
-        initData();
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        inject();
-        presenter.attachView(this);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getUserVisibleHint() && !isHidden() && isViewCreated) {
+            reLoad();
+            isLoaded = true;
+        }
+    }
+
+    protected void initPresenter() {
+        mPresenter = getPresenter();
+        mPresenter.attachView(this);
+    }
+
+    protected void initStateLayout(View view) {
+        mStateLayout = view.findViewById(R.id.state_layout);
+        StateLayoutManager layoutManager = getStateLayoutManager();
+
+        //设置默认layout
+        layoutManager.setLoadingLayoutResId(layoutManager.getLoadingLayoutResId() == 0 ? R.layout.default_loading : layoutManager.getLoadingLayoutResId());
+        layoutManager.setEmptyDataLayoutResId(layoutManager.getEmptyDataLayoutResId() == 0 ? R.layout.default_empty_data : layoutManager.getEmptyDataLayoutResId());
+        layoutManager.setNetErrorLayoutResId(layoutManager.getNetErrorLayoutResId() == 0 ? R.layout.default_net_error : layoutManager.getNetErrorLayoutResId());
+        layoutManager.setErrorLayoutResId(layoutManager.getErrorLayoutResId() == 0 ? R.layout.default_error : layoutManager.getErrorLayoutResId());
+        layoutManager.setNetErrorReLoadViewResId(R.id.tv_load);
+        layoutManager.setErrorReLoadViewResId(R.id.tv_load);
+
+        mStateLayout.setLayoutManager(layoutManager);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        presenter.attachView(this);
-    }
-
-    @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
+            mUnbinder = null;
         }
-        if (presenter != null) {
-            presenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            mPresenter = null;
         }
-        super.onDestroy();
+        isViewCreated = false;
+        isLoaded = false;
+        super.onDestroyView();
+    }
+
+    /**
+     * 获取Presenter
+     *
+     * @return
+     */
+    protected abstract T getPresenter();
+
+    /**
+     * 获取StateLayoutManager
+     *
+     * @return
+     */
+    protected abstract StateLayoutManager getStateLayoutManager();
+
+    /**
+     * 初始化View
+     */
+    protected abstract void initView();
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && mPresenter != null) {
+            if (!NetUtil.isNetworkConnected()) {
+                showErrorView();
+            } else {
+                reLoad();
+            }
+        }
     }
 
     @Override
-    public void showErrorView() {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && !isLoaded && isViewCreated && mPresenter != null) {
+            if (!NetUtil.isNetworkConnected()) {
+                showErrorView();
+            } else {
+                reLoad();
+                isLoaded = true;
+            }
+        }
+    }
 
+    @Override
+    public void showContentView() {
+        mStateLayout.showContentLayout();
     }
 
     @Override
     public void showLoadingView() {
-
+        mStateLayout.showLoadingLayout();
     }
 
     @Override
-    public void showNormalView() {
+    public void showEmptyDataView() {
+        mStateLayout.showEmptyDataLayout();
+    }
 
+    @Override
+    public void showNetErrorView() {
+        mStateLayout.showNetErrorLayout();
+    }
+
+    @Override
+    public void showErrorView() {
+        mStateLayout.showErrorLayout();
+    }
+
+    @Override
+    public void reLoad() {
+        mStateLayout.reLoad();
     }
 
     @Override

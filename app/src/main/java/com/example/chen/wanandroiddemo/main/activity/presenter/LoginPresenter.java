@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 
-import javax.inject.Inject;
+
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/21 11:49
  */
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
-    @Inject
+
     public LoginPresenter(DataManager dataManager) {
         super(dataManager);
     }

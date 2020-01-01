@@ -1,20 +1,22 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
-
-import javax.inject.Inject;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,93 +28,80 @@ import butterknife.Unbinder;
 public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivity implements BaseView {
 
     private Unbinder mUnbinder;
-
-    @Inject
-    protected T presenter;
-
-    /**
-     * 提供布局Id
-     *
-     * @return 布局Id
-     */
-    @LayoutRes
-    protected abstract int getLayoutId();
-
-    /**
-     * 依赖注入
-     */
-    protected abstract void inject();
-
-    /**
-     * 初始化控件
-     */
-    protected abstract void initView();
-
-    /**
-     * 初始化数据
-     */
-    protected abstract void initData();
+    protected T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        setContentView(getLayoutResId());
+        initPresenter();
+        init();
         mUnbinder = ButterKnife.bind(this);
-        inject();
-        presenter.attachView(this);
-        initView();
-        initData();
     }
 
-    @Override
-    public void recreate() {
-        super.recreate();
-        presenter.attachView(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.attachView(this);
-    }
-
-    @Override
-    protected void onPause() {
-        if (presenter != null) {
-            presenter.detachView();
-        }
-        super.onPause();
+    private void initPresenter() {
+        mPresenter = getPresenter();
+        mPresenter.attachView(this);
     }
 
     @Override
     protected void onDestroy() {
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) {
             mUnbinder.unbind();
+            mUnbinder = null;
         }
-        if (presenter != null) {
-            presenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            mPresenter = null;
         }
         super.onDestroy();
     }
 
-    @Override
-    public void reLoad() {
+    /**
+     * 获取页面布局
+     *
+     * @return
+     */
+    protected abstract int getLayoutResId();
 
+    /**
+     * 获取Presenter
+     *
+     * @return
+     */
+    protected abstract T getPresenter();
+
+    /**
+     * 初始化StateLayout
+     *
+     * @return
+     */
+    protected void init() {
     }
 
-    @Override
-    public void showErrorView() {
 
+    @Override
+    public void showContentView() {
     }
 
     @Override
     public void showLoadingView() {
-
     }
 
     @Override
-    public void showNormalView() {
+    public void showEmptyDataView() {
+    }
 
+    @Override
+    public void showNetErrorView() {
+    }
+
+    @Override
+    public void showErrorView() {
+    }
+
+    @Override
+    public void reLoad() {
     }
 
     @Override
@@ -122,12 +111,11 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-//        recreate();
     }
 
     @Override
     public void showNetChangeTips() {
-        DataManager dataManager = WanAndroidApp.getInstance().getAppComponent().getDataManager();
+        DataManager dataManager = DataManager.getInstance();
         String state = NetUtil.getNetworkType();
         if (dataManager.getNetState().equals(Constants.NO_NETWORK)) {
             //reLoad();

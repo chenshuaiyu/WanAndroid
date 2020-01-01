@@ -5,16 +5,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.ui.activity.ArticleDetailActivity;
+import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
                 name.setText(article.getTitle());
                 name.setTextColor(ColorUtil.randomTagColor());
                 view.setOnClickListener(v -> {
-                    Intent intent = ArticleDetailActivity.newIntent(mContext, article.getLink(), article.getTitle());
+                    Intent intent = ArticleActivity.newIntent(mContext, article.getLink(), article.getTitle());
                     mContext.startActivity(intent);
                 });
                 return view;

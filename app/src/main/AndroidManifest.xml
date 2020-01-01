@@ -32,22 +32,24 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.CollectionActivity" />
-        <activity android:name=".ui.activity.SettingsActivity" />
-        <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.CommonActivity" />
-        <activity android:name=".ui.search.SearchArticlesActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.system.SystemArticlesActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.ArticleDetailActivity" />
-        <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.SplashActivity">
+        <activity android:name=".main.collection.CollectionActivity" />
+        <activity android:name=".main.activity.SettingsActivity" />
+        <activity android:name=".main.activity.RegisterActivity" />
+        <activity android:name=".main.common.CommonActivity" />
+        <activity android:name=".main.search.SearchArticlesActivity" />
+        <activity android:name=".main.search.SearchActivity" />
+        <activity android:name=".main.system.SystemArticlesActivity" />
+        <activity android:name=".main.activity.LoginActivity" />
+        <activity android:name=".main.articledetail.ArticleActivity" />
+        <activity android:name=".main.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".main.activity.SplashActivity">
+
         </activity>
     </application>
 

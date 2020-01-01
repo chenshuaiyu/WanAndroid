@@ -7,8 +7,6 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -17,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/22 20:16
  */
 public class SystemArticlePresenter extends BasePresenter<SystemArticleContract.View> implements SystemArticleContract.Presenter {
-    @Inject
+
     public SystemArticlePresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -30,14 +28,17 @@ public class SystemArticlePresenter extends BasePresenter<SystemArticleContract.
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
+
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         mView.showSystemArticles(articlesBaseResponse.getData().getDatas());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
+
                     @Override
                     public void onError(Throwable e) {
                     }
+
                     @Override
                     public void onComplete() {
                     }

@@ -24,17 +24,18 @@ import android.widget.Toast;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.MainContract;
-import com.example.chen.wanandroiddemo.di.component.DaggerMainActivityComponent;
-import com.example.chen.wanandroiddemo.di.module.MainActivityModule;
 import com.example.chen.wanandroiddemo.main.activity.presenter.MainPresenter;
+import com.example.chen.wanandroiddemo.main.collection.CollectionActivity;
+import com.example.chen.wanandroiddemo.main.common.CommonActivity;
 import com.example.chen.wanandroiddemo.main.homepage.HomeFragment;
 import com.example.chen.wanandroiddemo.main.navigation.NavigationFragment;
 import com.example.chen.wanandroiddemo.main.project.ProjectFragment;
 import com.example.chen.wanandroiddemo.main.search.SearchActivity;
 import com.example.chen.wanandroiddemo.main.system.SystemFragment;
 import com.example.chen.wanandroiddemo.main.wx.WXFragment;
-import com.example.chen.wanandroiddemo.utils.BNVUtil;
+import com.example.chen.wanandroiddemo.utils.BottomNaviViewUtil;
 
 import butterknife.BindView;
 
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private static final int REQUEST_SETTINGS = 1;
     private static final int REQUEST_COLLECTION = 2;
 
+    //连续点击 back 时间间隔
     private long exitTime = 0;
 
     @BindView(R.id.toolbar)
@@ -51,18 +53,18 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @BindView(R.id.bottom_navigation_view)
-    BottomNavigationView mBottomNavigationView;
+    NavigationView mNaviView;
+    @BindView(R.id.bottom_navi_view)
+    BottomNavigationView mBottomNaviView;
 
-    private TextView login;
+    private TextView mLoginTv;
     private ActionBar mActionBar;
-    private MenuItem logout;
+    private MenuItem mLogoutMenuItem;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+            mNaviView.setCheckedItem(R.id.menu_wanandroid);
             startActivity(new Intent(MainActivity.this, MainActivity.class));
             finish();
         }
@@ -73,49 +75,42 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private WXFragment mWXFragment = new WXFragment();
     private NavigationFragment mNavigationFragment = new NavigationFragment();
     private ProjectFragment mProjectFragment = new ProjectFragment();
-    private SettingsActivity mSettingsActivity = new SettingsActivity();
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment curFragment;
 
     @Override
-    protected int getLayoutId() {
+    protected MainPresenter getPresenter() {
+        return new MainPresenter(DataManager.getInstance());
+    }
+
+    @Override
+    protected int getLayoutResId() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void inject() {
-        DaggerMainActivityComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .mainActivityModule(new MainActivityModule())
-                .build()
-                .inject(this);
-    }
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override
-    protected void initView() {
-    }
-
-    @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+        mPresenter.subscribeEvent();
 
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
-        mNavigationView.setNavigationItemSelectedListener(this);
+        mNaviView.setNavigationItemSelectedListener(this);
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        BNVUtil.disableShiftMode(mBottomNavigationView);
+        BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
 
         curFragment = mHomeFragment;
         mFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, mHomeFragment)
-                .add(R.id.fragment_container, mSystemFragment)
-                .add(R.id.fragment_container, mWXFragment)
-                .add(R.id.fragment_container, mNavigationFragment)
-                .add(R.id.fragment_container, mProjectFragment)
+                .add(R.id.fl_fragment_container, mHomeFragment)
+                .add(R.id.fl_fragment_container, mSystemFragment)
+                .add(R.id.fl_fragment_container, mWXFragment)
+                .add(R.id.fl_fragment_container, mNavigationFragment)
+                .add(R.id.fl_fragment_container, mProjectFragment)
                 .hide(mSystemFragment)
                 .hide(mWXFragment)
                 .hide(mNavigationFragment)
@@ -123,7 +118,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 .show(curFragment)
                 .commit();
 
-        mBottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+        mBottomNaviView.setOnNavigationItemSelectedListener(menuItem -> {
             FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(curFragment);
             switch (menuItem.getItemId()) {
                 case R.id.menu_home:
@@ -158,27 +153,23 @@ public class MainActivity extends BaseActivity<MainPresenter>
             return true;
         });
 
-        login = mNavigationView.getHeaderView(0).findViewById(R.id.login);
-        logout = mNavigationView.getMenu().findItem(R.id.menu_logout);
+        mLoginTv = mNaviView.getHeaderView(0).findViewById(R.id.tv_login);
+        mLogoutMenuItem = mNaviView.getMenu().findItem(R.id.menu_logout);
 
-        login.setOnClickListener(v -> {
-            if (!presenter.isLogin()) {
+        mLoginTv.setOnClickListener(v -> {
+            if (!mPresenter.isLogin()) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
-    }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         registerReceiver(mReceiver, new IntentFilter("intent.action.night_mode_change"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setLoginUser();
+        mPresenter.setLoginUser();
     }
 
     @Override
@@ -229,7 +220,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
                 break;
             case R.id.menu_collection:
-                if (presenter.isLogin()) {
+                if (mPresenter.isLogin()) {
                     startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
                 } else {
                     Toast.makeText(this, "未登录，请先登录", Toast.LENGTH_SHORT).show();
@@ -240,7 +231,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_SETTINGS);
                 break;
             case R.id.menu_logout:
-                presenter.logout();
+                mPresenter.logout();
                 break;
             default:
                 break;
@@ -259,7 +250,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
                     break;
                 case REQUEST_COLLECTION:
-                    mNavigationView.setCheckedItem(R.id.menu_wanandroid);
+                    mNaviView.setCheckedItem(R.id.menu_wanandroid);
                     break;
                 default:
                     break;
@@ -282,26 +273,26 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void showLoginUser(String account) {
-        login.setText(account);
+        mLoginTv.setText(account);
     }
 
     @Override
     public void resetLoginUser() {
-        login.setText(R.string.login);
+        mLoginTv.setText(R.string.login);
     }
 
     @Override
     public void setLogoutVisibility(boolean visiable) {
-        logout.setVisible(visiable);
+        mLogoutMenuItem.setVisible(visiable);
     }
 
     @Override
     public void showLogoutSucceed() {
-        Toast.makeText(WanAndroidApp.getInstance(), "退出成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WanAndroidApp.getInstance(), R.string.exit_success, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showLogoutFailed() {
-        Toast.makeText(WanAndroidApp.getInstance(), "退出失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WanAndroidApp.getInstance(), R.string.exit_fail, Toast.LENGTH_SHORT).show();
     }
 }

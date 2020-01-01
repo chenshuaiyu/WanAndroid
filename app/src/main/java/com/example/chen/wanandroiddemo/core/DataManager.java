@@ -19,8 +19,6 @@ import com.example.chen.wanandroiddemo.core.prefs.PreferenceHelperImpl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**
@@ -28,16 +26,31 @@ import io.reactivex.Observable;
  * @date : 2019/3/16 10:49
  */
 public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
+    private static volatile DataManager sInstance = null;
 
-    private DbHelperImpl mDbHelper;
-    private HttpHelperImpl mHttpHelper;
-    private PreferenceHelperImpl mPreferenceHelper;
+    private DbHelper mDbHelper;
+    private HttpHelper mHttpHelper;
+    private PreferenceHelper mPreferenceHelper;
 
-    @Inject
-    public DataManager(DbHelperImpl dbHelper, HttpHelperImpl httpHelper, PreferenceHelperImpl preferenceHelper) {
+    private DataManager(DbHelper dbHelper, HttpHelper httpHelper, PreferenceHelper preferenceHelper) {
         mDbHelper = dbHelper;
         mHttpHelper = httpHelper;
         mPreferenceHelper = preferenceHelper;
+    }
+
+    public static DataManager getInstance() {
+        if (sInstance == null) {
+            synchronized (DataManager.class) {
+                if (sInstance == null) {
+                    sInstance = new DataManager(
+                            DbHelperImpl.getInstance(),
+                            HttpHelperImpl.getInstance(),
+                            PreferenceHelperImpl.getInstance()
+                    );
+                }
+            }
+        }
+        return sInstance;
     }
 
     @Override

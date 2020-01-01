@@ -7,14 +7,9 @@ package com.example.chen.wanandroiddemo.base.view;
 public interface BaseView {
 
     /**
-     * 重加载数据
+     * 显示正常视图
      */
-    void reLoad();
-
-    /**
-     * 显示加载错误视图
-     */
-    void showErrorView();
+    void showContentView();
 
     /**
      * 显示正在加载视图
@@ -22,9 +17,24 @@ public interface BaseView {
     void showLoadingView();
 
     /**
-     * 显示正常视图
+     * 显示正在加载视图
      */
-    void showNormalView();
+    void showEmptyDataView();
+
+    /**
+     * 显示网络错误视图
+     */
+    void showNetErrorView();
+
+    /**
+     * 显示加载错误视图
+     */
+    void showErrorView();
+
+    /**
+     * 重加载数据
+     */
+    void reLoad();
 
     /**
      * 设置夜间模式

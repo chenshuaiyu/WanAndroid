@@ -2,29 +2,33 @@ package com.example.chen.wanandroiddemo.main.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.search.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
-import com.example.chen.wanandroiddemo.di.component.DaggerSearchArticlesComponent;
-import com.example.chen.wanandroiddemo.di.module.SearchArticlesModule;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchArticlesPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
+public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
+
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.recycler_view)
@@ -37,29 +41,26 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
     private List<Article> mArticles;
     private ArticlesAdapter mArticlesAdapter;
 
-    public static Intent newIntent(Context context, String key){
+    public static Intent newIntent(Context context, String key) {
         Intent intent = new Intent(context, SearchArticlesActivity.class);
         intent.putExtra(Constants.SEARCH_KEY, key);
         return intent;
     }
 
     @Override
-    protected int getLayoutId() {
+    protected SearchArticlesPresenter getPresenter() {
+        return new SearchArticlesPresenter(DataManager.getInstance());
+    }
+
+    @Override
+    protected int getLayoutResId() {
         return R.layout.activity_search_articles;
     }
 
     @Override
-    protected void inject() {
-        DaggerSearchArticlesComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .searchArticlesModule(new SearchArticlesModule())
-                .build()
-                .inject(this);
-    }
-
-    @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter.subscribeEvent();
 
         Intent intent = getIntent();
         key = intent.getStringExtra(Constants.SEARCH_KEY);
@@ -77,14 +78,14 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
         mRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtil.jumpToArticleDetailActivity(this, article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(this, article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
 
             switch (view.getId()) {
                 case R.id.chapter:
-                    JumpUtil.jumpToSystemArticlesActivity(this,
+                    OpenActivityUtil.openSystemArticlesActivity(this,
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.collect:
@@ -96,15 +97,15 @@ public class SearchArticlesActivity extends BaseLoadActivity<SearchArticlesPrese
 
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             curPage = 0;
-            presenter.getSearchArticles(curPage++, key);
+            mPresenter.getSearchArticles(curPage++, key);
             refreshLayout.finishRefresh(1500);
         });
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            presenter.getSearchArticles(curPage++, key);
+            mPresenter.getSearchArticles(curPage++, key);
             refreshLayout.finishLoadMore(1500);
         });
 
-        presenter.getSearchArticles(curPage++, key);
+        mPresenter.getSearchArticles(curPage++, key);
     }
 
     @Override

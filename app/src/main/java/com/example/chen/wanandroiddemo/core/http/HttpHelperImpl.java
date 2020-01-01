@@ -10,8 +10,10 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
+import com.example.chen.wanandroiddemo.core.http.api.RetrofitClient;
+
 import java.util.List;
-import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -19,11 +21,23 @@ import io.reactivex.Observable;
  * @date : 2019/3/16 11:54
  */
 public class HttpHelperImpl implements HttpHelper {
+    private static volatile HttpHelperImpl sInstance = null;
+
     private Api mApi;
 
-    @Inject
     public HttpHelperImpl(Api api) {
         mApi = api;
+    }
+
+    public static HttpHelper getInstance() {
+        if (sInstance == null) {
+            synchronized (HttpHelperImpl.class) {
+                if (sInstance == null) {
+                    sInstance = new HttpHelperImpl(RetrofitClient.createService());
+                }
+            }
+        }
+        return sInstance;
     }
 
     @Override

@@ -8,9 +8,6 @@ import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
-
-import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -19,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/22 14:20
  */
 public class SystemPresenter extends BasePresenter<SystemContract.View> implements SystemContract.Presenter {
-    @Inject
+
     public SystemPresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -35,7 +32,7 @@ public class SystemPresenter extends BasePresenter<SystemContract.View> implemen
                     @Override
                     public void onNext(BaseResponse<List<System>> listBaseResponse) {
                         mView.showSystem(listBaseResponse.getData());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
                     @Override
                     public void onError(Throwable e) {

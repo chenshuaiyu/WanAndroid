@@ -3,59 +3,57 @@ package com.example.chen.wanandroiddemo.main.activity;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.LoginContract;
-import com.example.chen.wanandroiddemo.di.component.DaggerLoginComponent;
-import com.example.chen.wanandroiddemo.di.module.LoginActivityModule;
 import com.example.chen.wanandroiddemo.main.activity.presenter.LoginPresenter;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
-    @BindView(R.id.username)
-    EditText username;
-    @BindView(R.id.password)
-    EditText password;
-    @BindView(R.id.login)
-    Button login;
-    @BindView(R.id.register)
-    Button register;
+public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements LoginContract.View {
+
+    @BindView(R.id.et_username)
+    EditText mUsernameEt;
+    @BindView(R.id.et_password)
+    EditText mPasswordEt;
+    @BindView(R.id.btn_login)
+    Button mLoginBtn;
+    @BindView(R.id.btn_register)
+    Button mRegisterBtn;
+    @BindView(R.id.iv_close)
+    ImageView mCloseIv;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_login;
+    protected LoginPresenter getPresenter() {
+        return new LoginPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerLoginComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .loginActivityModule(new LoginActivityModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.activity_login)
+                .setOnReLoadListener(() -> showContentView())
+                .build();
     }
 
     @Override
     protected void initView() {
-    }
+        mPresenter.subscribeEvent();
 
-    @Override
-    protected void initData() {
-        presenter.subscribeEvent();
-
-        register.setOnClickListener(
-                v -> {
-                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                    finish();
-                }
+        mRegisterBtn.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            finish();
+        });
+        mLoginBtn.setOnClickListener(v ->
+                mPresenter.getLoginData(mUsernameEt.getText().toString(), mPasswordEt.getText().toString())
         );
-        login.setOnClickListener(
-                v -> presenter.getLoginData(username.getText().toString(), password.getText().toString())
-        );
+        mCloseIv.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -65,7 +63,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showSuccessfulMesssage() {
-        Toast.makeText(WanAndroidApp.getInstance(), "登录成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WanAndroidApp.getInstance(), R.string.login_success, Toast.LENGTH_SHORT).show();
         finish();
     }
 }

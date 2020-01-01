@@ -10,7 +10,7 @@ import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
 
-import javax.inject.Inject;
+
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/22 22:15
  */
 public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter {
-    @Inject
+
     public SearchPresenter(DataManager dataManager) {
         super(dataManager);
     }

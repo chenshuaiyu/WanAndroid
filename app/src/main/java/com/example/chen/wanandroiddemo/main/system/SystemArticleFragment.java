@@ -1,85 +1,88 @@
 package com.example.chen.wanandroiddemo.main.system;
 
-import android.annotation.SuppressLint;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
-import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticleComponent;
-import com.example.chen.wanandroiddemo.di.module.SystemArticleModule;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlePresenter;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.utils.JumpUtil;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/22 20:12
  */
-@SuppressLint("ValidFragment")
-public class SystemArticleFragment extends BaseRefreshFragment<SystemArticlePresenter> implements SystemArticleContract.View {
-    private int curPage = 0;
+public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> implements SystemArticleContract.View {
+
+    @BindView(R.id.refresh_recycler_view)
+    protected RefreshRecyclerView mRefreshRecyclerView;
+
     private System mChildrenSystem;
     private List<Article> mArticles;
     private ArticlesAdapter mArticlesAdapter;
 
-    public SystemArticleFragment(System childrenSystem) {
-        mChildrenSystem = childrenSystem;
+    @Override
+    protected SystemArticlePresenter getPresenter() {
+        return new SystemArticlePresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerSystemArticleComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .systemArticleModule(new SystemArticleModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
+                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
+                .build();
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mArticles = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mArticlesAdapter);
+
+        mRefreshRecyclerView.setFirstPage(0);
+        mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+        });
+
+        mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
+            @Override
+            public void refresh(int firstPage) {
+                mPresenter.getSystemArticles(firstPage, mChildrenSystem.getId());
+            }
+
+            @Override
+            public void loadMore(int page) {
+                mPresenter.getSystemArticles(page, mChildrenSystem.getId());
+            }
         });
     }
 
     @Override
-    public void reLoad() {
-        curPage = 0;
-        presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
-    }
-
-    @Override
-    public void refresh(RefreshLayout refreshLayout) {
-        curPage = 0;
-        presenter.getSystemArticles(curPage, mChildrenSystem.getId());
-    }
-
-    @Override
-    public void loadMore(RefreshLayout refreshLayout) {
-        presenter.getSystemArticles(curPage++, mChildrenSystem.getId());
-    }
-
-    @Override
     public void showSystemArticles(List<Article> articles) {
-        if (curPage == 0)
+        if (mRefreshRecyclerView.isFirstPage())
             mArticles.clear();
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    public void setChildrenSystem(System childrenSystem) {
+        mChildrenSystem = childrenSystem;
     }
 
     @Override

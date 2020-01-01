@@ -2,61 +2,61 @@ package com.example.chen.wanandroiddemo.main.activity;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
+import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.RegisterContract;
-import com.example.chen.wanandroiddemo.di.component.DaggerRegisterComponent;
-import com.example.chen.wanandroiddemo.di.module.RegisterModule;
 import com.example.chen.wanandroiddemo.main.activity.presenter.RegisterPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
 
-public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
-    @BindView(R.id.username)
-    EditText username;
-    @BindView(R.id.password)
-    EditText password;
-    @BindView(R.id.confirm_password)
-    EditText confirmPassword;
-    @BindView(R.id.login)
-    Button login;
-    @BindView(R.id.register)
-    Button register;
+public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implements RegisterContract.View {
+
+    @BindView(R.id.et_username)
+    EditText mUsernameEt;
+    @BindView(R.id.et_password)
+    EditText mPasswordEt;
+    @BindView(R.id.et_confirm_password)
+    EditText mConfirmPasswordEt;
+    @BindView(R.id.btn_login)
+    Button mLoginBtn;
+    @BindView(R.id.btn_register)
+    Button mRegisterBtn;
+    @BindView(R.id.iv_close)
+    ImageView mCloseIv;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_register;
+    protected RegisterPresenter getPresenter() {
+        return new RegisterPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerRegisterComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .registerModule(new RegisterModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.activity_register)
+                .setOnReLoadListener(() -> showContentView())
+                .build();
     }
 
     @Override
     protected void initView() {
-    }
 
-    @Override
-    protected void initData() {
-        presenter.subscribeEvent();
-
-        login.setOnClickListener(
+        mLoginBtn.setOnClickListener(
                 v -> {
-                    JumpUtil.jumpToLoginActivity(this);
+                    OpenActivityUtil.openLoginActivity(this);
                     finish();
                 }
         );
-        register.setOnClickListener(
-                v -> presenter.getRegisterData(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString())
+        mRegisterBtn.setOnClickListener(
+                v -> mPresenter.getRegisterData(mUsernameEt.getText().toString(), mPasswordEt.getText().toString(), mConfirmPasswordEt.getText().toString())
         );
+        mCloseIv.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void showSuccessfulMesssage() {
         Toast.makeText(WanAndroidApp.getInstance(), "注册成功", Toast.LENGTH_SHORT).show();
-        JumpUtil.jumpToLoginActivity(this);
+        OpenActivityUtil.openLoginActivity(this);
         finish();
     }
 }

@@ -2,23 +2,33 @@ package com.example.chen.wanandroiddemo.core.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-
-import javax.inject.Inject;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/16 11:09
  */
 public class PreferenceHelperImpl implements PreferenceHelper {
+    private static volatile PreferenceHelperImpl sInstance = null;
+
     private SharedPreferences mPreferences;
 
-    @Inject
-    public PreferenceHelperImpl() {
-        mPreferences = WanAndroidApp.getInstance().getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+    public PreferenceHelperImpl(SharedPreferences preferences) {
+        mPreferences = preferences;
     }
 
+    public static PreferenceHelper getInstance() {
+        if (sInstance == null) {
+            synchronized (PreferenceHelperImpl.class) {
+                if (sInstance == null) {
+                    sInstance = new PreferenceHelperImpl(WanAndroidApp.getInstance().getSharedPreferences(Constants.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE));
+                }
+            }
+        }
+        return sInstance;
+    }
 
     @Override
     public void setLoginStatus(boolean status) {

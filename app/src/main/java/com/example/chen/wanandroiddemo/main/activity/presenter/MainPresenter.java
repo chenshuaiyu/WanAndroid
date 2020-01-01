@@ -7,7 +7,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
-import javax.inject.Inject;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable;
  */
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
-    @Inject
     public MainPresenter(DataManager dataManager) {
         super(dataManager);
     }

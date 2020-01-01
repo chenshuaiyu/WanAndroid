@@ -7,7 +7,7 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 
-import javax.inject.Inject;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/21 8:48
  */
 public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.View> implements ProjectTabContract.Presenter {
-    @Inject
+
     public ProjectTabPresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -32,7 +32,7 @@ public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.View> 
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         mView.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
                     @Override
                     public void onError(Throwable e) {

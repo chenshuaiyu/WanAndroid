@@ -1,138 +1,98 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
-import com.ldoublem.loadingviewlib.view.LVEatBeans;
-import static com.example.chen.wanandroiddemo.app.Constants.ERROR_VIEW_STATE;
-import static com.example.chen.wanandroiddemo.app.Constants.LOADING_VIEW_STATE;
-import static com.example.chen.wanandroiddemo.app.Constants.NORMAL_VIEW_STATE;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
-/**
- * @author : chenshuaiyu
- * @date : 2019/4/9 20:32
- */
 public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivity<T> {
 
-    private View mErrorView;
-    private View mLoadingView;
-    private ViewGroup mNormalView;
-    private LVEatBeans mLVEatBeans;
-    private int mCurrentState = Constants.NORMAL_VIEW_STATE;
+    private StateLayout mStateLayout;
 
     @Override
-    protected void initView() {
-        mNormalView = findViewById(R.id.normal_view);
-        if (mNormalView == null || !(mNormalView.getParent() instanceof ViewGroup)) {
-            throw new IllegalStateException("mNormalView error.");
-        }
+    protected int getLayoutResId() {
+        return R.layout.default_state_layout;
+    }
 
-        ViewGroup parent = (ViewGroup) mNormalView.getParent();
-        View.inflate(this, R.layout.error_view, parent);
-        View.inflate(this, R.layout.loading_view, parent);
-        mErrorView = parent.findViewById(R.id.error);
-        mLoadingView = parent.findViewById(R.id.loading);
-        mLoadingView = parent.findViewById(R.id.loading);
+    @Override
+    protected void init() {
+        super.init();
+        initStateLayout();
+    }
 
-        //设置重加载
-        ImageView reloadView = mErrorView.findViewById(R.id.reload_view);
-        reloadView.setOnClickListener(v -> reLoad());
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        //设置加载动画
-        mLVEatBeans = mLoadingView.findViewById(R.id.loading_view);
-        mLVEatBeans.setViewColor(R.color.colorPrimary);
-        mLVEatBeans.setEyeColor(R.color.colorAccent);
-        mLVEatBeans.startAnim();
-
-        mNormalView.setVisibility(View.VISIBLE);
-        mLoadingView.setVisibility(View.GONE);
-        mErrorView.setVisibility(View.GONE);
-
+        //控制页面状态
         if (NetUtil.isNetworkConnected()) {
             showLoadingView();
         } else {
-            showErrorView();
+            showNetErrorView();
         }
+
+        initView();
+        reLoad();
     }
 
-    @Override
-    protected void onDestroy() {
-        if (mLVEatBeans != null) {
-            mLVEatBeans.stopAnim();
-        }
-        super.onDestroy();
+    private void initStateLayout() {
+        mStateLayout = findViewById(R.id.state_layout);
+        StateLayoutManager layoutManager = getStateLayoutManager();
+
+        //设置默认layout
+        layoutManager.setLoadingLayoutResId(layoutManager.getLoadingLayoutResId() == 0 ? R.layout.default_loading : layoutManager.getLoadingLayoutResId());
+        layoutManager.setEmptyDataLayoutResId(layoutManager.getEmptyDataLayoutResId() == 0 ? R.layout.default_empty_data : layoutManager.getEmptyDataLayoutResId());
+        layoutManager.setNetErrorLayoutResId(layoutManager.getNetErrorLayoutResId() == 0 ? R.layout.default_net_error : layoutManager.getNetErrorLayoutResId());
+        layoutManager.setErrorLayoutResId(layoutManager.getErrorLayoutResId() == 0 ? R.layout.default_error : layoutManager.getErrorLayoutResId());
+        layoutManager.setNetErrorReLoadViewResId(R.id.tv_load);
+        layoutManager.setErrorReLoadViewResId(R.id.tv_load);
+
+        mStateLayout.setLayoutManager(layoutManager);
     }
 
+    /**
+     * 获取StateLayoutManager
+     *
+     * @return
+     */
+    protected abstract StateLayoutManager getStateLayoutManager();
+
+    /**
+     * 初始化View
+     */
+    protected abstract void initView();
+
     @Override
-    public void showErrorView() {
-        if (mCurrentState != ERROR_VIEW_STATE) {
-            hideCurrentView();
-            mCurrentState = ERROR_VIEW_STATE;
-            showCurrentView();
-        }
+    public void showContentView() {
+        mStateLayout.showContentLayout();
     }
 
     @Override
     public void showLoadingView() {
-        if (mCurrentState != LOADING_VIEW_STATE) {
-            hideCurrentView();
-            mCurrentState = LOADING_VIEW_STATE;
-            showCurrentView();
-        }
+        mStateLayout.showLoadingLayout();
     }
 
     @Override
-    public void showNormalView() {
-        if (mCurrentState != NORMAL_VIEW_STATE) {
-            hideCurrentView();
-            mCurrentState = NORMAL_VIEW_STATE;
-            showCurrentView();
-        }
+    public void showEmptyDataView() {
+        mStateLayout.showEmptyDataLayout();
     }
 
-    private void showCurrentView() {
-        View showView = null;
-        switch (mCurrentState) {
-            case Constants.NORMAL_VIEW_STATE:
-                showView = mNormalView;
-                break;
-            case Constants.LOADING_VIEW_STATE:
-                showView = mLoadingView;
-                break;
-            case ERROR_VIEW_STATE:
-                showView = mErrorView;
-                break;
-            default:
-                break;
-        }
-        if (showView == null) {
-            return;
-        }
-        showView.setVisibility(View.VISIBLE);
+    @Override
+    public void showNetErrorView() {
+        mStateLayout.showNetErrorLayout();
     }
 
-    private void hideCurrentView() {
-        View hideView = null;
-        switch (mCurrentState) {
-            case Constants.NORMAL_VIEW_STATE:
-                hideView = mNormalView;
-                break;
-            case Constants.LOADING_VIEW_STATE:
-                hideView = mLoadingView;
-                break;
-            case ERROR_VIEW_STATE:
-                hideView = mErrorView;
-                break;
-            default:
-                break;
-        }
-        if (hideView == null) {
-            return;
-        }
-        hideView.setVisibility(View.GONE);
+    @Override
+    public void showErrorView() {
+        mStateLayout.showErrorLayout();
+    }
+
+    @Override
+    public void reLoad() {
+        mStateLayout.reLoad();
     }
 }

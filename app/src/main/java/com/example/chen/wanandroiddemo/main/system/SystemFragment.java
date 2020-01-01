@@ -2,64 +2,72 @@ package com.example.chen.wanandroiddemo.main.system;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SystemAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.di.component.DaggerSystemComponent;
-import com.example.chen.wanandroiddemo.di.module.SystemModule;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemPresenter;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/22 14:19
  */
-public class SystemFragment extends BaseRefreshFragment<SystemPresenter> implements SystemContract.View {
+public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
+    @BindView(R.id.refresh_recycler_view)
+    protected RefreshRecyclerView mRefreshRecyclerView;
+
     private List<System> mSystems;
     private SystemAdapter mSystemAdapter;
 
     @Override
-    protected void inject() {
-        DaggerSystemComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .systemModule(new SystemModule())
-                .build()
-                .inject(this);
+    protected SystemPresenter getPresenter() {
+        return new SystemPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void initData() {
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
+                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
+                .build();
+    }
+
+    @Override
+    protected void initView() {
         mSystems = new ArrayList<>();
         mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mSystemAdapter);
+
+        mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRefreshRecyclerView.setAdapter(mSystemAdapter);
         mSystemAdapter.setOnItemClickListener((adapter, view, position) -> {
             System system = mSystems.get(position);
             Intent intent = new Intent(getActivity(), SystemArticlesActivity.class);
             intent.putExtra(Constants.SYSTEM, system);
             startActivity(intent);
         });
-    }
 
-    @Override
-    public void reLoad() {
-        presenter.getSystem();
-    }
+        mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
+            @Override
+            public void refresh(int firstPage) {
+                mPresenter.getSystem();
+            }
 
-    @Override
-    public void refresh(RefreshLayout refreshLayout) {
-        presenter.getSystem();
-    }
-
-    @Override
-    public void loadMore(RefreshLayout refreshLayout) {
-        presenter.getSystem();
+            @Override
+            public void loadMore(int page) {
+                mPresenter.getSystem();
+            }
+        });
     }
 
     @Override

@@ -8,15 +8,16 @@ import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.fragment.BaseLoadFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.di.component.DaggerNavigationComponent;
-import com.example.chen.wanandroiddemo.di.module.NavigationModule;
 import com.example.chen.wanandroiddemo.main.navigation.presenter.NavigationPresenter;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import q.rorbin.verticaltablayout.VerticalTabLayout;
 import q.rorbin.verticaltablayout.adapter.TabAdapter;
@@ -27,7 +28,7 @@ import q.rorbin.verticaltablayout.widget.TabView;
  * @author : chenshuaiyu
  * @date : 2019/3/22 15:19
  */
-public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.vertical_tab_layout)
     VerticalTabLayout mVerticalTabLayout;
@@ -40,22 +41,21 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
     private LinearLayoutManager mLayoutManager;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_nagivation;
+    protected NavigationPresenter getPresenter() {
+        return new NavigationPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerNavigationComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .navigationModule(new NavigationModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.fragment_nagivation)
+                .setOnReLoadListener(() -> mPresenter.getNavigationTab())
+                .build();
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mNavigations = new ArrayList<>();
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
@@ -110,11 +110,6 @@ public class NavigationFragment extends BaseLoadFragment<NavigationPresenter> im
             mRecyclerView.smoothScrollToPosition(currentPosition);
 //            needScroll = true;
         }
-    }
-
-    @Override
-    public void reLoad() {
-        presenter.getNavigationTab();
     }
 
     @Override

@@ -9,8 +9,6 @@ import com.example.chen.wanandroiddemo.utils.RxUtil;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -20,7 +18,6 @@ import io.reactivex.disposables.Disposable;
  */
 public class WXPresenter extends BasePresenter<WXContract.View> implements WXContract.Presenter {
 
-    @Inject
     public WXPresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -33,15 +30,18 @@ public class WXPresenter extends BasePresenter<WXContract.View> implements WXCon
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
+
                     @Override
                     public void onNext(BaseResponse<List<Tab>> listBaseResponse) {
                         mView.showTab(listBaseResponse.getData());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
                     }
+
                     @Override
                     public void onComplete() {
                     }

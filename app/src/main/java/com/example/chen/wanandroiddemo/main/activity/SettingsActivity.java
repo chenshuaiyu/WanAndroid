@@ -1,6 +1,8 @@
 package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -9,15 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.SettingsContract;
-import com.example.chen.wanandroiddemo.di.component.DaggerSettingsComponent;
-import com.example.chen.wanandroiddemo.di.module.SettingsModule;
 import com.example.chen.wanandroiddemo.main.activity.presenter.SettingsPresenter;
 import com.example.chen.wanandroiddemo.utils.ShareUtil;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,10 +45,10 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
                 setNightMode();
                 break;
             case R.id.switch_no_image_mode:
-                presenter.setNoImageMode(mNoImageModeSwitch.isChecked());
+                mPresenter.setNoImageMode(mNoImageModeSwitch.isChecked());
                 break;
             case R.id.switch_auto_cache:
-                presenter.setAutoCache(mAutoCacheSwitch.isChecked());
+                mPresenter.setAutoCache(mAutoCacheSwitch.isChecked());
                 break;
             case R.id.rl_feedback:
                 ShareUtil.sendEmail(this, getString(R.string.email_client));
@@ -60,31 +61,19 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
         }
     }
 
-    private void setNightMode() {
-        boolean checked = mNightModeSwitch.isChecked();
-        presenter.setNightMode(checked);
-        RxBus.getInstance().post(new NightModeEvent(checked));
-        startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
-        overridePendingTransition(R.anim.enter, R.anim.exit);
-        finish();
+    @Override
+    protected SettingsPresenter getPresenter() {
+        return new SettingsPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int getLayoutResId() {
         return R.layout.activity_settings;
     }
 
     @Override
-    protected void inject() {
-        DaggerSettingsComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .settingsModule(new SettingsModule())
-                .build()
-                .inject(this);
-    }
-
-    @Override
-    protected void initView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -92,14 +81,20 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         supportActionBar.setTitle(R.string.settings);
 
-        presenter.getNightMode();
-        presenter.getNoImageMode();
-        presenter.getAutoCache();
+        mPresenter.getNightMode();
+        mPresenter.getNoImageMode();
+        mPresenter.getAutoCache();
+
+        mPresenter.subscribeEvent();
     }
 
-    @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    private void setNightMode() {
+        boolean checked = mNightModeSwitch.isChecked();
+        mPresenter.setNightMode(checked);
+        RxBus.getInstance().post(new NightModeEvent(checked));
+        startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        finish();
     }
 
     @Override

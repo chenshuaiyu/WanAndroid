@@ -3,13 +3,12 @@ package com.example.chen.wanandroiddemo.main.wx;
 import android.support.v4.app.Fragment;
 
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.di.component.DaggerWXComponent;
-import com.example.chen.wanandroiddemo.di.module.WXModule;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXContract;
 import com.example.chen.wanandroiddemo.main.wx.presenter.WXPresenter;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +22,20 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     private ViewPagerAdapter mPagerAdapter;
 
     @Override
-    protected void inject() {
-        DaggerWXComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .wXModule(new WXModule())
-                .build()
-                .inject(this);
+    protected WXPresenter getPresenter() {
+        return new WXPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected StateLayoutManager getStateLayoutManager() {
+        StateLayoutManager manager = super.getStateLayoutManager();
+        manager.setOnReLoadListener(() -> mPresenter.getWXTab());
+        return manager;
+    }
+
+    @Override
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mFragments = new ArrayList<>();
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
@@ -42,15 +44,12 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     }
 
     @Override
-    public void reLoad() {
-        presenter.getWXTab();
-    }
-
-    @Override
     public void showTab(List<Tab> wxTabList) {
         mFragments.clear();
         for (Tab tab : wxTabList) {
-            mFragments.add(new WxTabFragment(tab));
+            WxTabFragment tabFragment = new WxTabFragment();
+            tabFragment.setWXTab(tab);
+            mFragments.add(tabFragment);
         }
         mPagerAdapter.notifyDataSetChanged();
         mTabLayout.notifyDataSetChanged();

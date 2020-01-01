@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.app;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 
 /**
@@ -44,13 +45,6 @@ public class Constants {
     public static final String SEARCH_KEY = "search_key";
 
     /**
-     * BaseLoadActivity ViewState
-     */
-    public static final int NORMAL_VIEW_STATE = 0;
-    public static final int ERROR_VIEW_STATE = 1;
-    public static final int LOADING_VIEW_STATE = 2;
-
-    /**
      * Color
      */
     public static final int[] COLOR_HOTWORD = new int[]{
@@ -74,4 +68,10 @@ public class Constants {
      * 邮箱地址
      */
     public static final String EMAIL_ADDRESS = "664251867@qq.com";
+
+
+    /**
+     * Splash页倒计时3秒
+     */
+    public static final int SPLASH_TIME = 3;
 }

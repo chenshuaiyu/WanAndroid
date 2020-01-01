@@ -27,14 +27,14 @@
             </android.support.design.widget.AppBarLayout>
 
             <FrameLayout
-                android:id="@+id/fragment_container"
+                android:id="@+id/fl_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/bottom_navigation_view"
+                android:layout_above="@id/bottom_navi_view"
                 android:layout_below="@id/appbar_layout" />
 
             <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottom_navigation_view"
+                android:id="@+id/bottom_navi_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -43,8 +43,8 @@
                 app:itemIconTint="@drawable/bottom_navigation_selector"
                 app:itemTextColor="@drawable/bottom_navigation_selector"
                 app:menu="@menu/menu_bottom" />
-        </RelativeLayout>
 
+        </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

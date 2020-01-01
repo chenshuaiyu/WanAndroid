@@ -6,68 +6,80 @@ import android.view.View;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.di.component.DaggerHomeComponent;
-import com.example.chen.wanandroiddemo.di.module.HomeModule;
 import com.example.chen.wanandroiddemo.main.homepage.presenter.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
-import com.example.chen.wanandroiddemo.utils.JumpUtil;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
+import com.example.chen.wanandroiddemo.widget.StateLayout.OnReLoadListener;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/11 22:25
  */
-public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
+
+    @BindView(R.id.refresh_recycler_view)
+    protected RefreshRecyclerView mRefreshRecyclerView;
+
     private com.youth.banner.Banner mBanner;
 
     private ArticlesAdapter mArticlesAdapter;
     private List<Banner> mBannerList;
     private List<Article> mArticleList;
 
-    private int curPage = 0;
-
     @Override
-    protected void inject() {
-        DaggerHomeComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .homeModule(new HomeModule())
-                .build()
-                .inject(this);
+    protected HomePresenter getPresenter() {
+        return new HomePresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
+                .setOnReLoadListener(() -> {
+                    mPresenter.getBanner();
+                    mRefreshRecyclerView.reLoad();
+                })
+                .build();
+    }
+
+    @Override
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mBannerList = new ArrayList<>();
         mArticleList = new ArrayList<>();
 
         View bannerLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_banner, null);
         mBanner = bannerLayout.findViewById(R.id.banner);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mRefreshRecyclerView.setFirstPage(0);
+        mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticleList);
         mArticlesAdapter.addHeaderView(bannerLayout);
-        mRecyclerView.setAdapter(mArticlesAdapter);
+        mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-
             switch (view.getId()) {
                 case R.id.chapter:
-                    JumpUtil.jumpToSystemArticlesActivity(getActivity(),
+                    OpenActivityUtil.openSystemArticlesActivity(getActivity(),
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.collect:
@@ -77,26 +89,20 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
             }
         });
 
-        getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
-    }
+        mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
+            @Override
+            public void refresh(int firstPage) {
+                mPresenter.getBanner();
+                mPresenter.getArticles(firstPage);
+            }
 
-    @Override
-    public void reLoad() {
-        presenter.getBanner();
-        curPage = 0;
-        presenter.getArticles(curPage++);
-    }
-
-    @Override
-    public void refresh(RefreshLayout refreshLayout) {
-        curPage = 0;
-        presenter.getBanner();
-        presenter.getArticles(curPage++);
-    }
-
-    @Override
-    public void loadMore(RefreshLayout refreshLayout) {
-        presenter.getArticles(curPage++);
+            @Override
+            public void loadMore(int page) {
+                mPresenter.getArticles(page);
+            }
+        });
+        //改
+//        getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
     }
 
     @Override
@@ -110,7 +116,7 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
 
     @Override
     public void showArticles(List<Article> articles) {
-        if (curPage == 0)
+        if (mRefreshRecyclerView.isFirstPage())
             mArticleList.clear();
         mArticleList.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
@@ -128,7 +134,7 @@ public class HomeFragment extends BaseRefreshFragment<HomePresenter> implements 
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            JumpUtil.jumpToArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
         });
         mBanner.start();
     }

@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProjectsAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
                 .setText(R.id.title, item.getTitle())
                 .setText(R.id.desc, item.getDesc())
                 .setText(R.id.time, item.getNiceDate());
-        if (!WanAndroidApp.getInstance().getAppComponent().getDataManager().getNoImageMode()) {
+        if (!DataManager.getInstance().getNoImageMode()) {
             Glide.with(mContext)
                     .load(item.getEnvelopePic())
                     .into((ImageView) helper.getView(R.id.image_view));

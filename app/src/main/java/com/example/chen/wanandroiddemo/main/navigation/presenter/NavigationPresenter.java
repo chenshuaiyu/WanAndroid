@@ -7,7 +7,7 @@ import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 import java.util.List;
-import javax.inject.Inject;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
  * @date : 2019/3/22 15:20
  */
 public class NavigationPresenter extends BasePresenter<NavigationContract.View> implements NavigationContract.Presenter {
-    @Inject
+
     public NavigationPresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -32,7 +32,7 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
                     @Override
                     public void onNext(BaseResponse<List<Navigation>> listBaseResponse) {
                         mView.showNavigationTab(listBaseResponse.getData());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
                     @Override
                     public void onError(Throwable e) {

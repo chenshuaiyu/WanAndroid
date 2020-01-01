@@ -10,18 +10,20 @@ import android.view.MenuItem;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
-import com.example.chen.wanandroiddemo.di.component.DaggerSystemArticlesComponent;
-import com.example.chen.wanandroiddemo.di.module.SystemArticlesModule;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlesPresenter;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 
 public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
+
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
@@ -34,22 +36,21 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     private ViewPagerAdapter mAdapter;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_system_article;
+    protected SystemArticlesPresenter getPresenter() {
+        return new SystemArticlesPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerSystemArticlesComponent.builder()
-                .appComponent(((WanAndroidApp)getApplication()).getAppComponent())
-                .systemArticlesModule(new SystemArticlesModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.activity_system_article)
+                .setOnReLoadListener(() -> showContentView())
+                .build();
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
 
@@ -62,13 +63,15 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
         mFragmentList = new ArrayList<>();
         for (System childrenSystem : mSystem.getChildren()) {
-            mFragmentList.add(new SystemArticleFragment(childrenSystem));
+            SystemArticleFragment articleFragment = new SystemArticleFragment();
+            articleFragment.setChildrenSystem(childrenSystem);
+            mFragmentList.add(articleFragment);
         }
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        showNormalView();
+        showContentView();
     }
 
     @Override
@@ -76,7 +79,9 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         super.onResume();
         mFragmentList.clear();
         for (System childrenSystem : mSystem.getChildren()) {
-            mFragmentList.add(new SystemArticleFragment(childrenSystem));
+            SystemArticleFragment articleFragment = new SystemArticleFragment();
+            articleFragment.setChildrenSystem(childrenSystem);
+            mFragmentList.add(articleFragment);
         }
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -84,7 +89,7 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

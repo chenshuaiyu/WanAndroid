@@ -7,8 +7,6 @@ import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -18,7 +16,6 @@ import io.reactivex.disposables.Disposable;
  */
 public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements WXTabContract.Presenter {
 
-    @Inject
     public WXTabPresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -35,7 +32,7 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
                     @Override
                     public void onNext(BaseResponse<Articles> wxTabArticlesBaseResponse) {
                         mView.showWXTabArticles(wxTabArticlesBaseResponse.getData().getDatas());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
 
                     @Override
@@ -56,13 +53,16 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
+
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         mView.showWXTabSearchArticles(articlesBaseResponse.getData().getDatas());
                     }
+
                     @Override
                     public void onError(Throwable e) {
                     }
+
                     @Override
                     public void onComplete() {
                     }

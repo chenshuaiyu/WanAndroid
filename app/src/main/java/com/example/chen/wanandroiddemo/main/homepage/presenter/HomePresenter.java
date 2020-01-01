@@ -8,7 +8,7 @@ import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.utils.RxUtil;
 import java.util.List;
-import javax.inject.Inject;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -18,7 +18,6 @@ import io.reactivex.disposables.Disposable;
  */
 public class HomePresenter extends BasePresenter<HomeContract.View> implements HomeContract.Presenter {
 
-    @Inject
     public HomePresenter(DataManager dataManager) {
         super(dataManager);
     }
@@ -34,7 +33,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<List<Banner>> listBaseResponse) {
                         mView.showBanner(listBaseResponse.getData());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -56,7 +55,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<Articles> articlesBaseResponse) {
                         mView.showArticles(articlesBaseResponse.getData().getDatas());
-                        mView.showNormalView();
+                        mView.showContentView();
                     }
                     @Override
                     public void onError(Throwable e) {

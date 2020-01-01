@@ -1,87 +1,90 @@
 package com.example.chen.wanandroiddemo.main.project;
 
-import android.annotation.SuppressLint;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ProjectsAdapter;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.base.fragment.BaseRefreshFragment;
+import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.project.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.di.component.DaggerProjectTabComponent;
-import com.example.chen.wanandroiddemo.di.module.ProjectTabModule;
 import com.example.chen.wanandroiddemo.main.project.presenter.ProjectTabPresenter;
-import com.example.chen.wanandroiddemo.utils.JumpUtil;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
+import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/21 20:33
  */
-@SuppressLint("ValidFragment")
-public class ProjectTabFragment extends BaseRefreshFragment<ProjectTabPresenter> implements ProjectTabContract.View {
-    private int curPage = 1;
+public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implements ProjectTabContract.View {
+
+    @BindView(R.id.refresh_recycler_view)
+    protected RefreshRecyclerView mRefreshRecyclerView;
+
     private List<Article> mArticles;
     private ProjectsAdapter mProjectsAdapter;
 
     private Tab mProjectTab;
 
-    public ProjectTabFragment(Tab projectTab) {
-        mProjectTab = projectTab;
+    @Override
+    protected ProjectTabPresenter getPresenter() {
+        return new ProjectTabPresenter(DataManager.getInstance());
     }
 
     @Override
-    protected void inject() {
-        DaggerProjectTabComponent.builder()
-                .appComponent(((WanAndroidApp)getActivity().getApplication()).getAppComponent())
-                .projectTabModule(new ProjectTabModule())
-                .build()
-                .inject(this);
+    protected StateLayoutManager getStateLayoutManager() {
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
+                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
+                .build();
     }
 
     @Override
-    protected void initData() {
-        presenter.subscribeEvent();
+    protected void initView() {
+        mPresenter.subscribeEvent();
 
         mArticles = new ArrayList<>();
         mProjectsAdapter = new ProjectsAdapter(R.layout.item_projecttab, mArticles);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mProjectsAdapter);
+
+        mRefreshRecyclerView.setFirstPage(1);
+        mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRefreshRecyclerView.setAdapter(mProjectsAdapter);
         mProjectsAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            JumpUtil.jumpToArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+        });
+
+        mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
+            @Override
+            public void refresh(int firstPage) {
+                mPresenter.getProjectTabArticles(firstPage, mProjectTab.getId());
+            }
+
+            @Override
+            public void loadMore(int page) {
+                mPresenter.getProjectTabArticles(page, mProjectTab.getId());
+            }
         });
     }
 
     @Override
-    public void reLoad() {
-        curPage = 1;
-        presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-    }
-
-    @Override
-    public void refresh(RefreshLayout refreshLayout) {
-        curPage = 1;
-        presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-    }
-
-    @Override
-    public void loadMore(RefreshLayout refreshLayout) {
-        presenter.getProjectTabArticles(curPage++, mProjectTab.getId());
-    }
-
-    @Override
     public void showProjectTabArticles(List<Article> projectTabArticles) {
-        if (curPage == 1) {
+        if (mRefreshRecyclerView.isFirstPage()) {
             mArticles.clear();
         }
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
+    }
+
+    public void setTab(Tab projectTab) {
+        mProjectTab = projectTab;
     }
 
     @Override

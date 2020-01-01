@@ -3,19 +3,31 @@ package com.example.chen.wanandroiddemo.core.db;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.dao.DaoSession;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
+
 import java.util.List;
-import javax.inject.Inject;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/16 11:45
  */
 public class DbHelperImpl implements DbHelper {
+    private static volatile DbHelperImpl sInstance = null;
+
     private DaoSession mDaoSession;
 
-    @Inject
-    public DbHelperImpl() {
-        mDaoSession = WanAndroidApp.getInstance().getDaoSession();
+    private DbHelperImpl(DaoSession daoSession) {
+        mDaoSession = daoSession;
+    }
+
+    public static DbHelperImpl getInstance() {
+        if (sInstance == null) {
+            synchronized (DbHelperImpl.class) {
+                if (sInstance == null) {
+                    sInstance = new DbHelperImpl(WanAndroidApp.getInstance().getDaoSession());
+                }
+            }
+        }
+        return sInstance;
     }
 
     @Override
