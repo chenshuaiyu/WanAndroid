@@ -93,6 +93,10 @@ public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivit
 
     @Override
     public void reLoad() {
-        mStateLayout.reLoad();
+        if (NetUtil.isNetworkConnected()) {
+            mStateLayout.reLoad();
+        } else {
+            showNetErrorView();
+        }
     }
 }

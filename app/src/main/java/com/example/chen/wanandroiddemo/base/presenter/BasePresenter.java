@@ -5,7 +5,7 @@ import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NetChangeEvent;
 import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -49,14 +49,14 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
     public void subscribeEvent() {
         addSubcriber(
                 RxBus.getInstance().toObservable(NetChangeEvent.class)
-                        .compose(RxUtil.switchSchedulers())
+                        .compose(RxUtils.switchSchedulers())
                         .subscribe(
                                 netChangeEvent -> mView.showNetChangeTips()
                         )
         );
         addSubcriber(
                 RxBus.getInstance().toObservable(NightModeEvent.class)
-                        .compose(RxUtil.switchSchedulers())
+                        .compose(RxUtils.switchSchedulers())
                         .subscribe(
                                 nightModeEvent -> mView.useNightMode(nightModeEvent.isNightMode())
                         )

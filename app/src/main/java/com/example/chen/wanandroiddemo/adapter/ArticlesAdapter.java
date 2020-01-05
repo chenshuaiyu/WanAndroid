@@ -26,7 +26,8 @@ public class ArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
                 .setText(R.id.superChapterName, item.getSuperChapterName())
                 .setText(R.id.chapterName, item.getChapterName())
                 .setText(R.id.title, Html.fromHtml(item.getTitle()))
-                .setText(R.id.time, item.getNiceDate());
+                .setText(R.id.time, item.getNiceDate())
+                .setImageResource(R.id.collect, item.isCollect() ? R.drawable.ic_like : R.drawable.ic_dislike);
         helper.addOnClickListener(R.id.collect);
         helper.addOnClickListener(R.id.chapter);
     }

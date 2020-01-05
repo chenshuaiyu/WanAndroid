@@ -26,11 +26,9 @@ public class WanAndroidApp extends Application {
 
         // 接入腾讯Bugly
 //        CrashReport.initCrashReport(getApplicationContext(), "87a5a6c3e8", true);
+
         // 接入LeakCanary
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
+        initLeakCanary();
 
         //初始化数据库
         initGreenDao();
@@ -40,6 +38,13 @@ public class WanAndroidApp extends Application {
         dataManager.setNightMode(false);
         dataManager.setNoImageMode(false);
         dataManager.setAutoCache(false);
+    }
+
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     private void initGreenDao() {

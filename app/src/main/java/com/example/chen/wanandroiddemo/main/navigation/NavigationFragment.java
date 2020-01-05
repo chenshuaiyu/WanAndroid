@@ -13,6 +13,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.main.navigation.presenter.NavigationPresenter;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     private void scrollToPosition(int currentPosition) {
         int firstPosition = mLayoutManager.findFirstVisibleItemPosition();
         int lastPosition = mLayoutManager.findLastVisibleItemPosition();
-        Toast.makeText(getActivity(), firstPosition + " : " + lastPosition, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(firstPosition + " : " + lastPosition);
         if (currentPosition <= firstPosition) {
             mRecyclerView.smoothScrollToPosition(currentPosition);
         } else if (currentPosition <= lastPosition) {

@@ -8,4 +8,9 @@ public class ArticlePresenter extends BasePresenter<ArticleContract.View> implem
     public ArticlePresenter(DataManager dataManager) {
         super(dataManager);
     }
+
+    @Override
+    public void collectActicle(int id) {
+        mDataManager.collectArticle(id);
+    }
 }

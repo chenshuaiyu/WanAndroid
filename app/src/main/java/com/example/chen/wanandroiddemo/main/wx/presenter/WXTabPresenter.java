@@ -5,10 +5,11 @@ import com.example.chen.wanandroiddemo.main.wx.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author : chenshuaiyu
@@ -22,50 +23,22 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
 
     @Override
     public void getWXTabArticles(int id, int page) {
-        mDataManager.getWXTabArticles(id, page)
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<Articles>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(BaseResponse<Articles> wxTabArticlesBaseResponse) {
-                        mView.showWXTabArticles(wxTabArticlesBaseResponse.getData().getDatas());
-                        mView.showContentView();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(mDataManager.getWXTabArticles(id, page)
+                .compose(RxUtils.switchSchedulers())
+                .subscribe(articlesBaseResponse -> {
+                    mView.showWXTabArticles(articlesBaseResponse.getData().getDatas());
+                    mView.showContentView();
+                }, Throwable::printStackTrace)
+        );
     }
 
     @Override
     public void getWXTabSearchArticles(int id, int page, String k) {
-        mDataManager.getWxTabSearchArticles(id, page, k)
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<Articles>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        mView.showWXTabSearchArticles(articlesBaseResponse.getData().getDatas());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(
+                mDataManager.getWxTabSearchArticles(id, page, k)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(articlesBaseResponse -> mView.showWXTabSearchArticles(articlesBaseResponse.getData().getDatas()),
+                                Throwable::printStackTrace)
+        );
     }
 }

@@ -12,6 +12,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.LoginContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.LoginPresenter;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
@@ -58,12 +59,12 @@ public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements L
 
     @Override
     public void showErrorMesssage(String error) {
-        Toast.makeText(WanAndroidApp.getInstance(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(error);
     }
 
     @Override
     public void showSuccessfulMesssage() {
-        Toast.makeText(WanAndroidApp.getInstance(), R.string.login_success, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(R.string.login_success);
         finish();
     }
 }

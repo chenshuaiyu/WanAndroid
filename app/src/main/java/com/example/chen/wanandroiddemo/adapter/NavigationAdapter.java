@@ -41,7 +41,7 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
                 name.setText(article.getTitle());
                 name.setTextColor(ColorUtil.randomTagColor());
                 view.setOnClickListener(v -> {
-                    Intent intent = ArticleActivity.newIntent(mContext, article.getLink(), article.getTitle());
+                    Intent intent = ArticleActivity.newIntent(mContext, article.getId(), article.getLink(), article.getTitle());
                     mContext.startActivity(intent);
                 });
                 return view;

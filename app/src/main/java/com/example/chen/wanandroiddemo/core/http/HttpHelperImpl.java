@@ -119,4 +119,9 @@ public class HttpHelperImpl implements HttpHelper {
     public Observable<BaseResponse<LoginData>> logout() {
         return mApi.logout();
     }
+
+    @Override
+    public Observable<BaseResponse> collectArticle(int id) {
+        return mApi.collectArtcile(id);
+    }
 }

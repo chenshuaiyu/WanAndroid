@@ -6,11 +6,11 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
+
 import java.util.List;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author : chenshuaiyu
@@ -24,46 +24,24 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
     @Override
     public void getBanner() {
-        mDataManager.getBanner()
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<List<Banner>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(BaseResponse<List<Banner>> listBaseResponse) {
-                        mView.showBanner(listBaseResponse.getData());
-                        mView.showContentView();
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(
+                mDataManager.getBanner()
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(listBaseResponse -> {
+                            mView.showBanner(listBaseResponse.getData());
+                            mView.showContentView();
+                        }, Throwable::printStackTrace)
+        );
     }
 
     @Override
     public void getArticles(int page) {
-        mDataManager.getArticles(page)
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<Articles>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        mView.showArticles(articlesBaseResponse.getData().getDatas());
-                        mView.showContentView();
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(mDataManager.getArticles(page)
+                .compose(RxUtils.switchSchedulers())
+                .subscribe(articlesBaseResponse -> {
+                    mView.showArticles(articlesBaseResponse.getData().getDatas());
+                    mView.showContentView();
+                }, Throwable::printStackTrace)
+        );
     }
 }

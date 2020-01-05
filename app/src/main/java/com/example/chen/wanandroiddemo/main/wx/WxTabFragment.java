@@ -75,7 +75,7 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mWXTabArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle());
         });
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {

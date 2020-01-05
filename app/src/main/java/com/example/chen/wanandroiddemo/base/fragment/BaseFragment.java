@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
@@ -46,14 +45,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
-
-        //控制页面状态
-        if (NetUtil.isNetworkConnected()) {
-            showLoadingView();
-        } else {
-            showNetErrorView();
-        }
-
+        showLoadingView();
         initView();
     }
 
@@ -172,7 +164,11 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
 
     @Override
     public void reLoad() {
-        mStateLayout.reLoad();
+        if (NetUtil.isNetworkConnected()) {
+            mStateLayout.reLoad();
+        } else {
+            showNetErrorView();
+        }
     }
 
     @Override

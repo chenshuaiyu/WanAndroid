@@ -3,6 +3,9 @@ package com.example.chen.wanandroiddemo.core.http.api;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.http.cookie.CookieManger;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +24,8 @@ public class RetrofitClient {
             .readTimeout(20, TimeUnit.SECONDS)
             .writeTimeout(20, TimeUnit.SECONDS)
             //设置Cookie
-            .cookieJar(new CookieManger(WanAndroidApp.getInstance()))
+            .cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(WanAndroidApp.getInstance())))
+            //.cookieJar(new CookieManger(WanAndroidApp.getInstance()))
             .build();
 
     private static Retrofit mRetrofit = new Retrofit.Builder()

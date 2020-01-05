@@ -52,6 +52,7 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
             tabFragment.setTab(tab);
             mFragments.add(tabFragment);
         }
+        mViewPager.setOffscreenPageLimit(mFragments.size());
         mPagerAdapter.notifyDataSetChanged();
         mTabLayout.notifyDataSetChanged();
     }

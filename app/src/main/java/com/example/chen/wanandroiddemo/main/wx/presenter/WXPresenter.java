@@ -5,12 +5,13 @@ import com.example.chen.wanandroiddemo.main.wx.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author : chenshuaiyu
@@ -24,27 +25,14 @@ public class WXPresenter extends BasePresenter<WXContract.View> implements WXCon
 
     @Override
     public void getWXTab() {
-        mDataManager.getWXTab()
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<List<Tab>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
+        addSubcriber(
+                mDataManager.getWXTab()
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(listBaseResponse -> {
+                            mView.showTab(listBaseResponse.getData());
+                            mView.showContentView();
+                        }, Throwable::printStackTrace)
+        );
 
-                    @Override
-                    public void onNext(BaseResponse<List<Tab>> listBaseResponse) {
-                        mView.showTab(listBaseResponse.getData());
-                        mView.showContentView();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
     }
 }

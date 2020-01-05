@@ -15,7 +15,6 @@ import com.example.chen.wanandroiddemo.main.homepage.presenter.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
-import com.example.chen.wanandroiddemo.widget.StateLayout.OnReLoadListener;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -73,7 +72,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
@@ -134,7 +133,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getId(), banner.getUrl(), banner.getTitle());
         });
         mBanner.start();
     }

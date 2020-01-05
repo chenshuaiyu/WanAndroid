@@ -134,6 +134,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public Observable<BaseResponse> collectArticle(int id) {
+        return mHttpHelper.collectArticle(id);
+    }
+
+    @Override
     public void addHistoryRecord(HistoryRecord record) {
         mDbHelper.addHistoryRecord(record);
     }

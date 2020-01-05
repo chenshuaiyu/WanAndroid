@@ -51,6 +51,7 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
             tabFragment.setWXTab(tab);
             mFragments.add(tabFragment);
         }
+        mViewPager.setOffscreenPageLimit(mFragments.size());
         mPagerAdapter.notifyDataSetChanged();
         mTabLayout.notifyDataSetChanged();
     }

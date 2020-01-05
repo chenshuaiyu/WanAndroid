@@ -58,7 +58,7 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
                 view.setBackgroundColor(ColorUtil.randomTagColor());
 
                 view.setOnClickListener(v -> {
-                    Intent intent = ArticleActivity.newIntent(getContext(), website.getLink(), website.getName());
+                    Intent intent = ArticleActivity.newIntent(getContext(), website.getId(), website.getLink(), website.getName());
                     startActivity(intent);
                 });
                 return view;

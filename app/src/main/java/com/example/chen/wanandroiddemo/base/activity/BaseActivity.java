@@ -15,6 +15,7 @@ import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
@@ -121,6 +122,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
             //reLoad();
         }
         dataManager.setNetState(state);
-        Toast.makeText(this, state, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(state);
     }
 }

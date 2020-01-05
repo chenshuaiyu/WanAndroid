@@ -2,6 +2,7 @@ package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.support.design.widget.NavigationView;
@@ -36,6 +38,9 @@ import com.example.chen.wanandroiddemo.main.search.SearchActivity;
 import com.example.chen.wanandroiddemo.main.system.SystemFragment;
 import com.example.chen.wanandroiddemo.main.wx.WXFragment;
 import com.example.chen.wanandroiddemo.utils.BottomNaviViewUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 
@@ -70,14 +75,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
         }
     };
 
-    private HomeFragment mHomeFragment = new HomeFragment();
-    private SystemFragment mSystemFragment = new SystemFragment();
-    private WXFragment mWXFragment = new WXFragment();
-    private NavigationFragment mNavigationFragment = new NavigationFragment();
-    private ProjectFragment mProjectFragment = new ProjectFragment();
+    private Fragment[] mFragments = new Fragment[]{
+            new HomeFragment(),
+            new SystemFragment(),
+            new WXFragment(),
+            new NavigationFragment(),
+            new ProjectFragment()
+    };
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
-    private Fragment curFragment;
+    private int curFragmentIndex = 0;
 
     @Override
     protected MainPresenter getPresenter() {
@@ -104,52 +111,43 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
         BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
 
-        curFragment = mHomeFragment;
+        curFragmentIndex = 0;
         mFragmentManager.beginTransaction()
-                .add(R.id.fl_fragment_container, mHomeFragment)
-                .add(R.id.fl_fragment_container, mSystemFragment)
-                .add(R.id.fl_fragment_container, mWXFragment)
-                .add(R.id.fl_fragment_container, mNavigationFragment)
-                .add(R.id.fl_fragment_container, mProjectFragment)
-                .hide(mSystemFragment)
-                .hide(mWXFragment)
-                .hide(mNavigationFragment)
-                .hide(mProjectFragment)
-                .show(curFragment)
+                .add(R.id.fl_fragment_container, mFragments[0])
+                .add(R.id.fl_fragment_container, mFragments[1])
+                .add(R.id.fl_fragment_container, mFragments[2])
+                .add(R.id.fl_fragment_container, mFragments[3])
+                .add(R.id.fl_fragment_container, mFragments[4])
+                .hide(mFragments[0])
+                .hide(mFragments[1])
+                .hide(mFragments[2])
+                .hide(mFragments[3])
+                .hide(mFragments[4])
+                .show(mFragments[0])
                 .commit();
 
         mBottomNaviView.setOnNavigationItemSelectedListener(menuItem -> {
-            FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(curFragment);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(mFragments[curFragmentIndex]);
             switch (menuItem.getItemId()) {
                 case R.id.menu_home:
-                    if (curFragment != mHomeFragment) {
-                        curFragment = mHomeFragment;
-                    }
+                    curFragmentIndex = 0;
                     break;
                 case R.id.menu_system:
-                    if (curFragment != mSystemFragment) {
-                        curFragment = mSystemFragment;
-                    }
+                    curFragmentIndex = 1;
                     break;
                 case R.id.menu_wxarticle:
-                    if (curFragment != mWXFragment) {
-                        curFragment = mWXFragment;
-                    }
+                    curFragmentIndex = 2;
                     break;
                 case R.id.menu_navigation:
-                    if (curFragment != mNavigationFragment) {
-                        curFragment = mNavigationFragment;
-                    }
+                    curFragmentIndex = 3;
                     break;
                 case R.id.menu_project:
-                    if (curFragment != mProjectFragment) {
-                        curFragment = mProjectFragment;
-                    }
+                    curFragmentIndex = 4;
                     break;
                 default:
                     break;
             }
-            transaction.show(curFragment).commit();
+            transaction.show(mFragments[curFragmentIndex]).commit();
             return true;
         });
 
@@ -214,16 +212,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         item.setChecked(true);
-        FragmentTransaction transaction = mFragmentManager.beginTransaction().hide(curFragment);
         switch (item.getItemId()) {
             case R.id.menu_wanandroid:
-
                 break;
             case R.id.menu_collection:
                 if (mPresenter.isLogin()) {
                     startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
                 } else {
-                    Toast.makeText(this, "未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    //bug：未选中WanAndroid栏
+                    mNaviView.setCheckedItem(R.id.menu_wanandroid);
+                    ToastUtil.toast("未登录，请先登录");
                     startActivity(new Intent(this, LoginActivity.class));
                 }
                 break;
@@ -231,12 +229,20 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_SETTINGS);
                 break;
             case R.id.menu_logout:
-                mPresenter.logout();
+                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.confirm_quit)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm, (dialog, which) -> {
+                            mPresenter.logout();
+                            mNaviView.setCheckedItem(R.id.menu_wanandroid);
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> mNaviView.setCheckedItem(R.id.menu_wanandroid))
+                        .create();
+                alertDialog.show();
                 break;
             default:
                 break;
         }
-        transaction.show(curFragment).commit();
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -262,7 +268,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - exitTime > 2000) {
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                ToastUtil.toast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -288,11 +294,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void showLogoutSucceed() {
-        Toast.makeText(WanAndroidApp.getInstance(), R.string.exit_success, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(R.string.exit_success);
     }
 
     @Override
     public void showLogoutFailed() {
-        Toast.makeText(WanAndroidApp.getInstance(), R.string.exit_fail, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(R.string.exit_fail);
     }
 }

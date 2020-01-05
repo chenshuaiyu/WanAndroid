@@ -14,8 +14,8 @@ import java.util.Arrays;
  * @date : 2019/4/14 11:24
  */
 public class OpenActivityUtil {
-    public static void openArticleDetailActivity(Context context, String link, String title){
-        Intent intent = ArticleActivity.newIntent(context, link, title);
+    public static void openArticleDetailActivity(Context context, int id, String link, String title){
+        Intent intent = ArticleActivity.newIntent(context, id, link, title);
         context.startActivity(intent);
     }
 

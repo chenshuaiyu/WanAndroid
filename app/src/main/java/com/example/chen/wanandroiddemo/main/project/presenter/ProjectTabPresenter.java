@@ -5,11 +5,12 @@ import com.example.chen.wanandroiddemo.main.project.contract.ProjectTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author : chenshuaiyu
@@ -23,23 +24,13 @@ public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.View> 
 
     @Override
     public void getProjectTabArticles(int page, int cid) {
-        mDataManager.getProjectTabArticles(page, cid)
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<Articles>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(BaseResponse<Articles> articlesBaseResponse) {
-                        mView.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
-                        mView.showContentView();
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(
+                mDataManager.getProjectTabArticles(page, cid)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(articlesBaseResponse -> {
+                            mView.showProjectTabArticles(articlesBaseResponse.getData().getDatas());
+                            mView.showContentView();
+                        }, Throwable::printStackTrace)
+        );
     }
 }

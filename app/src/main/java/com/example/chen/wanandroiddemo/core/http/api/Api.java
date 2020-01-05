@@ -190,4 +190,13 @@ public interface Api {
      */
     @GET("user/logout/json")
     Observable<BaseResponse<LoginData>> logout();
+
+    /**
+     * https://www.wanandroid.com/lg/collect/1165/json
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseResponse> collectArtcile(@Path("id") int id);
 }

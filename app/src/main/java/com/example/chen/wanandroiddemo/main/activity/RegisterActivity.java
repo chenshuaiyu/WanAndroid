@@ -12,6 +12,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.RegisterPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
@@ -61,12 +62,12 @@ public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implem
 
     @Override
     public void showErrorMesssage(String error) {
-        Toast.makeText(WanAndroidApp.getInstance(), error, Toast.LENGTH_SHORT).show();
+        ToastUtil.toast(error);
     }
 
     @Override
     public void showSuccessfulMesssage() {
-        Toast.makeText(WanAndroidApp.getInstance(), "注册成功", Toast.LENGTH_SHORT).show();
+        ToastUtil.toast("注册成功");
         OpenActivityUtil.openLoginActivity(this);
         finish();
     }

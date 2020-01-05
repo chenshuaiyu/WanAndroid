@@ -3,13 +3,7 @@ package com.example.chen.wanandroiddemo.main.navigation.presenter;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
-import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 /**
  * @author : chenshuaiyu
@@ -23,23 +17,13 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
 
     @Override
     public void getNavigationTab() {
-        mDataManager.getNavigation()
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<List<Navigation>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(BaseResponse<List<Navigation>> listBaseResponse) {
-                        mView.showNavigationTab(listBaseResponse.getData());
-                        mView.showContentView();
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(
+                mDataManager.getNavigation()
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(listBaseResponse -> {
+                            mView.showNavigationTab(listBaseResponse.getData());
+                            mView.showContentView();
+                        }, Throwable::printStackTrace)
+        );
     }
 }

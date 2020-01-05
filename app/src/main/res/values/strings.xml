@@ -51,6 +51,7 @@
     <string name="to_load">去加载</string>
     <string name="opening_in_browser">正在使用浏览器打开</string>
     <string name="my_collection">我的收藏</string>
+    <string name="confirm_quit">确认退出此账号？</string>
 
 
 </resources>

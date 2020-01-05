@@ -17,6 +17,7 @@ import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.articledetail.presenter.ArticlePresenter;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 
 import butterknife.BindView;
 
@@ -25,10 +26,12 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    private int id;
     private String url;
 
-    public static Intent newIntent(Context context, String link, String title) {
+    public static Intent newIntent(Context context, int id, String link, String title) {
         Intent intent = new Intent(context, ArticleActivity.class);
+        intent.putExtra(Constants.ARTICLE_ID, id);
         intent.putExtra(Constants.ARTICLE_URL, link);
         intent.putExtra(Constants.ARTICLE_TITLE, title);
         return intent;
@@ -50,6 +53,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
         mPresenter.subscribeEvent();
 
         Intent intent = getIntent();
+        id = intent.getIntExtra(Constants.ARTICLE_ID, -1);
         url = intent.getStringExtra(Constants.ARTICLE_URL);
         String title = intent.getStringExtra(Constants.ARTICLE_TITLE);
 
@@ -81,9 +85,10 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
                 finish();
                 break;
             case R.id.menu_collect:
+                mPresenter.collectActicle(id);
                 break;
             case R.id.menu_open_with_browser:
-                Toast.makeText(this, R.string.opening_in_browser, Toast.LENGTH_SHORT).show();
+                ToastUtil.toast(R.string.opening_in_browser);
                 Intent intent = new Intent();
                 intent.setData(Uri.parse(url));
                 intent.setAction(Intent.ACTION_VIEW);

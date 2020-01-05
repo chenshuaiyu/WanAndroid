@@ -51,4 +51,6 @@ public interface HttpHelper {
     Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword);
 
     Observable<BaseResponse<LoginData>> logout();
+
+    Observable<BaseResponse> collectArticle(int id);
 }

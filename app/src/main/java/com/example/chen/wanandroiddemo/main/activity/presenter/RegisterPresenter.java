@@ -6,14 +6,8 @@ import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.activity.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
-import com.example.chen.wanandroiddemo.utils.RxUtil;
-
-
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 /**
  * @author : chenshuaiyu
@@ -32,31 +26,18 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
             return;
         }
 
-        mDataManager.getRegisterData(useranme, password, repassword)
-                .compose(RxUtil.switchSchedulers())
-                .subscribe(new Observer<BaseResponse<LoginData>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(BaseResponse<LoginData> loginDataBaseResponse) {
-                        LoginData data = loginDataBaseResponse.getData();
-                        if (loginDataBaseResponse.getErrorCode() == Constants.SUCCESS_CODE
-                                && data != null) {
-                            mView.showSuccessfulMesssage();
-                        } else {
-                            mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+        addSubcriber(
+                mDataManager.getRegisterData(useranme, password, repassword)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(loginDataBaseResponse -> {
+                            LoginData data = loginDataBaseResponse.getData();
+                            if (loginDataBaseResponse.getErrorCode() == Constants.SUCCESS_CODE
+                                    && data != null) {
+                                mView.showSuccessfulMesssage();
+                            } else {
+                                mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
+                            }
+                        }, Throwable::printStackTrace)
+        );
     }
 }
