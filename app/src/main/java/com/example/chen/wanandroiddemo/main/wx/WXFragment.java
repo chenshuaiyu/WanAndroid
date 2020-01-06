@@ -1,7 +1,10 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
-import android.support.v4.app.Fragment;
+import android.util.Log;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -18,6 +21,7 @@ import java.util.List;
  * @date : 2019/3/19 16:40
  */
 public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WXContract.View {
+
     private List<Fragment> mFragments;
     private ViewPagerAdapter mPagerAdapter;
 
@@ -28,9 +32,11 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
 
     @Override
     protected StateLayoutManager getStateLayoutManager() {
-        StateLayoutManager manager = super.getStateLayoutManager();
-        manager.setOnReLoadListener(() -> mPresenter.getWXTab());
-        return manager;
+        Log.d("CCC", "msg");
+        return new StateLayoutManager.Builder()
+            .setContentLayoutResId(R.layout.common_tab_view_pager)
+            .setOnReLoadListener(() -> mPresenter.getWXTab())
+            .build();
     }
 
     @Override

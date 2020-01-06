@@ -33,6 +33,5 @@ public class WXPresenter extends BasePresenter<WXContract.View> implements WXCon
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );
-
     }
 }

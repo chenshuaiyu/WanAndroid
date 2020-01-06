@@ -1,7 +1,8 @@
 package com.example.chen.wanandroiddemo.main.project;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
+import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -29,9 +30,10 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
 
     @Override
     protected StateLayoutManager getStateLayoutManager() {
-        StateLayoutManager manager = super.getStateLayoutManager();
-        manager.setOnReLoadListener(() -> mPresenter.getProjectTab());
-        return manager;
+        return new StateLayoutManager.Builder()
+                .setContentLayoutResId(R.layout.common_tab_view_pager)
+                .setOnReLoadListener(() -> mPresenter.getProjectTab())
+                .build();
     }
 
     @Override

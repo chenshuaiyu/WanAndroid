@@ -1,6 +1,6 @@
 package com.example.chen.wanandroiddemo.base.fragment;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;

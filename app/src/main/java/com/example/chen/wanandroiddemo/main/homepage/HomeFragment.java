@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.main.homepage;
 
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -48,10 +49,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
-                .setOnReLoadListener(() -> {
-                    mPresenter.getBanner();
-                    mRefreshRecyclerView.reLoad();
-                })
+                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
                 .build();
     }
 

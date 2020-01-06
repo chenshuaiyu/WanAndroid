@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.project.presenter;
 
+import android.util.Log;
+
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.project.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -17,11 +19,13 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
 
     @Override
     public void getProjectTab() {
+        Log.d("CCC", "before show");
         addSubcriber(
                 mDataManager.getProjectTab()
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(listBaseResponse -> {
                             mView.showTab(listBaseResponse.getData());
+                            Log.d("CCC", "show");
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );

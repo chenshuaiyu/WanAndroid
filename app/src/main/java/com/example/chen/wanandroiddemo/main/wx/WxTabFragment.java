@@ -1,6 +1,6 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.TextUtils;
 
 import com.example.chen.wanandroiddemo.R;

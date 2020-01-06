@@ -2,9 +2,9 @@ package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -18,7 +18,6 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.SettingsContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.SettingsPresenter;
 import com.example.chen.wanandroiddemo.utils.ShareUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;

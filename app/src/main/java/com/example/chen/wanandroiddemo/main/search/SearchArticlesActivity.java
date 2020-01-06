@@ -3,11 +3,11 @@ package com.example.chen.wanandroiddemo.main.search;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.chen.wanandroiddemo.R;
@@ -19,7 +19,6 @@ import com.example.chen.wanandroiddemo.main.search.contract.SearchArticlesContra
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
