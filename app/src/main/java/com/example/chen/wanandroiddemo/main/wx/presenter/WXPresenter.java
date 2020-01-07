@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.wx.presenter;
 
+import android.util.Log;
+
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXContract;
 import com.example.chen.wanandroiddemo.core.DataManager;

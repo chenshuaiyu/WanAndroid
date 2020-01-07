@@ -31,13 +31,13 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, Navigation item) {
-        helper.setText(R.id.title, item.getName());
+        helper.setText(R.id.tv_title, item.getName());
         TagFlowLayout tagFlowLayout = helper.getView(R.id.tab_flow_layout);
         tagFlowLayout.setAdapter(new TagAdapter<Article>(item.getArticles()) {
             @Override
             public View getView(FlowLayout parent, int position, final Article article) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation_tag, parent, false);
-                TextView name = view.findViewById(R.id.name);
+                TextView name = view.findViewById(R.id.tv_name);
                 name.setText(article.getTitle());
                 name.setTextColor(ColorUtil.randomTagColor());
                 view.setOnClickListener(v -> {

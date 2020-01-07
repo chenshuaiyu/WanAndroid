@@ -90,7 +90,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             @Override
             public View getView(FlowLayout parent, int position, final HotWord hotWord) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
-                TextView textView = view.findViewById(R.id.text_view);
+                TextView textView = view.findViewById(R.id.tv_hot_word);
                 textView.setText(hotWord.getName());
                 view.setBackgroundColor(ColorUtil.randomTagColor());
 

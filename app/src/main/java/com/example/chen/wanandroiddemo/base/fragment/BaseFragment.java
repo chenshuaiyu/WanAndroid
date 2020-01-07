@@ -15,8 +15,8 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayout;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,6 +24,8 @@ import butterknife.Unbinder;
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/16 16:19
+ *
+ * 懒加载Fragment
  */
 public abstract class BaseFragment<T extends IPresenter> extends Fragment implements BaseView {
 
@@ -118,12 +120,10 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d("CCC", "onHiddenChanged " + hidden);
         if (!hidden && mPresenter != null) {
             if (!NetUtil.isNetworkConnected()) {
                 showErrorView();
             } else {
-                Log.d("CCC", "before reload");
                 reLoad();
                 isLoaded = true;
             }
@@ -175,11 +175,9 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
 
     @Override
     public void useNightMode(boolean isNightMode) {
-
     }
 
     @Override
     public void showNetChangeTips() {
-
     }
 }

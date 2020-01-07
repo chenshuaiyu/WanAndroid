@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.LoginContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.LoginPresenter;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import butterknife.BindView;
 

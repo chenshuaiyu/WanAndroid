@@ -3,17 +3,15 @@ package com.example.chen.wanandroiddemo.main.activity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.RegisterContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.RegisterPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import butterknife.BindView;
 

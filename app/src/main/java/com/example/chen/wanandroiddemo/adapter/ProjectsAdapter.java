@@ -24,14 +24,14 @@ public class ProjectsAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Article item) {
-        helper.setText(R.id.author, item.getAuthor())
-                .setText(R.id.title, item.getTitle())
-                .setText(R.id.desc, item.getDesc())
-                .setText(R.id.time, item.getNiceDate());
+        helper.setText(R.id.tv_author, item.getAuthor())
+                .setText(R.id.tv_title, item.getTitle())
+                .setText(R.id.tv_desc, item.getDesc())
+                .setText(R.id.tv_time, item.getNiceDate());
         if (!DataManager.getInstance().getNoImageMode()) {
             Glide.with(mContext)
                     .load(item.getEnvelopePic())
-                    .into((ImageView) helper.getView(R.id.image_view));
+                    .into((ImageView) helper.getView(R.id.iv_pic));
         }
     }
 }

@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/hot_word"
         android:textColor="@color/red"
@@ -38,14 +38,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="@string/history"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -55,21 +55,21 @@
             android:id="@+id/clear_all_history"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentEnd="true">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/clear"
+                android:layout_toStartOf="@id/iv_clear"
                 android:src="@drawable/ic_clear" />
 
             <TextView
-                android:id="@+id/clear"
+                android:id="@+id/iv_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:text="清空"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="@string/clear"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -82,4 +82,5 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

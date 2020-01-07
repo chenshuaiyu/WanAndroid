@@ -9,7 +9,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.project.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.project.presenter.ProjectPresenter;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,7 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
         mPresenter.subscribeEvent();
 
         mFragments = new ArrayList<>();
-        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setViewPager(mViewPager);
+
     }
 
     @Override
@@ -54,8 +52,9 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
             tabFragment.setTab(tab);
             mFragments.add(tabFragment);
         }
+        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setOffscreenPageLimit(mFragments.size());
-        mPagerAdapter.notifyDataSetChanged();
-        mTabLayout.notifyDataSetChanged();
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabLayout.setViewPager(mViewPager);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 
 import com.example.chen.wanandroiddemo.R;
@@ -11,7 +9,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXContract;
 import com.example.chen.wanandroiddemo.main.wx.presenter.WXPresenter;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +30,16 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
 
     @Override
     protected StateLayoutManager getStateLayoutManager() {
-        Log.d("CCC", "msg");
         return new StateLayoutManager.Builder()
-            .setContentLayoutResId(R.layout.common_tab_view_pager)
-            .setOnReLoadListener(() -> mPresenter.getWXTab())
-            .build();
+                .setContentLayoutResId(R.layout.common_tab_view_pager)
+                .setOnReLoadListener(() -> mPresenter.getWXTab())
+                .build();
     }
 
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-
         mFragments = new ArrayList<>();
-        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setViewPager(mViewPager);
     }
 
     @Override
@@ -57,8 +50,9 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
             tabFragment.setWXTab(tab);
             mFragments.add(tabFragment);
         }
+        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setOffscreenPageLimit(mFragments.size());
-        mPagerAdapter.notifyDataSetChanged();
-        mTabLayout.notifyDataSetChanged();
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabLayout.setViewPager(mViewPager);
     }
 }

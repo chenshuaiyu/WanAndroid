@@ -24,7 +24,7 @@ public class SystemAdapter extends BaseQuickAdapter<System, BaseViewHolder> {
             s.append(childrenSystem.getName() + "    ");
         }
         s.delete(s.length() - 4, s.length());
-        helper.setText(R.id.title, item.getName())
-                .setText(R.id.content, s.toString());
+        helper.setText(R.id.tv_title, item.getName())
+                .setText(R.id.tv_content, s.toString());
     }
 }

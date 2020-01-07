@@ -83,11 +83,11 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
             Article article = mArticles.get(position);
 
             switch (view.getId()) {
-                case R.id.chapter:
+                case R.id.ll_chapter:
                     OpenActivityUtil.openSystemArticlesActivity(this,
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
-                case R.id.collect:
+                case R.id.iv_collect:
                     break;
                 default:
                     break;

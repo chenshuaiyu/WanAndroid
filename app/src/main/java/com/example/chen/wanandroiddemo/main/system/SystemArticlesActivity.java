@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.system;
 
+import com.example.statelayout_lib.StateLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -15,7 +16,6 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlesPresenter;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

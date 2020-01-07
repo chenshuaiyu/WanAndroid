@@ -66,7 +66,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     protected abstract T getPresenter();
 
     /**
-     * 初始化StateLayout
+     * 预留StateLayout初始化入口
      *
      * @return
      */
@@ -111,8 +111,9 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     public void showNetChangeTips() {
         DataManager dataManager = DataManager.getInstance();
         String state = NetUtil.getNetworkType();
+        //无网络 -> 有网络，重新加载数据
         if (dataManager.getNetState().equals(Constants.NO_NETWORK)) {
-            //reLoad();
+            reLoad();
         }
         dataManager.setNetState(state);
         ToastUtil.toast(state);

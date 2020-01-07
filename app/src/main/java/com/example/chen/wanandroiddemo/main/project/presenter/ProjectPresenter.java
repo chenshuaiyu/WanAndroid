@@ -19,13 +19,11 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
 
     @Override
     public void getProjectTab() {
-        Log.d("CCC", "before show");
         addSubcriber(
                 mDataManager.getProjectTab()
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(listBaseResponse -> {
                             mView.showTab(listBaseResponse.getData());
-                            Log.d("CCC", "show");
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );

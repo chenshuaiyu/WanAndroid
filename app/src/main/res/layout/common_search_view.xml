@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/btn_search"
+        android:layout_toStartOf="@id/btn_search"
         android:background="@drawable/bg_search_bar"
         android:orientation="horizontal">
 
@@ -15,16 +15,16 @@
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:src="@drawable/ic_search_gray" />
 
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="1dp"
             android:background="@drawable/bg_search_edit"
-            android:hint="@string/search_more"
-            android:layout_margin="1dp"/>
+            android:hint="@string/search_more" />
 
     </LinearLayout>
 
@@ -32,9 +32,9 @@
         android:id="@+id/btn_search"
         android:layout_width="60dp"
         android:layout_height="35dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:background="@drawable/bg_search_button"
         android:text="@string/search" />
 

@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
     android:orientation="vertical"
-    app:cardCornerRadius="3dp"
-    android:layout_margin="6dp">
+    app:cardCornerRadius="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="40dp">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="题目"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"/>
+            tools:text="题目" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="内容"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="6dp"
-            android:layout_marginLeft="10dp"/>
+            tools:text="内容" />
 
     </LinearLayout>
 
     <ImageView
-        android:src="@drawable/ic_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_right"
+        tools:ignore="RtlHardcoded" />
 
 </androidx.cardview.widget.CardView>

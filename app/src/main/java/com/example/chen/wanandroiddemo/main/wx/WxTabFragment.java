@@ -14,7 +14,7 @@ import com.example.chen.wanandroiddemo.main.wx.presenter.WXTabPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.chen.wanandroiddemo.widget.SearchView;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

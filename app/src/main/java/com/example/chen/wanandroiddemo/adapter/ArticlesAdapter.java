@@ -22,13 +22,13 @@ public class ArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Article item) {
-        helper.setText(R.id.author, item.getAuthor())
-                .setText(R.id.superChapterName, item.getSuperChapterName())
-                .setText(R.id.chapterName, item.getChapterName())
-                .setText(R.id.title, Html.fromHtml(item.getTitle()))
-                .setText(R.id.time, item.getNiceDate())
-                .setImageResource(R.id.collect, item.isCollect() ? R.drawable.ic_like : R.drawable.ic_dislike);
-        helper.addOnClickListener(R.id.collect);
-        helper.addOnClickListener(R.id.chapter);
+        helper.setText(R.id.tv_author, item.getAuthor())
+                .setText(R.id.tv_superChapterName, item.getSuperChapterName())
+                .setText(R.id.tv_chapterName, item.getChapterName())
+                .setText(R.id.tv_title, Html.fromHtml(item.getTitle()))
+                .setText(R.id.tv_time, item.getNiceDate())
+                .setImageResource(R.id.iv_collect, item.isCollect() ? R.drawable.ic_like : R.drawable.ic_dislike);
+        helper.addOnClickListener(R.id.iv_collect);
+        helper.addOnClickListener(R.id.ll_chapter);
     }
 }

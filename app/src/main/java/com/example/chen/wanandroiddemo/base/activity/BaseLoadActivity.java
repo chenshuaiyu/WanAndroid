@@ -6,8 +6,8 @@ import androidx.annotation.Nullable;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayout;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayout;
+import com.example.statelayout_lib.StateLayoutManager;
 
 public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivity<T> {
 

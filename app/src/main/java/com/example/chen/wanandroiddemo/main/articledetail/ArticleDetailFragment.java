@@ -11,7 +11,7 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.articledetail.contract.ArticleDetailContract;
 import com.example.chen.wanandroiddemo.main.articledetail.presenter.ArticleDetailPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 

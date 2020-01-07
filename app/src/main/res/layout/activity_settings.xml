@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/general"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:text="@string/general" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -31,22 +31,22 @@
                     android:id="@+id/iv_night_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:src="@drawable/ic_night_mode" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/night_mode"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/iv_night_mode"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/iv_night_mode"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/night_mode" />
 
                 <Switch
                     android:id="@+id/switch_night_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -59,22 +59,22 @@
                     android:id="@+id/iv_no_image_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_image"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_image" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/no_image_mode"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/iv_no_image_mode"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/iv_no_image_mode"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/no_image_mode" />
 
                 <Switch
                     android:id="@+id/switch_no_image_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -87,22 +87,22 @@
                     android:id="@+id/iv_auto_cache"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_cache"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_cache" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/auto_cache"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/iv_auto_cache"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/iv_auto_cache"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/auto_cache" />
 
                 <Switch
                     android:id="@+id/switch_auto_cache"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -113,8 +113,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/others"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:text="@string/others" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -136,16 +136,16 @@
                     android:id="@+id/iv_feedback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_feedback"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_feedback" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/feedback"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/iv_feedback"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/iv_feedback"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/feedback" />
 
             </RelativeLayout>
 
@@ -159,16 +159,16 @@
                     android:id="@+id/iv_clear_cache"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_clear_cache"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_clear_cache" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/clear_cache"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/iv_clear_cache"
                     android:gravity="center_vertical"
-                    android:layout_toRightOf="@+id/iv_clear_cache"
-                    android:layout_marginLeft="10dp"/>
+                    android:text="@string/clear_cache" />
 
             </RelativeLayout>
 

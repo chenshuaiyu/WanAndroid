@@ -16,7 +16,7 @@ import com.example.chen.wanandroiddemo.main.homepage.presenter.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
@@ -75,11 +75,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
             switch (view.getId()) {
-                case R.id.chapter:
+                case R.id.ll_chapter:
                     OpenActivityUtil.openSystemArticlesActivity(getActivity(),
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
-                case R.id.collect:
+                case R.id.iv_collect:
                     break;
                 default:
                     break;

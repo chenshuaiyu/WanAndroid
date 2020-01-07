@@ -4,7 +4,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import butterknife.BindView;

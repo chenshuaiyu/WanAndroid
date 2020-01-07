@@ -12,7 +12,7 @@ import com.example.chen.wanandroiddemo.main.system.contract.SystemContract;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemPresenter;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

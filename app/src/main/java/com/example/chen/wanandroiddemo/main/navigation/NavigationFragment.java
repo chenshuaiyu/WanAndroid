@@ -13,7 +13,7 @@ import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContra
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.main.navigation.presenter.NavigationPresenter;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
-import com.example.chen.wanandroiddemo.widget.StateLayout.StateLayoutManager;
+import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

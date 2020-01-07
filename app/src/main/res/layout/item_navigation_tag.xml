@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="6dp"
+    android:layout_marginEnd="6dp"
     android:layout_marginBottom="4dp"
     android:background="@drawable/bg_tag"
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp" />
