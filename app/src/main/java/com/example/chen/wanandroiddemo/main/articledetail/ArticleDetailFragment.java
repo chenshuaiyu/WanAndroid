@@ -34,7 +34,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.fragment_article_detail)
-                .setOnReLoadListener(() -> showContentView())
+                .setOnReLoadListener(this::showContentView)
                 .build();
     }
 

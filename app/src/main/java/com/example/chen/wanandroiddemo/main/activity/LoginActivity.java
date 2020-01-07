@@ -37,7 +37,7 @@ public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements L
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.activity_login)
-                .setOnReLoadListener(() -> showContentView())
+                .setOnReLoadListener(this::showContentView)
                 .build();
     }
 

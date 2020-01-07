@@ -39,7 +39,7 @@ public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implem
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.activity_register)
-                .setOnReLoadListener(() -> showContentView())
+                .setOnReLoadListener(this::showContentView)
                 .build();
     }
 

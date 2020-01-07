@@ -44,7 +44,7 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.activity_system_article)
-                .setOnReLoadListener(() -> showContentView())
+                .setOnReLoadListener(this::showContentView)
                 .build();
     }
 
@@ -75,10 +75,8 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }
