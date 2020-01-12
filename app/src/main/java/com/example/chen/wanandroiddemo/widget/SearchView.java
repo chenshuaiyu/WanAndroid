@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.example.chen.wanandroiddemo.R;
 
 public class SearchView extends LinearLayout {
+
     private ClickCallback callback;
     private EditText mContentEt;
 

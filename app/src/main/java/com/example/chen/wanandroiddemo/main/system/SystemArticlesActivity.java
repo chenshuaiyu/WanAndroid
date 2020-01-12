@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.chen.wanandroiddemo.R;
@@ -64,7 +66,9 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         mFragmentList = new ArrayList<>();
         for (System childrenSystem : mSystem.getChildren()) {
             SystemArticleFragment articleFragment = new SystemArticleFragment();
-            articleFragment.setChildrenSystem(childrenSystem);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(SystemArticleFragment.BUNDLE_SYSTEM_ARTICLE, childrenSystem);
+            articleFragment.setArguments(bundle);
             mFragmentList.add(articleFragment);
         }
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);

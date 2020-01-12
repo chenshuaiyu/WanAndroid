@@ -1,5 +1,8 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.chen.wanandroiddemo.R;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WXContract.View {
 
-    private List<Fragment> mFragments;
+    private List<Fragment> mFragments = new ArrayList<>();
     private ViewPagerAdapter mPagerAdapter;
 
     @Override
@@ -39,20 +42,21 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-        mFragments = new ArrayList<>();
     }
 
     @Override
     public void showTab(List<Tab> wxTabList) {
         mFragments.clear();
         for (Tab tab : wxTabList) {
-            WxTabFragment tabFragment = new WxTabFragment();
-            tabFragment.setWXTab(tab);
+            WXTabFragment tabFragment = new WXTabFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(WXTabFragment.BUNDLE_WX_TAB, tab);
+            tabFragment.setArguments(bundle);
             mFragments.add(tabFragment);
         }
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setOffscreenPageLimit(mFragments.size());
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(mFragments.size());
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

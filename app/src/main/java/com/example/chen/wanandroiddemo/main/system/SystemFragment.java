@@ -24,6 +24,7 @@ import butterknife.BindView;
  * @date : 2019/3/22 14:19
  */
 public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
+
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
@@ -45,6 +46,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     @Override
     protected void initView() {
+        mPresenter.subscribeEvent();
         mSystems = new ArrayList<>();
         mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
 

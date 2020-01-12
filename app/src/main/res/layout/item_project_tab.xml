@@ -68,7 +68,9 @@
                     android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
+                    android:textStyle="bold"
                     tools:text="题目" />
 
                 <TextView
@@ -76,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:ellipsize="end"
                     android:maxLines="4"
                     android:textSize="13sp"

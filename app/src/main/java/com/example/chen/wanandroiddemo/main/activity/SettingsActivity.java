@@ -92,7 +92,7 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
         mPresenter.setNightMode(checked);
         RxBus.getInstance().post(new NightModeEvent(checked));
         startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.activity_settings_enter, R.anim.activity_settings_exit);
         finish();
     }
 

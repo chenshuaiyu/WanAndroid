@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.project;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -25,10 +26,12 @@ import butterknife.BindView;
  */
 public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implements ProjectTabContract.View {
 
+    public static final String BUNDLE_PROJECT_TAB = "project_tab";
+
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<Article> mArticles;
+    private List<Article> mArticles = new ArrayList<>();
     private ProjectsAdapter mProjectsAdapter;
 
     private Tab mProjectTab;
@@ -49,9 +52,10 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
+        assert getArguments() != null;
+        mProjectTab = (Tab) getArguments().getSerializable(BUNDLE_PROJECT_TAB);
 
-        mArticles = new ArrayList<>();
-        mProjectsAdapter = new ProjectsAdapter(R.layout.item_projecttab, mArticles);
+        mProjectsAdapter = new ProjectsAdapter(R.layout.item_project_tab, mArticles);
 
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,16 +81,14 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
     @Override
     public void showProjectTabArticles(List<Article> projectTabArticles) {
         if (mRefreshRecyclerView.isFirstPage()) {
+            mRefreshRecyclerView.addCurPage();
             mArticles.clear();
         }
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
     }
 
-    public void setTab(Tab projectTab) {
-        mProjectTab = projectTab;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return mProjectTab.getName();

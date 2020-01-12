@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -23,6 +24,11 @@ public class RefreshRecyclerView extends RelativeLayout {
 
     public void setFirstPage(int firstPage) {
         this.mFirstPage = firstPage;
+    }
+
+    //由于是异步加载，refresh时需手动 add current page
+    public void addCurPage() {
+        mCurPage++;
     }
 
     public boolean isFirstPage() {
@@ -48,8 +54,8 @@ public class RefreshRecyclerView extends RelativeLayout {
         mSmartRefreshLayout = findViewById(R.id.refresh_layout);
 
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            mCurPage = 0;
-            mCallback.refresh(mCurPage++);
+            mCurPage = mFirstPage;
+            mCallback.refresh(mCurPage);
             refreshLayout.finishRefresh(1500);
         });
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
@@ -61,7 +67,7 @@ public class RefreshRecyclerView extends RelativeLayout {
     public void reLoad() {
         mCurPage = mFirstPage;
         if (mCallback != null) {
-            mCallback.refresh(mCurPage++);
+            mCallback.refresh(mCurPage);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.text.TextUtils;
 
 import com.example.chen.wanandroiddemo.R;
@@ -11,7 +13,9 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.main.wx.presenter.WXTabPresenter;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.chen.wanandroiddemo.widget.SearchView;
 import com.example.statelayout_lib.StateLayoutManager;
@@ -25,7 +29,9 @@ import butterknife.BindView;
  * @author : chenshuaiyu
  * @date : 2019/3/19 18:13
  */
-public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTabContract.View {
+public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTabContract.View {
+
+    public static final String BUNDLE_WX_TAB = "wx_tab";
 
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
@@ -62,6 +68,8 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
+        assert getArguments() != null;
+        mWXTab = (Tab) getArguments().getSerializable(BUNDLE_WX_TAB);
 
         mWXTabArticleList = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWXTabArticleList);
@@ -109,6 +117,7 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     @Override
     public void showWXTabArticles(List<Article> wxTabArticles) {
         if (mRefreshRecyclerView.isFirstPage()) {
+            mRefreshRecyclerView.addCurPage();
             mWXTabArticleList.clear();
         }
         mWXTabArticleList.addAll(wxTabArticles);
@@ -124,10 +133,7 @@ public class WxTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         mArticlesAdapter.notifyDataSetChanged();
     }
 
-    public void setWXTab(Tab WXTab) {
-        mWXTab = WXTab;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return mWXTab.getName();

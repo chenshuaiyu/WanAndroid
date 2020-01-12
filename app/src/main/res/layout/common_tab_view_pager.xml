@@ -5,17 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.flyco.tablayout.SlidingTabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-        app:tl_indicator_color="@color/colorAccent"
-        app:tl_textAllCaps="false"
-        app:tl_textBold="BOTH"
-        app:tl_textSelectColor="@color/colorPrimary"
-        app:tl_textUnselectColor="@color/gray"
-        app:tl_textsize="14sp" />
+        android:layout_height="wrap_content"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/gray" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

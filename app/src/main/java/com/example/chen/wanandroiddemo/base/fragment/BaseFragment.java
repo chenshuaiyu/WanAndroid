@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,9 @@ import android.view.ViewGroup;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
+import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.statelayout_lib.StateLayout;
 import com.example.statelayout_lib.StateLayoutManager;
 
@@ -120,9 +121,9 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden && mPresenter != null) {
+        if (!hidden && !isLoaded && mPresenter != null) {
             if (!NetUtil.isNetworkConnected()) {
-                showErrorView();
+                showNetErrorView();
             } else {
                 reLoad();
                 isLoaded = true;
@@ -135,7 +136,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !isLoaded && isViewCreated && mPresenter != null) {
             if (!NetUtil.isNetworkConnected()) {
-                showErrorView();
+                showNetErrorView();
             } else {
                 reLoad();
                 isLoaded = true;
@@ -170,7 +171,11 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
 
     @Override
     public void reLoad() {
-        mStateLayout.reLoad();
+        if (!NetUtil.isNetworkConnected()) {
+            showNetErrorView();
+        } else {
+            mStateLayout.reLoad();
+        }
     }
 
     @Override
@@ -179,5 +184,10 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
 
     @Override
     public void showNetChangeTips() {
+        DataManager dataManager = DataManager.getInstance();
+        String state = NetUtil.getNetworkType();
+        dataManager.setNetState(state);
+        ToastUtil.toast(state);
+//        reLoad();
     }
 }

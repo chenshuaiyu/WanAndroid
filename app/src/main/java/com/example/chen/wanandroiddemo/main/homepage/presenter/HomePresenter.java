@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.homepage.presenter;
 
+import android.util.Log;
+
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.DataManager;

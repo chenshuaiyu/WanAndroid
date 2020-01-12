@@ -65,7 +65,9 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
 
 
         ArticleDetailFragment fragment = new ArticleDetailFragment();
-        fragment.setUrl(url);
+        Bundle bundle = new Bundle();
+        bundle.putString(ArticleDetailFragment.BUNDLE_ARTICLE_DETAIL_URL, url);
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fl_container, fragment)
                 .commit();

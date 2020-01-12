@@ -37,8 +37,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private com.youth.banner.Banner mBanner;
 
     private ArticlesAdapter mArticlesAdapter;
-    private List<Banner> mBannerList;
-    private List<Article> mArticleList;
+    private List<Banner> mBannerList = new ArrayList<>();;
+    private List<Article> mArticleList = new ArrayList<>();;
 
     @Override
     protected HomePresenter getPresenter() {
@@ -56,9 +56,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-
-        mBannerList = new ArrayList<>();
-        mArticleList = new ArrayList<>();
 
         View bannerLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_banner, null);
         mBanner = bannerLayout.findViewById(R.id.banner);
@@ -113,8 +110,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showArticles(List<Article> articles) {
-        if (mRefreshRecyclerView.isFirstPage())
+        if (mRefreshRecyclerView.isFirstPage()) {
+            mRefreshRecyclerView.addCurPage();
             mArticleList.clear();
+        }
         mArticleList.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
     }

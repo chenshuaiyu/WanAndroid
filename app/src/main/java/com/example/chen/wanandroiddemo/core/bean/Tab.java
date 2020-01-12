@@ -1,12 +1,14 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/18 22:14
  */
-public class Tab {
+public class Tab implements Serializable {
+    private static final long serialVersionUID = -7069939900935656363L;
     /**
      * children : []
      * courseId : 13

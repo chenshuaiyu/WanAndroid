@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.project;
 
+import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.chen.wanandroiddemo.R;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> implements ProjectContract.View {
 
-    private List<Fragment> mFragments;
+    private List<Fragment> mFragments = new ArrayList<>();
     private ViewPagerAdapter mPagerAdapter;
 
     @Override
@@ -39,9 +41,6 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-
-        mFragments = new ArrayList<>();
-
     }
 
     @Override
@@ -49,12 +48,14 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
         mFragments.clear();
         for (Tab tab : projectTabList) {
             ProjectTabFragment tabFragment = new ProjectTabFragment();
-            tabFragment.setTab(tab);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ProjectTabFragment.BUNDLE_PROJECT_TAB, tab);
+            tabFragment.setArguments(bundle);
             mFragments.add(tabFragment);
         }
         mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setOffscreenPageLimit(mFragments.size());
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(mFragments.size());
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

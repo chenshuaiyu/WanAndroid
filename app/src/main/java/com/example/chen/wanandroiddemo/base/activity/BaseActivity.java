@@ -1,11 +1,11 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -111,11 +111,8 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     public void showNetChangeTips() {
         DataManager dataManager = DataManager.getInstance();
         String state = NetUtil.getNetworkType();
-        //无网络 -> 有网络，重新加载数据
-        if (dataManager.getNetState().equals(Constants.NO_NETWORK)) {
-            reLoad();
-        }
         dataManager.setNetState(state);
         ToastUtil.toast(state);
+//        reLoad();
     }
 }

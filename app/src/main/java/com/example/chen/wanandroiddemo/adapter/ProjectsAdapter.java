@@ -1,6 +1,8 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import androidx.annotation.Nullable;
+
+import android.text.Html;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +27,7 @@ public class ProjectsAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Article item) {
         helper.setText(R.id.tv_author, item.getAuthor())
-                .setText(R.id.tv_title, item.getTitle())
+                .setText(R.id.tv_title, Html.fromHtml(item.getTitle()))
                 .setText(R.id.tv_desc, item.getDesc())
                 .setText(R.id.tv_time, item.getNiceDate());
         if (!DataManager.getInstance().getNoImageMode()) {

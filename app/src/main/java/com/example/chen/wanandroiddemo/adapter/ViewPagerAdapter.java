@@ -1,5 +1,8 @@
 package com.example.chen.wanandroiddemo.adapter;
 
+import android.text.Html;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,6 +22,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         mFragments = fragments;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int i) {
         return mFragments.get(i);
@@ -32,6 +36,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragments.get(position).toString();
+        return Html.fromHtml(mFragments.get(position).toString());
     }
 }

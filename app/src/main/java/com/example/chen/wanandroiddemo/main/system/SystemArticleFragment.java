@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.system;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -25,11 +26,13 @@ import butterknife.BindView;
  */
 public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> implements SystemArticleContract.View {
 
+    public static final String BUNDLE_SYSTEM_ARTICLE = "system_article";
+
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
     private System mChildrenSystem;
-    private List<Article> mArticles;
+    private List<Article> mArticles = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
 
     @Override
@@ -48,8 +51,9 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
+        assert getArguments() != null;
+        mChildrenSystem = (System) getArguments().getSerializable(BUNDLE_SYSTEM_ARTICLE);
 
-        mArticles = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
 
         mRefreshRecyclerView.setFirstPage(0);
@@ -75,16 +79,15 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
 
     @Override
     public void showSystemArticles(List<Article> articles) {
-        if (mRefreshRecyclerView.isFirstPage())
+        if (mRefreshRecyclerView.isFirstPage()) {
+            mRefreshRecyclerView.addCurPage();
             mArticles.clear();
+        }
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
     }
 
-    public void setChildrenSystem(System childrenSystem) {
-        mChildrenSystem = childrenSystem;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return mChildrenSystem.getName();

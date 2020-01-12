@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.articledetail;
 
+import android.annotation.SuppressLint;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -19,11 +20,12 @@ import butterknife.BindView;
 
 public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> implements ArticleDetailContract.View {
 
+    public static final String BUNDLE_ARTICLE_DETAIL_URL = "article_detail_url";
+
     @BindView(R.id.fl_container)
     FrameLayout mFrameLayout;
 
     private String url;
-    private AgentWeb mAgentWeb;
 
     @Override
     protected ArticleDetailPresenter getPresenter() {
@@ -38,11 +40,14 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
                 .build();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
+        assert getArguments() != null;
+        url = getArguments().getString(BUNDLE_ARTICLE_DETAIL_URL);
 
-        mAgentWeb = AgentWeb.with(this)
+        AgentWeb agentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mFrameLayout, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator(getResources().getColor(R.color.colorPrimary))
                 .setMainFrameErrorView(R.layout.default_error, -1)
@@ -51,7 +56,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
                 .ready()
                 .go(url);
 
-        WebView mWebView = mAgentWeb.getWebCreator().getWebView();
+        WebView mWebView = agentWeb.getWebCreator().getWebView();
         WebSettings mSettings = mWebView.getSettings();
 
         mSettings.setBlockNetworkImage(mPresenter.getNoImageMode());
@@ -85,9 +90,5 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
         mSettings.setLoadWithOverviewMode(true);
         //自适应屏幕
         mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

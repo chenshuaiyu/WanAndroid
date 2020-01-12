@@ -84,6 +84,7 @@
                 android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 tools:text="我们不一样" />
 
         </RelativeLayout>

@@ -5,7 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.statelayout_lib.StateLayoutManager;
-import com.flyco.tablayout.SlidingTabLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 
@@ -18,7 +18,7 @@ public abstract class BaseViewPagerFragment<T extends BasePresenter> extends Bas
     @BindView(R.id.view_pager)
     protected ViewPager mViewPager;
     @BindView(R.id.tab_layout)
-    protected SlidingTabLayout mTabLayout;
+    protected TabLayout mTabLayout;
 
     @Override
     protected StateLayoutManager getStateLayoutManager() {
