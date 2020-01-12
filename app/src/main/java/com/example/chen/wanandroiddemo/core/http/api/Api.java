@@ -3,6 +3,9 @@ package com.example.chen.wanandroiddemo.core.http.api;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.Coin;
+import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -199,4 +202,31 @@ public interface Api {
      */
     @POST("lg/collect/{id}/json")
     Observable<BaseResponse> collectArtcile(@Path("id") int id);
+
+    /**
+     * 获取积分排行榜
+     * https://www.wanandroid.com/coin/rank/1/json
+     *
+     * @return
+     */
+    @GET("coin/rank/{page}/json")
+    Observable<BaseResponse<CoinRanks>> getCoinRanks(@Path("page") int page);
+
+    /**
+     * 获取个人积分
+     * https://www.wanandroid.com/lg/coin/userinfo/json
+     *
+     * @return
+     */
+    @GET("lg/coin/userinfo/json")
+    Observable<BaseResponse<Coin>> getCoin();
+
+    /**
+     * 获取个人积分获取列表
+     * https://www.wanandroid.com/lg/coin/list/1/json
+     *
+     * @return
+     */
+    @GET("lg/coin/list/{page}/json")
+    Observable<BaseResponse<CoinRecords>> getCoinRecords(@Path("page") int page);
 }

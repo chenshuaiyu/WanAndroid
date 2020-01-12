@@ -28,7 +28,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<System> mSystems;
+    private List<System> mSystems = new ArrayList<>();
     private SystemAdapter mSystemAdapter;
 
     @Override
@@ -47,10 +47,9 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-        mSystems = new ArrayList<>();
-        mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
 
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
         mRefreshRecyclerView.setAdapter(mSystemAdapter);
         mSystemAdapter.setOnItemClickListener((adapter, view, position) -> {
             System system = mSystems.get(position);

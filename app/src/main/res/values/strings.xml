@@ -53,6 +53,11 @@
     <string name="my_collection">我的收藏</string>
     <string name="confirm_quit">确认退出此账号？</string>
     <string name="clear">清空</string>
+    <string name="coin_rank">积分排行榜</string>
+    <string name="wanandroid">玩安卓</string>
+    <string name="my_coin">我的积分</string>
+    <string name="rank">当前排名</string>
+    <string name="lv">当前等级</string>
 
 
 </resources>

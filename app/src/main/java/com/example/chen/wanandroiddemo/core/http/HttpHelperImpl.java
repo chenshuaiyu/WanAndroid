@@ -3,6 +3,9 @@ package com.example.chen.wanandroiddemo.core.http;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.Coin;
+import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -123,5 +126,20 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse> collectArticle(int id) {
         return mApi.collectArtcile(id);
+    }
+
+    @Override
+    public Observable<BaseResponse<CoinRanks>> getCoinRanks(int page) {
+        return mApi.getCoinRanks(page);
+    }
+
+    @Override
+    public Observable<BaseResponse<Coin>> getCoin() {
+        return mApi.getCoin();
+    }
+
+    @Override
+    public Observable<BaseResponse<CoinRecords>> getCoinRecords(int page) {
+        return mApi.getCoinRecords(page);
     }
 }

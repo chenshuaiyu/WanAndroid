@@ -3,6 +3,9 @@ package com.example.chen.wanandroiddemo.core.http;
 import com.example.chen.wanandroiddemo.core.bean.Articles;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.Coin;
+import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -53,4 +56,10 @@ public interface HttpHelper {
     Observable<BaseResponse<LoginData>> logout();
 
     Observable<BaseResponse> collectArticle(int id);
+
+    Observable<BaseResponse<CoinRanks>> getCoinRanks(int page);
+
+    Observable<BaseResponse<Coin>> getCoin();
+
+    Observable<BaseResponse<CoinRecords>> getCoinRecords(int page);
 }

@@ -37,8 +37,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private com.youth.banner.Banner mBanner;
 
     private ArticlesAdapter mArticlesAdapter;
-    private List<Banner> mBannerList = new ArrayList<>();;
-    private List<Article> mArticleList = new ArrayList<>();;
+    private List<Banner> mBannerList = new ArrayList<>();
+    private List<Article> mArticleList = new ArrayList<>();
 
     @Override
     protected HomePresenter getPresenter() {

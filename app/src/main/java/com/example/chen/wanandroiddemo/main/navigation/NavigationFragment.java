@@ -35,7 +35,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    private List<Navigation> mNavigations;
+    private List<Navigation> mNavigations = new ArrayList<>();
     private NavigationAdapter mNavigationAdapter;
     private TabAdapter mTabAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -57,7 +57,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     protected void initView() {
         mPresenter.subscribeEvent();
 
-        mNavigations = new ArrayList<>();
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);

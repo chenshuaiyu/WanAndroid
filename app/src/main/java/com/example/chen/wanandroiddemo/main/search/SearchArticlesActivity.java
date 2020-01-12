@@ -37,7 +37,7 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
 
     private int curPage = 0;
     private String key;
-    private List<Article> mArticles;
+    private List<Article> mArticles = new ArrayList<>();;
     private ArticlesAdapter mArticlesAdapter;
 
     public static Intent newIntent(Context context, String key) {
@@ -71,7 +71,6 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
-        mArticles = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mArticlesAdapter);

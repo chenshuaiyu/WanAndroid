@@ -34,7 +34,7 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     Toolbar mToolbar;
 
     private System mSystem;
-    private List<Fragment> mFragmentList;
+    private List<Fragment> mFragmentList = new ArrayList<>();
     private ViewPagerAdapter mAdapter;
 
     @Override
@@ -63,7 +63,6 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
 
-        mFragmentList = new ArrayList<>();
         for (System childrenSystem : mSystem.getChildren()) {
             SystemArticleFragment articleFragment = new SystemArticleFragment();
             Bundle bundle = new Bundle();

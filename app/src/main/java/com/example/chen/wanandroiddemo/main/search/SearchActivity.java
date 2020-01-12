@@ -52,9 +52,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @BindView(R.id.clear_all_history)
     RelativeLayout mRelativeLayout;
 
-    private List<HotWord> mHotWords;
+    private List<HotWord> mHotWords = new ArrayList<>();
     private TagAdapter<HotWord> mTagAdapter;
-    private List<HistoryRecord> mHistoryRecords;
+    private List<HistoryRecord> mHistoryRecords = new ArrayList<>();
     private HistoryAdapter mHistoryAdapter;
 
     @Override
@@ -85,7 +85,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         });
 
-        mHotWords = new ArrayList<>();
         mTagAdapter = new TagAdapter<HotWord>(mHotWords) {
             @Override
             public View getView(FlowLayout parent, int position, final HotWord hotWord) {
@@ -104,7 +103,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         };
         mTagFlowLayout.setAdapter(mTagAdapter);
-        mHistoryRecords = new ArrayList<>();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mHistoryAdapter = new HistoryAdapter(R.layout.item_history, mHistoryRecords);
         mHistoryAdapter.setOnItemClickListener((adapter, view, position) -> {

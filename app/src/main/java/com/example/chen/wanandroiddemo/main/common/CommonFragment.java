@@ -28,7 +28,7 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
     @BindView(R.id.tag_flow_layout)
     TagFlowLayout mTagFlowLayout;
 
-    private List<Website> mWebsites;
+    private List<Website> mWebsites = new ArrayList<>();
     private TagAdapter<Website> mTagAdapter;
 
     @Override
@@ -48,7 +48,6 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
     protected void initView() {
         mPresenter.subscribeEvent();
 
-        mWebsites = new ArrayList<>();
         mTagAdapter = new TagAdapter<Website>(mWebsites) {
             @Override
             public View getView(FlowLayout parent, int position, final Website website) {

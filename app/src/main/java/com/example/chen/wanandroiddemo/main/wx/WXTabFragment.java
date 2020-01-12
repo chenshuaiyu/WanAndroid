@@ -43,7 +43,7 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     public static final int SEARCH_MODE = 1;
 
     private int curSearchPage = 1;
-    private List<Article> mWXTabArticleList;
+    private List<Article> mWXTabArticleList = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
 
     private Tab mWXTab;
@@ -71,7 +71,6 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         assert getArguments() != null;
         mWXTab = (Tab) getArguments().getSerializable(BUNDLE_WX_TAB);
 
-        mWXTabArticleList = new ArrayList<>();
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWXTabArticleList);
 
         mSearchView = new SearchView(getContext());
