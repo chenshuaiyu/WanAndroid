@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_avatar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/ic_avatar" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/civ_avatar"
+        tools:text="作者"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_toStartOf="@id/tv_fresh"
+        android:layout_toEndOf="@id/tv_author"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="我们不一样" />
+
+    <TextView
+        android:id="@+id/tv_fresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_toStartOf="@id/iv_collect"
+        android:text="@string/fresh"
+        android:textColor="@color/red"
+        android:background="@drawable/bg_shape_fresh"
+        android:padding="2dp"/>
+
+    <ImageView
+        android:id="@+id/iv_collect"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="6dp"
+        android:layout_toStartOf="@id/tv_time"
+        android:src="@drawable/ic_dislike" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        tools:text="一天前" />
+
+
+</RelativeLayout>

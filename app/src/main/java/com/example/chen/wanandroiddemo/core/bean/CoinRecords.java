@@ -70,6 +70,7 @@ public class CoinRecords {
 
     public class CoinRecord {
         private int coinCount;
+        private double date;
         private String desc;
         private int id;
         private String reason;
@@ -83,6 +84,14 @@ public class CoinRecords {
 
         public void setCoinCount(int coinCount) {
             this.coinCount = coinCount;
+        }
+
+        public double getDate() {
+            return date;
+        }
+
+        public void setDate(double date) {
+            this.date = date;
         }
 
         public String getDesc() {

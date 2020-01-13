@@ -9,6 +9,8 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
@@ -154,6 +156,16 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<CoinRecords>> getCoinRecords(int page) {
         return mHttpHelper.getCoinRecords(page);
+    }
+
+    @Override
+    public Observable<BaseResponse<SquareArticles>> getSquareList(int page) {
+        return mHttpHelper.getSquareList(page);
+    }
+
+    @Override
+    public Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(int id, int page) {
+        return mHttpHelper.getPresonalSquare(id, page);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
@@ -62,4 +64,8 @@ public interface HttpHelper {
     Observable<BaseResponse<Coin>> getCoin();
 
     Observable<BaseResponse<CoinRecords>> getCoinRecords(int page);
+
+    Observable<BaseResponse<SquareArticles>> getSquareList(int page);
+
+    Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(int id, int page);
 }

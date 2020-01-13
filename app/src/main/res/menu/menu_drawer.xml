@@ -20,6 +20,12 @@
             app:showAsAction="never" />
 
         <item
+            android:id="@+id/menu_square"
+            android:icon="@drawable/ic_square"
+            android:title="@string/square"
+            app:showAsAction="never" />
+
+        <item
             android:id="@+id/menu_coin_rank"
             android:icon="@drawable/ic_coin"
             android:title="@string/coin_rank"

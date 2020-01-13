@@ -8,7 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
-import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.main.square.SquareActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -222,6 +222,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
                     ToastUtil.toast("未登录，请先登录");
                     startActivity(new Intent(this, LoginActivity.class));
                 }
+                break;
+            case R.id.menu_square:
+                //bug：未选中WanAndroid栏
+                startActivity(new Intent(this, SquareActivity.class));
                 break;
             case R.id.menu_coin_rank:
                 //bug：未选中WanAndroid栏

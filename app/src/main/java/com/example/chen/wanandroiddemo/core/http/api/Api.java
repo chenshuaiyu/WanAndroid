@@ -9,6 +9,8 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.core.bean.Website;
@@ -229,4 +231,22 @@ public interface Api {
      */
     @GET("lg/coin/list/{page}/json")
     Observable<BaseResponse<CoinRecords>> getCoinRecords(@Path("page") int page);
+
+    /**
+     * 获取广场列表数据
+     * https://wanandroid.com/user_article/list/0/json
+     *
+     * @return
+     */
+    @GET("user_article/list/{page}/json")
+    Observable<BaseResponse<SquareArticles>> getSquareList(@Path("page") int page);
+
+    /**
+     * 获取分享人列表数据
+     * https://www.wanandroid.com/user/2/share_articles/1/json
+     *
+     * @return
+     */
+    @GET("user/{id}/share_articles/{page}/json")
+    Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(@Path("id") int id, @Path("page") int page);
 }
