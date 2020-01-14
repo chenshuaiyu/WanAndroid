@@ -67,5 +67,5 @@ public interface HttpHelper {
 
     Observable<BaseResponse<SquareArticles>> getSquareList(int page);
 
-    Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(int id, int page);
+    Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(int id, int page);
 }

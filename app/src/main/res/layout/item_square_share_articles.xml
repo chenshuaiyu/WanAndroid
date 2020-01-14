@@ -4,33 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="60dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_avatar"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="6dp"
-        android:src="@drawable/ic_avatar" />
-
-    <TextView
-        android:id="@+id/tv_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="6dp"
-        android:layout_toEndOf="@id/civ_avatar"
-        tools:text="作者"
-        android:textColor="@color/colorPrimary"/>
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dp_10"
         android:layout_toStartOf="@id/tv_fresh"
-        android:layout_toEndOf="@id/tv_author"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -45,10 +26,10 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dp_10"
         android:layout_toStartOf="@id/iv_collect"
-        android:text="@string/fresh"
-        android:textColor="@color/red"
         android:background="@drawable/bg_shape_fresh"
-        android:padding="2dp"/>
+        android:padding="2dp"
+        android:text="@string/fresh"
+        android:textColor="@color/red" />
 
     <ImageView
         android:id="@+id/iv_collect"

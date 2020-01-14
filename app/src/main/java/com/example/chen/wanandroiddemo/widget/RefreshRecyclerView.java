@@ -56,11 +56,11 @@ public class RefreshRecyclerView extends RelativeLayout {
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             mCurPage = mFirstPage;
             mCallback.refresh(mCurPage);
-            refreshLayout.finishRefresh(1500);
+            refreshLayout.finishRefresh(1000);
         });
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             mCallback.loadMore(mCurPage++);
-            refreshLayout.finishLoadMore(1500);
+            refreshLayout.finishLoadMore(1000);
         });
     }
 

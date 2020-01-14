@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.square;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -71,9 +72,13 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
             SquareArticles.SquareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.tv_author:
-
+                    Intent intent = new Intent(getContext(), PersonalSquareActivity.class);
+                    intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_NAME, squareArticle.getShareUser());
+                    intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_ID, squareArticle.getUserId());
+                    startActivity(intent);
                     break;
                 case R.id.iv_collect:
+
                     break;
                 default:
                     break;

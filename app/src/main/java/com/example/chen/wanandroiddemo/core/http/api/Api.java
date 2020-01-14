@@ -248,5 +248,5 @@ public interface Api {
      * @return
      */
     @GET("user/{id}/share_articles/{page}/json")
-    Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(@Path("id") int id, @Path("page") int page);
+    Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(@Path("id") int id, @Path("page") int page);
 }

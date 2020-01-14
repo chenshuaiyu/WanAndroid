@@ -47,18 +47,21 @@ public class CoinActivity extends BaseActivity<CoinPresenter> implements CoinCon
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
-
-        mToolbar.setTitle(getResources().getString(R.string.coin_rank));
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        initToolbar();
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments);
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size());
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void initToolbar() {
+        mToolbar.setTitle(R.string.coin_rank);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

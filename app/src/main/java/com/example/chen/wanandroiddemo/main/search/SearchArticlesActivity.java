@@ -64,12 +64,7 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         Intent intent = getIntent();
         key = intent.getStringExtra(Constants.SEARCH_KEY);
 
-        mToolbar.setTitle(key);
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        initToolbar();
 
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,6 +99,15 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         });
 
         mPresenter.getSearchArticles(curPage++, key);
+    }
+
+    private void initToolbar() {
+        mToolbar.setTitle(key);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

@@ -73,18 +73,21 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.subscribeEvent();
+        initToolbar();
+
+        mPresenter.getNightMode();
+        mPresenter.getNoImageMode();
+        mPresenter.getAutoCache();
+    }
+
+    private void initToolbar() {
+        mToolbar.setTitle(R.string.settings);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
-        supportActionBar.setTitle(R.string.settings);
-
-        mPresenter.getNightMode();
-        mPresenter.getNoImageMode();
-        mPresenter.getAutoCache();
-
-        mPresenter.subscribeEvent();
     }
 
     private void setNightMode() {

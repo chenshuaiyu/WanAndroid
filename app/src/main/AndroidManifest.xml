@@ -22,7 +22,8 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.square.SquareActivity"></activity>
+        <activity android:name=".main.square.PersonalSquareActivity"></activity>
+        <activity android:name=".main.square.SquareActivity" />
         <activity android:name=".main.coin.CoinActivity" />
 
         <receiver

@@ -56,13 +56,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
         url = intent.getStringExtra(Constants.ARTICLE_URL);
         String title = intent.getStringExtra(Constants.ARTICLE_TITLE);
 
-        mToolbar.setTitle(Html.fromHtml(title));
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
-
+        initToolbar(title);
 
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         Bundle bundle = new Bundle();
@@ -71,6 +65,15 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fl_container, fragment)
                 .commit();
+    }
+
+    private void initToolbar(String title) {
+        mToolbar.setTitle(Html.fromHtml(title));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

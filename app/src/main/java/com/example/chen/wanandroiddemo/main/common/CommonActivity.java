@@ -33,8 +33,11 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
+        initToolbar();
+    }
 
-        mToolbar.setTitle(getResources().getString(R.string.commom_website));
+    private void initToolbar() {
+        mToolbar.setTitle(R.string.commom_website);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();

@@ -164,8 +164,8 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<BaseResponse<SquareShareArticles>> getPresonalSquare(int id, int page) {
-        return mHttpHelper.getPresonalSquare(id, page);
+    public Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(int id, int page) {
+        return mHttpHelper.getPersonalSquare(id, page);
     }
 
     @Override

@@ -33,16 +33,16 @@ public class CollectionActivity extends BaseActivity<SettingsPresenter> implemen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
+        initToolbar();
+    }
 
+    private void initToolbar() {
+        mToolbar.setTitle(R.string.my_collection);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
-        supportActionBar.setTitle(R.string.my_collection);
-
-
-
     }
 
     @Override
