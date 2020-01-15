@@ -9,6 +9,7 @@ public interface ArticleContract {
     }
 
     interface View extends BaseView {
-
+        void showCollectSuccess();
+        void showCollectFail();
     }
 }

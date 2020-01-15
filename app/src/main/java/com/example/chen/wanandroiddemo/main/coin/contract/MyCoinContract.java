@@ -9,6 +9,7 @@ public interface MyCoinContract {
     interface Presenter extends IPresenter<View> {
         void getCoin();
         void getCoinRecords(int page);
+        boolean getLoginStatus();
     }
 
     interface View extends BaseView {

@@ -97,15 +97,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mPresenter.subscribeEvent();
-
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(mToolbar);
-        mNaviView.setNavigationItemSelectedListener(this);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        initToolbar();
 
         BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
 
@@ -160,6 +153,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
         });
 
         registerReceiver(mReceiver, new IntentFilter("intent.action.night_mode_change"));
+    }
+
+    private void initToolbar() {
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        mNaviView.setNavigationItemSelectedListener(this);
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
     }
 
     @Override

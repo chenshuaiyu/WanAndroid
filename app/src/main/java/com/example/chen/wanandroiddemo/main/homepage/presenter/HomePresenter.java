@@ -1,7 +1,5 @@
 package com.example.chen.wanandroiddemo.main.homepage.presenter;
 
-import android.util.Log;
-
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -37,6 +35,21 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     mView.showArticles(articlesBaseResponse.getData().getDatas());
                     mView.showContentView();
                 }, Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void collectActicle(int id) {
+        addSubcriber(
+                mDataManager.collectArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> {
+                            if (baseResponse.getErrorCode() == 0) {
+                                mView.showCollectSuccess();
+                            } else {
+                                mView.showCollectFail();
+                            }
+                        }, Throwable::printStackTrace)
         );
     }
 }

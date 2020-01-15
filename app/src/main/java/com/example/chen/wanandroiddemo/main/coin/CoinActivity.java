@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.main.coin;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
@@ -11,10 +12,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.coin.contract.CoinContract;
 import com.example.chen.wanandroiddemo.main.coin.presenter.CoinPresenter;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Arrays;
@@ -65,10 +68,22 @@ public class CoinActivity extends BaseActivity<CoinPresenter> implements CoinCon
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_coin, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.menu_welfare:
+                OpenActivityUtil.openArticleDetailActivity(this, 0, Constants.COIN_WELFARE, "本站福利", false);
+                break;
+            case R.id.menu_coin_rule:
+                OpenActivityUtil.openArticleDetailActivity(this, 0, Constants.COIN_RULE_LINK, "本站积分规则", false);
                 break;
             default:
                 break;

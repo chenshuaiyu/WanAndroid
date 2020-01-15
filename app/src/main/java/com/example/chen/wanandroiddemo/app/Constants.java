@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.app;
 
-import android.app.AlertDialog;
 import android.graphics.Color;
 
 /**
@@ -42,6 +41,7 @@ public class Constants {
     public static final String ARTICLE_ID = "article_id";
     public static final String ARTICLE_URL = "article_url";
     public static final String ARTICLE_TITLE = "article_title";
+    public static final String ARTICLE_COLLECT = "article_collect";
     public static final String SYSTEM = "system_id";
     public static final String SEARCH_KEY = "search_key";
 
@@ -75,4 +75,10 @@ public class Constants {
      * Splash页倒计时3秒
      */
     public static final int SPLASH_TIME = 3;
+
+    /**
+     * Link
+     */
+    public static final String COIN_RULE_LINK = "https://wanandroid.com/blog/show/2653";
+    public static final String COIN_WELFARE = "https://market.geekbang.org/activity/channelcoupon/16?utm_source=web&utm_medium=wananzhuo&utm_campaign=changweiliuliang&utm_term=zhanghongyang003&utm_content=0530";
 }

@@ -1,7 +1,5 @@
 package com.example.chen.wanandroiddemo.main.coin.presenter;
 
-import android.util.Log;
-
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.coin.contract.MyCoinContract;
@@ -35,5 +33,10 @@ public class MyCoinPresenter extends BasePresenter<MyCoinContract.View> implemen
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );
+    }
+
+    @Override
+    public boolean getLoginStatus() {
+        return mDataManager.getLoginStatus();
     }
 }

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_website"
-        android:icon="@drawable/ic_website"
-        android:title="@string/commom_website"
+        android:id="@+id/menu_welfare"
+        android:icon="@drawable/ic_welfare"
+        android:title="@string/welfare"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search_white"
-        android:title="@string/search"
+        android:id="@+id/menu_coin_rule"
+        android:icon="@drawable/ic_coin_rule"
+        android:title="@string/coin_rule"
         app:showAsAction="ifRoom" />
 
 </menu>

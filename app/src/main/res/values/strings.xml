@@ -60,5 +60,10 @@
     <string name="lv">当前等级</string>
     <string name="square">广场</string>
     <string name="fresh">新</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="collect_fail">收藏失败</string>
+    <string name="coin_rule">积分规则</string>
+    <string name="welfare">福利</string>
+    <string name="not_login">未登录</string>
 
 </resources>

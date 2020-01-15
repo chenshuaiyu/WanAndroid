@@ -13,6 +13,7 @@ import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.main.common.contract.CommonFContract;
 import com.example.chen.wanandroiddemo.main.common.presenter.CommonFPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.statelayout_lib.StateLayoutManager;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -56,10 +57,8 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
                 textView.setText(website.getName());
                 view.setBackgroundColor(ColorUtil.randomTagColor());
 
-                view.setOnClickListener(v -> {
-                    Intent intent = ArticleActivity.newIntent(getContext(), website.getId(), website.getLink(), website.getName());
-                    startActivity(intent);
-                });
+                //bug：不需收藏
+                view.setOnClickListener(v -> OpenActivityUtil.openArticleDetailActivity(getContext(), website.getId(), website.getLink(), website.getName(), false));
                 return view;
             }
         };

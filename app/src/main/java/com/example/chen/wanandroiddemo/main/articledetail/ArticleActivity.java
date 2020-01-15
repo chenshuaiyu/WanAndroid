@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,24 +18,27 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.main.articledetail.contract.ArticleContract;
 import com.example.chen.wanandroiddemo.main.articledetail.presenter.ArticlePresenter;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
 
 import butterknife.BindView;
 
-public class ArticleActivity extends BaseActivity<ArticlePresenter> {
+public class ArticleActivity extends BaseActivity<ArticlePresenter> implements ArticleContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     private int id;
     private String url;
+    private boolean collect;
 
-    public static Intent newIntent(Context context, int id, String link, String title) {
+    public static Intent newIntent(Context context, int id, String link, String title, boolean collect) {
         Intent intent = new Intent(context, ArticleActivity.class);
         intent.putExtra(Constants.ARTICLE_ID, id);
         intent.putExtra(Constants.ARTICLE_URL, link);
         intent.putExtra(Constants.ARTICLE_TITLE, title);
+        intent.putExtra(Constants.ARTICLE_COLLECT, collect);
         return intent;
     }
 
@@ -52,8 +58,9 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
         mPresenter.subscribeEvent();
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(Constants.ARTICLE_ID, -1);
+        id = intent.getIntExtra(Constants.ARTICLE_ID, 0);
         url = intent.getStringExtra(Constants.ARTICLE_URL);
+        collect = intent.getBooleanExtra(Constants.ARTICLE_COLLECT, false);
         String title = intent.getStringExtra(Constants.ARTICLE_TITLE);
 
         initToolbar(title);
@@ -79,6 +86,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_article_detail, menu);
+        //根据collect修改menu图标
         return true;
     }
 
@@ -89,7 +97,11 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
                 finish();
                 break;
             case R.id.menu_collect:
-                mPresenter.collectActicle(id);
+                if (!collect) {
+                    mPresenter.collectActicle(id);
+                } else {
+
+                }
                 break;
             case R.id.menu_open_with_browser:
                 ToastUtil.toast(R.string.opening_in_browser);
@@ -102,5 +114,17 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void showCollectSuccess() {
+        ToastUtil.toast(R.string.collect_success);
+        collect = true;
+    }
+
+    @Override
+    public void showCollectFail() {
+        ToastUtil.toast(R.string.collect_fail);
+        collect = false;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import androidx.annotation.Nullable;
+
 import android.text.Html;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

@@ -13,6 +13,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -41,8 +42,8 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
                 name.setText(article.getTitle());
                 name.setTextColor(ColorUtil.randomTagColor());
                 view.setOnClickListener(v -> {
-                    Intent intent = ArticleActivity.newIntent(mContext, article.getId(), article.getLink(), article.getTitle());
-                    mContext.startActivity(intent);
+                    //bug：收藏待处理
+                    OpenActivityUtil.openArticleDetailActivity(mContext, article.getId(), article.getLink(), article.getTitle(), article.isCollect());
                 });
                 return view;
             }

@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle(), article.isCollect());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
@@ -77,6 +77,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.iv_collect:
+
                     break;
                 default:
                     break;
@@ -118,6 +119,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mArticlesAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showCollectSuccess() {
+
+    }
+
+    @Override
+    public void showCollectFail() {
+
+    }
+
     private void setBanner() {
         List<String> title = new ArrayList<>();
         for (Banner banner : mBannerList)
@@ -130,7 +141,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getId(), banner.getUrl(), banner.getTitle());
+            //bug：banner不收藏
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getId(), banner.getUrl(), banner.getTitle(), false);
         });
         mBanner.start();
     }

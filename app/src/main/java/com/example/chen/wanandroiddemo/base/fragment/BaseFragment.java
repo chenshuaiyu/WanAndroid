@@ -25,7 +25,7 @@ import butterknife.Unbinder;
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/16 16:19
- *
+ * <p>
  * 懒加载Fragment
  */
 public abstract class BaseFragment<T extends IPresenter> extends Fragment implements BaseView {
@@ -78,8 +78,8 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         layoutManager.setEmptyDataLayoutResId(layoutManager.getEmptyDataLayoutResId() == 0 ? R.layout.default_empty_data : layoutManager.getEmptyDataLayoutResId());
         layoutManager.setNetErrorLayoutResId(layoutManager.getNetErrorLayoutResId() == 0 ? R.layout.default_net_error : layoutManager.getNetErrorLayoutResId());
         layoutManager.setErrorLayoutResId(layoutManager.getErrorLayoutResId() == 0 ? R.layout.default_error : layoutManager.getErrorLayoutResId());
-        layoutManager.setNetErrorReLoadViewResId(R.id.tv_load);
-        layoutManager.setErrorReLoadViewResId(R.id.tv_load);
+        layoutManager.setNetErrorReLoadViewResId(layoutManager.getNetErrorReLoadViewResId() == 0 ? R.id.tv_load : layoutManager.getNetErrorReLoadViewResId());
+        layoutManager.setErrorReLoadViewResId(layoutManager.getErrorReLoadViewResId() == 0 ? R.id.tv_load : layoutManager.getErrorReLoadViewResId());
 
         mStateLayout.setLayoutManager(layoutManager);
     }

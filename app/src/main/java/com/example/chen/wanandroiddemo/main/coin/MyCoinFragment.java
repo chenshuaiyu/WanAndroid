@@ -1,9 +1,11 @@
 package com.example.chen.wanandroiddemo.main.coin;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -12,13 +14,16 @@ import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.main.activity.LoginActivity;
 import com.example.chen.wanandroiddemo.main.coin.contract.MyCoinContract;
 import com.example.chen.wanandroiddemo.main.coin.presenter.MyCoinPresenter;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -40,7 +45,12 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.fragment_my_coin)
-                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
+                .setErrorLayoutResId(R.layout.not_login)
+                .setErrorReLoadViewResId(R.id.tv_not_login)
+                .setOnReLoadListener(() -> {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    Objects.requireNonNull(getActivity()).finish();
+                })
                 .build();
     }
 
@@ -90,6 +100,18 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
         mCoinRecordsAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void reLoad() {
+        if (!NetUtil.isNetworkConnected()) {
+            showNetErrorView();
+        } else if (mPresenter.getLoginStatus()) {
+            mRefreshRecyclerView.reLoad();
+        } else {
+            showErrorView();
+        }
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "我的积分";
