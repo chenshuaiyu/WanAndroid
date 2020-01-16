@@ -9,6 +9,9 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRecordsAdapter extends BaseQuickAdapter<CoinRecords.CoinRecord, BaseViewHolder> {
     public CoinRecordsAdapter(int layoutResId, @Nullable List<CoinRecords.CoinRecord> data) {
         super(layoutResId, data);

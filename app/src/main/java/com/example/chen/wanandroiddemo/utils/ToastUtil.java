@@ -5,6 +5,9 @@ import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 
+/**
+ * @author chenshuaiyu
+ */
 public class ToastUtil {
     public static void toast(String msg) {
         Toast.makeText(WanAndroidApp.getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();

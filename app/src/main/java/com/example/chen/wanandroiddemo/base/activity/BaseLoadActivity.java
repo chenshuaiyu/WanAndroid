@@ -9,6 +9,9 @@ import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.statelayout_lib.StateLayout;
 import com.example.statelayout_lib.StateLayoutManager;
 
+/**
+ * @author chenshuaiyu
+ */
 public abstract class BaseLoadActivity<T extends IPresenter> extends BaseActivity<T> {
 
     private StateLayout mStateLayout;

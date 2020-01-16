@@ -12,6 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SplashActivity extends AppCompatActivity {
 
     private TextView mTimeTv;

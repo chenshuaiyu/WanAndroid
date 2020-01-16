@@ -154,4 +154,14 @@ public class HttpHelperImpl implements HttpHelper {
     public Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(int id, int page) {
         return mApi.getPersonalSquare(id, page);
     }
+
+    @Override
+    public Observable<BaseResponse<SquareShareArticles>> getMySquare(int page) {
+        return mApi.getMySquare(page);
+    }
+
+    @Override
+    public Observable<BaseResponse> shareArticle(String title, String link) {
+        return mApi.shareArticle(title, link);
+    }
 }

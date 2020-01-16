@@ -209,6 +209,7 @@ public interface Api {
      * 获取积分排行榜
      * https://www.wanandroid.com/coin/rank/1/json
      *
+     * @param page
      * @return
      */
     @GET("coin/rank/{page}/json")
@@ -227,6 +228,7 @@ public interface Api {
      * 获取个人积分获取列表
      * https://www.wanandroid.com/lg/coin/list/1/json
      *
+     * @param page
      * @return
      */
     @GET("lg/coin/list/{page}/json")
@@ -236,6 +238,7 @@ public interface Api {
      * 获取广场列表数据
      * https://wanandroid.com/user_article/list/0/json
      *
+     * @param page
      * @return
      */
     @GET("user_article/list/{page}/json")
@@ -245,8 +248,30 @@ public interface Api {
      * 获取分享人列表数据
      * https://www.wanandroid.com/user/2/share_articles/1/json
      *
+     * @param id
+     * @param page
      * @return
      */
     @GET("user/{id}/share_articles/{page}/json")
     Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(@Path("id") int id, @Path("page") int page);
+
+    /**
+     * 获取自己列表数据
+     * https://wanandroid.com/user/lg/private_articles/1/json
+     *
+     * @param page
+     * @return
+     */
+    @GET("user/lg/private_articles/{page}/json")
+    Observable<BaseResponse<SquareShareArticles>> getMySquare(@Path("page") int page);
+
+    /**
+     * https://www.wanandroid.com/lg/user_article/add/json
+     *
+     * @param title
+     * @param link
+     * @return
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseResponse> shareArticle(@Field("title") String title, @Field("link") String link);
 }

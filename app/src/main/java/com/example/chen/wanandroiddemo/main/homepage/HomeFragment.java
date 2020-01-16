@@ -131,8 +131,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     private void setBanner() {
         List<String> title = new ArrayList<>();
-        for (Banner banner : mBannerList)
+        for (Banner banner : mBannerList) {
             title.add(banner.getTitle());
+        }
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         mBanner.setImageLoader(new GlideImageLoader());
         mBanner.setImages(mBannerList);

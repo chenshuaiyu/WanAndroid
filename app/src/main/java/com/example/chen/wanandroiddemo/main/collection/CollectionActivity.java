@@ -14,6 +14,9 @@ import com.example.chen.wanandroiddemo.main.collection.contract.CollectionContra
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CollectionActivity extends BaseActivity<SettingsPresenter> implements CollectionContract.View {
 
     @BindView(R.id.toolbar)

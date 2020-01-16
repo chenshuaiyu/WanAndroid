@@ -5,6 +5,9 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.coin.contract.CoinRankContract;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRankPresenter extends BasePresenter<CoinRankContract.View> implements CoinRankContract.Presenter {
 
     public CoinRankPresenter(DataManager dataManager) {

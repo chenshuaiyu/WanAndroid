@@ -2,6 +2,9 @@ package com.example.chen.wanandroiddemo.core.bean;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SquareArticles {
     private int curPage;
     private List<SquareArticle> datas;

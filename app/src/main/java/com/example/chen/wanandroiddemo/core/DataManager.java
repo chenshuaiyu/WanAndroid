@@ -169,6 +169,16 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public Observable<BaseResponse<SquareShareArticles>> getMySquare(int page) {
+        return mHttpHelper.getMySquare(page);
+    }
+
+    @Override
+    public Observable<BaseResponse> shareArticle(String title, String link) {
+        return mHttpHelper.shareArticle(title, link);
+    }
+
+    @Override
     public void addHistoryRecord(HistoryRecord record) {
         mDbHelper.addHistoryRecord(record);
     }

@@ -25,6 +25,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinActivity extends BaseActivity<CoinPresenter> implements CoinContract.View {
 
     @BindView(R.id.toolbar)

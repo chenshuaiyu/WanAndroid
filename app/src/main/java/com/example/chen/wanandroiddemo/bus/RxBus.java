@@ -20,12 +20,16 @@ public class RxBus {
         return Holder.INSTANCE;
     }
 
-    //发送一个事件
+    /**
+     * 发送一个事件
+     */
     public void post(Object o) {
         mSubject.onNext(o);
     }
 
-    //根据事件类型生成 Observable 对象
+    /**
+     * 根据事件类型生成 Observable 对象
+     */
     public <T> Observable<T> toObservable(Class<T> eventType) {
         return mSubject.ofType(eventType);
     }

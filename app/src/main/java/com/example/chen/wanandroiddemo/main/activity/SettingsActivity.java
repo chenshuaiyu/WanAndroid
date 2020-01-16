@@ -22,6 +22,9 @@ import com.example.chen.wanandroiddemo.utils.ShareUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SettingsActivity extends BaseActivity<SettingsPresenter> implements SettingsContract.View {
 
     @BindView(R.id.toolbar)

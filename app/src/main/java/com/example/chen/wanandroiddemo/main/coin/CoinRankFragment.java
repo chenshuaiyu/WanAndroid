@@ -18,6 +18,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRankFragment extends BaseFragment<CoinRankPresenter> implements CoinRankContract.View {
 
     @BindView(R.id.refresh_recycler_view)

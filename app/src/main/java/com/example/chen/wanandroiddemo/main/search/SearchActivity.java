@@ -37,6 +37,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
 
     @BindView(R.id.toolbar)
@@ -72,10 +75,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
 
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        initToolbar();
 
         mButton.setOnClickListener(v -> {
             String s = mEditText.getText().toString();
@@ -85,24 +85,35 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         });
 
-        mTagAdapter = new TagAdapter<HotWord>(mHotWords) {
-            @Override
-            public View getView(FlowLayout parent, int position, final HotWord hotWord) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
-                TextView textView = view.findViewById(R.id.tv_hot_word);
-                textView.setText(hotWord.getName());
-                view.setBackgroundColor(ColorUtil.randomTagColor());
+        initTagFlowLayout();
+        initRecyclerView();
 
-                view.setOnClickListener(v -> {
-                    setEditSelection(hotWord.getName());
+        mRelativeLayout.setOnClickListener(v -> {
+            AlertDialog dialog = new AlertDialog.Builder(SearchActivity.this)
+                    .setTitle(R.string.clear_all_history)
+                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.clearHisotryRecord();
+                            mHistoryRecords.clear();
+                            mHistoryAdapter.notifyDataSetChanged();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    addHisotryRecord(hotWord.getName());
-                    searchArticles(hotWord.getName());
-                });
-                return view;
-            }
-        };
-        mTagFlowLayout.setAdapter(mTagAdapter);
+                        }
+                    })
+                    .create();
+            dialog.show();
+        });
+
+        mPresenter.getHotWord();
+        mPresenter.getAllHisotryRecord();
+    }
+
+    private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mHistoryAdapter = new HistoryAdapter(R.layout.item_history, mHistoryRecords);
         mHistoryAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -131,31 +142,34 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             mPresenter.deleteHisotryRecord(record);
         });
         mRecyclerView.setAdapter(mHistoryAdapter);
+    }
 
+    private void initTagFlowLayout() {
+        mTagAdapter = new TagAdapter<HotWord>(mHotWords) {
+            @Override
+            public View getView(FlowLayout parent, int position, final HotWord hotWord) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
+                TextView textView = view.findViewById(R.id.tv_hot_word);
+                textView.setText(hotWord.getName());
+                view.setBackgroundColor(ColorUtil.randomTagColor());
 
-        mRelativeLayout.setOnClickListener(v -> {
-            AlertDialog dialog = new AlertDialog.Builder(SearchActivity.this)
-                    .setTitle(R.string.clear_all_history)
-                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPresenter.clearHisotryRecord();
-                            mHistoryRecords.clear();
-                            mHistoryAdapter.notifyDataSetChanged();
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                view.setOnClickListener(v -> {
+                    setEditSelection(hotWord.getName());
 
-                        }
-                    })
-                    .create();
-            dialog.show();
-        });
+                    addHisotryRecord(hotWord.getName());
+                    searchArticles(hotWord.getName());
+                });
+                return view;
+            }
+        };
+        mTagFlowLayout.setAdapter(mTagAdapter);
+    }
 
-        mPresenter.getHotWord();
-        mPresenter.getAllHisotryRecord();
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     private void setEditSelection(String data) {

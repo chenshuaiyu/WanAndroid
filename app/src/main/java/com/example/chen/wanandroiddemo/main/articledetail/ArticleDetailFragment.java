@@ -18,6 +18,9 @@ import com.just.agentweb.DefaultWebClient;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> implements ArticleDetailContract.View {
 
     public static final String BUNDLE_ARTICLE_DETAIL_URL = "article_detail_url";

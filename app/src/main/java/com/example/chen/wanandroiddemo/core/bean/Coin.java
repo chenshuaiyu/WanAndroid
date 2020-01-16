@@ -1,5 +1,8 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
+/**
+ * @author chenshuaiyu
+ */
 public class Coin {
     private int coinCount;
     private int level;

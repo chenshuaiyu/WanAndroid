@@ -15,6 +15,9 @@ import com.example.statelayout_lib.StateLayoutManager;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.et_username)

@@ -17,14 +17,18 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RxUtils {
 
-    //切换线程
+    /**
+     * 切换线程
+     */
     public static <T> ObservableTransformer<T, T> switchSchedulers() {
         return upstream -> upstream
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    //预处理，返回成功的结果
+    /**
+     * 预处理，返回成功的结果
+     */
     public static <T> ObservableTransformer<BaseResponse<T>, T> handleRequest() {
         return new ObservableTransformer<BaseResponse<T>, T>() {
             @Override
@@ -39,7 +43,9 @@ public class RxUtils {
         };
     }
 
-    //创建成功的数据源
+    /**
+     * 创建成功的数据源
+     */
     private static <T> Observable<T> createObservable(T t) {
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override

@@ -9,6 +9,9 @@ import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SquareShareArticlesAdapter extends BaseQuickAdapter<SquareShareArticles.Sharearticles.Sharearticle, BaseViewHolder> {
 
     public SquareShareArticlesAdapter(int layoutResId, @Nullable List<SquareShareArticles.Sharearticles.Sharearticle> data) {

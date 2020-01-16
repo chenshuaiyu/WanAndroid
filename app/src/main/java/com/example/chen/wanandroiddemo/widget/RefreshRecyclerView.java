@@ -11,6 +11,9 @@ import android.widget.RelativeLayout;
 import com.example.chen.wanandroiddemo.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+/**
+ * @author chenshuaiyu
+ */
 public class RefreshRecyclerView extends RelativeLayout {
 
     private RecyclerView mRecyclerView;
@@ -26,7 +29,9 @@ public class RefreshRecyclerView extends RelativeLayout {
         this.mFirstPage = firstPage;
     }
 
-    //由于是异步加载，refresh时需手动 add current page
+    /**
+     * 由于是异步加载，refresh时需手动 add current page
+     */
     public void addCurPage() {
         mCurPage++;
     }

@@ -8,6 +8,9 @@ import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import io.reactivex.functions.Consumer;
 
+/**
+ * @author chenshuaiyu
+ */
 public class ArticlePresenter extends BasePresenter<ArticleContract.View> implements ArticleContract.Presenter {
     public ArticlePresenter(DataManager dataManager) {
         super(dataManager);

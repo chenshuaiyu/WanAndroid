@@ -1,12 +1,10 @@
 package com.example.chen.wanandroiddemo.main.square;
 
 import android.content.Intent;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
@@ -23,6 +21,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SquareListFragment extends BaseFragment<SquareListPresenter> implements SquareListContract.View {
 
     @BindView(R.id.refresh_recycler_view)

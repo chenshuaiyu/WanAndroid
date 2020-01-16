@@ -26,6 +26,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
 
     @BindView(R.id.refresh_layout)

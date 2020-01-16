@@ -14,6 +14,9 @@ import com.example.chen.wanandroiddemo.main.common.presenter.CommonPresenter;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CommonActivity extends BaseActivity<CommonPresenter> implements CommonContract.View {
 
     @BindView(R.id.toolbar)

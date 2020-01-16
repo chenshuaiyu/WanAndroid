@@ -24,6 +24,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
 
     @BindView(R.id.view_pager)
@@ -53,15 +56,9 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-
         mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
 
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setTitle(mSystem.getName());
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        initToolbar();
 
         for (System childrenSystem : mSystem.getChildren()) {
             SystemArticleFragment articleFragment = new SystemArticleFragment();
@@ -74,6 +71,15 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(mFragmentList.size());
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void initToolbar() {
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setTitle(mSystem.getName());
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

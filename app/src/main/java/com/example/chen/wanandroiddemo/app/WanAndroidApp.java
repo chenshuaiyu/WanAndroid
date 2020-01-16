@@ -2,7 +2,6 @@ package com.example.chen.wanandroiddemo.app;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.dao.DaoMaster;
@@ -27,7 +26,6 @@ public class WanAndroidApp extends Application {
         // 接入腾讯Bugly
 //        CrashReport.initCrashReport(getApplicationContext(), "87a5a6c3e8", true);
 
-        // 接入LeakCanary
         initLeakCanary();
 
         //初始化数据库

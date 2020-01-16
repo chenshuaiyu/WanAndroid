@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.main.common;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Website;
-import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.main.common.contract.CommonFContract;
 import com.example.chen.wanandroiddemo.main.common.presenter.CommonFPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
@@ -24,6 +22,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CommonFragment extends BaseFragment<CommonFPresenter> implements CommonFContract.View {
 
     @BindView(R.id.tag_flow_layout)

@@ -65,5 +65,10 @@
     <string name="coin_rule">积分规则</string>
     <string name="welfare">福利</string>
     <string name="not_login">未登录</string>
+    <string name="share">分享</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_fail">分享失败</string>
+    <string name="title">标题</string>
+    <string name="link">链接</string>
 
 </resources>

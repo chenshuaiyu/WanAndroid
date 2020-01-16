@@ -26,6 +26,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePresenter> implements PersonalSquareContract.View {
 
     public static final String INTENT_KEY_SHARE_USER_NAME = "share_user_name";

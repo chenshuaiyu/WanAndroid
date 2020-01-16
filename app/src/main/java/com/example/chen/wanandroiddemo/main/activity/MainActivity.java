@@ -5,22 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
 import com.example.chen.wanandroiddemo.main.square.SquareActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+
 import android.view.KeyEvent;
 import android.view.Menu;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -48,7 +54,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private static final int REQUEST_SETTINGS = 1;
     private static final int REQUEST_COLLECTION = 2;
 
-    //连续点击 back 时间间隔
     private long exitTime = 0;
 
     @BindView(R.id.toolbar)

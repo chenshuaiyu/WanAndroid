@@ -2,7 +2,6 @@ package com.example.chen.wanandroiddemo.core.http.api;
 
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
-import com.example.chen.wanandroiddemo.core.http.cookie.CookieManger;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
@@ -14,6 +13,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * @author chenshuaiyu
+ */
 public class RetrofitClient {
 
     private static OkHttpClient mOkHttpClient = new OkHttpClient.Builder()

@@ -2,6 +2,9 @@ package com.example.chen.wanandroiddemo.core.bean;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRanks {
     private int curPage;
     private List<CoinRank> datas;

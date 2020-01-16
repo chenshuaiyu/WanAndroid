@@ -5,6 +5,9 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.square.contract.SquareListContract;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SquareListPresenter extends BasePresenter<SquareListContract.View> implements SquareListContract.Presenter {
     public SquareListPresenter(DataManager dataManager) {
         super(dataManager);

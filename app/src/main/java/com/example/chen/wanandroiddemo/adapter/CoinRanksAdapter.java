@@ -9,6 +9,9 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRanksAdapter extends BaseQuickAdapter<CoinRanks.CoinRank, BaseViewHolder> {
     public CoinRanksAdapter(int layoutResId, @Nullable List<CoinRanks.CoinRank> data) {
         super(layoutResId, data);

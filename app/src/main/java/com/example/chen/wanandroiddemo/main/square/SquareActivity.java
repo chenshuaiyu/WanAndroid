@@ -22,6 +22,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SquareActivity extends BaseActivity<SquarePresenter> implements SquareContract.View {
 
     @BindView(R.id.toolbar)

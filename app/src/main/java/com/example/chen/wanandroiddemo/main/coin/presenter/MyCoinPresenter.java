@@ -5,6 +5,9 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.coin.contract.MyCoinContract;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
+/**
+ * @author chenshuaiyu
+ */
 public class MyCoinPresenter extends BasePresenter<MyCoinContract.View> implements MyCoinContract.Presenter {
 
     public MyCoinPresenter(DataManager dataManager) {

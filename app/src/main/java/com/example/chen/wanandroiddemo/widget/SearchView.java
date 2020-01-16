@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 
 import com.example.chen.wanandroiddemo.R;
 
+/**
+ * @author chenshuaiyu
+ */
 public class SearchView extends LinearLayout {
 
     private ClickCallback callback;

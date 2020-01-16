@@ -27,6 +27,9 @@ import java.util.Objects;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyCoinContract.View {
 
     @BindView(R.id.refresh_recycler_view)

@@ -1,8 +1,10 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
-import java.util.Date;
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public class CoinRecords {
     private int curPage;
     private List<CoinRecord> datas;

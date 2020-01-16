@@ -7,6 +7,9 @@ import android.content.Intent;
 import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NetChangeEvent;
 
+/**
+ * @author chenshuaiyu
+ */
 public class NetChangeReceiver extends BroadcastReceiver {
 
     @Override

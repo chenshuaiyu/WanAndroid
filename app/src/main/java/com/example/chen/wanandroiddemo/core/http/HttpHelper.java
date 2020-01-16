@@ -20,7 +20,7 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
- * @author  : chenshuaiyu
+ * @author : chenshuaiyu
  * @date : 2019/3/16 10:51
  */
 public interface HttpHelper {
@@ -68,4 +68,8 @@ public interface HttpHelper {
     Observable<BaseResponse<SquareArticles>> getSquareList(int page);
 
     Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(int id, int page);
+
+    Observable<BaseResponse<SquareShareArticles>> getMySquare(int page);
+
+    Observable<BaseResponse> shareArticle(String title, String link);
 }

@@ -24,6 +24,9 @@ import com.example.chen.wanandroiddemo.utils.ToastUtil;
 
 import butterknife.BindView;
 
+/**
+ * @author : chenshuaiyu
+ */
 public class ArticleActivity extends BaseActivity<ArticlePresenter> implements ArticleContract.View {
 
     @BindView(R.id.toolbar)
