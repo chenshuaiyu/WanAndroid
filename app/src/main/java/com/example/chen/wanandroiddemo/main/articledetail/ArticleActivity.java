@@ -89,7 +89,8 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_article_detail, menu);
-        //根据collect修改menu图标
+        MenuItem item = menu.findItem(R.id.menu_collect);
+        item.setIcon(collect ? R.drawable.ic_collect : R.drawable.ic_uncollect);
         return true;
     }
 

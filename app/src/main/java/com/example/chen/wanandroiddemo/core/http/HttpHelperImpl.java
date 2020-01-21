@@ -6,6 +6,7 @@ import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -123,6 +124,16 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<LoginData>> logout() {
         return mApi.logout();
+    }
+
+    @Override
+    public Observable<BaseResponse<Articles>> getCollectedArtciles(int page) {
+        return mApi.getCollectedArtciles(page);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<CollectionWebsite>>> getCollectedWebsites() {
+        return mApi.getCollectedWebsites();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -197,6 +198,26 @@ public interface Api {
     Observable<BaseResponse<LoginData>> logout();
 
     /**
+     * 收藏文章列表
+     * https://www.wanandroid.com/lg/collect/list/0/json
+     *
+     * @param page
+     * @return
+     */
+    @GET("lg/collect/list/{page}/json")
+    Observable<BaseResponse<Articles>> getCollectedArtciles(@Path("page") int page);
+
+    /**
+     * 收藏网站列表
+     * https://www.wanandroid.com/lg/collect/usertools/json
+     *
+     * @return
+     */
+    @GET("lg/collect/usertools/json")
+    Observable<BaseResponse<List<CollectionWebsite>>> getCollectedWebsites();
+
+    /**
+     * 收藏文章
      * https://www.wanandroid.com/lg/collect/1165/json
      *
      * @param id
@@ -266,6 +287,7 @@ public interface Api {
     Observable<BaseResponse<SquareShareArticles>> getMySquare(@Path("page") int page);
 
     /**
+     * 分享文章
      * https://www.wanandroid.com/lg/user_article/add/json
      *
      * @param title

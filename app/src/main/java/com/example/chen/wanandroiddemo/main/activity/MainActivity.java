@@ -28,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.chen.wanandroiddemo.R;
@@ -51,9 +52,6 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
-    private static final int REQUEST_SETTINGS = 1;
-    private static final int REQUEST_COLLECTION = 2;
-
     private long exitTime = 0;
 
     @BindView(R.id.toolbar)
@@ -66,7 +64,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     BottomNavigationView mBottomNaviView;
 
     private TextView mLoginTv;
-    private ActionBar mActionBar;
     private MenuItem mLogoutMenuItem;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -104,6 +101,13 @@ public class MainActivity extends BaseActivity<MainPresenter>
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
         initToolbar();
+        mNaviView.setNavigationItemSelectedListener(this);
+        mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                mNaviView.setCheckedItem(R.id.menu_wanandroid);
+            }
+        });
 
         BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
 
@@ -163,10 +167,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private void initToolbar() {
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
-        mNaviView.setNavigationItemSelectedListener(this);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
     }
 
     @Override
@@ -218,28 +221,22 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public boolean onNavigationItemSelected(MenuItem item) {
         item.setChecked(true);
         switch (item.getItemId()) {
-            case R.id.menu_wanandroid:
-                break;
             case R.id.menu_collection:
                 if (mPresenter.isLogin()) {
-                    startActivityForResult(new Intent(this, CollectionActivity.class), REQUEST_COLLECTION);
+                    startActivity(new Intent(this, CollectionActivity.class));
                 } else {
-                    //bug：未选中WanAndroid栏
-                    mNaviView.setCheckedItem(R.id.menu_wanandroid);
-                    ToastUtil.toast("未登录，请先登录");
+                    ToastUtil.toast(R.string.not_login_and_to_login);
                     startActivity(new Intent(this, LoginActivity.class));
                 }
                 break;
             case R.id.menu_square:
-                //bug：未选中WanAndroid栏
                 startActivity(new Intent(this, SquareActivity.class));
                 break;
             case R.id.menu_coin_rank:
-                //bug：未选中WanAndroid栏
                 startActivity(new Intent(this, CoinActivity.class));
                 break;
             case R.id.menu_settings:
-                startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_SETTINGS);
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.menu_logout:
                 AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -247,9 +244,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                         .setCancelable(false)
                         .setPositiveButton(R.string.confirm, (dialog, which) -> {
                             mPresenter.logout();
-                            mNaviView.setCheckedItem(R.id.menu_wanandroid);
                         })
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> mNaviView.setCheckedItem(R.id.menu_wanandroid))
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {})
                         .create();
                 alertDialog.show();
                 break;
@@ -258,23 +254,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_SETTINGS:
-
-                    break;
-                case REQUEST_COLLECTION:
-                    mNaviView.setCheckedItem(R.id.menu_wanandroid);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
     @Override

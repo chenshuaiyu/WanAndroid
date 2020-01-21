@@ -6,6 +6,7 @@ import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
@@ -56,6 +57,10 @@ public interface HttpHelper {
     Observable<BaseResponse<LoginData>> getRegisterData(String username, String password, String repassword);
 
     Observable<BaseResponse<LoginData>> logout();
+
+    Observable<BaseResponse<Articles>> getCollectedArtciles(int page);
+
+    Observable<BaseResponse<List<CollectionWebsite>>> getCollectedWebsites();
 
     Observable<BaseResponse> collectArticle(int id);
 

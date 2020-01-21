@@ -70,5 +70,6 @@
     <string name="share_fail">分享失败</string>
     <string name="title">标题</string>
     <string name="link">链接</string>
+    <string name="not_login_and_to_login">未登录，请先登录</string>
 
 </resources>

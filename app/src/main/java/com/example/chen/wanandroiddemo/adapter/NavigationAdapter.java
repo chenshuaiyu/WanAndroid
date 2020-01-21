@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.adapter;
 
-import android.content.Intent;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.zhy.view.flowlayout.FlowLayout;
