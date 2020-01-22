@@ -49,6 +49,9 @@ import com.example.chen.wanandroiddemo.utils.ToastUtil;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class MainActivity extends BaseActivity<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
@@ -101,15 +104,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
         initToolbar();
+        BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
         mNaviView.setNavigationItemSelectedListener(this);
+        //Check状态还原
         mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerClosed(View drawerView) {
                 mNaviView.setCheckedItem(R.id.menu_wanandroid);
             }
         });
-
-        BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
 
         curFragmentIndex = 0;
         mFragmentManager.beginTransaction()
@@ -168,6 +171,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
     }
@@ -242,10 +246,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 AlertDialog alertDialog = new AlertDialog.Builder(this)
                         .setTitle(R.string.confirm_quit)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                            mPresenter.logout();
+                        .setPositiveButton(R.string.confirm, (dialog, which) -> mPresenter.logout())
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
                         })
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> {})
                         .create();
                 alertDialog.show();
                 break;
@@ -285,12 +288,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     @Override
-    public void showLogoutSucceed() {
-        ToastUtil.toast(R.string.exit_success);
-    }
-
-    @Override
-    public void showLogoutFailed() {
-        ToastUtil.toast(R.string.exit_fail);
+    public void showLogoutResult(boolean success) {
+        if (success) {
+            ToastUtil.toast(R.string.exit_success);
+        } else {
+            ToastUtil.toast(R.string.exit_fail);
+        }
     }
 }

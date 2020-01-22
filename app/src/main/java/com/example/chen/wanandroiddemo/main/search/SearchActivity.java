@@ -168,6 +168,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
+        assert supportActionBar != null;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }

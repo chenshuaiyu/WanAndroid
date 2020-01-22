@@ -14,10 +14,13 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareShareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Coininfo;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.main.square.contract.PersonalSquareContract;
 import com.example.chen.wanandroiddemo.main.square.presenter.PersonalSquarePresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 
@@ -44,7 +47,7 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
     private String mShareUserName;
     private int mShareUserId;
 
-    private List<SquareShareArticles.Sharearticles.Sharearticle> mSquareArticleList = new ArrayList<>();
+    private List<ShareArticle> mSquareArticleList = new ArrayList<>();
     private SquareShareArticlesAdapter mSquareShareArticlesAdapter;
 
     @Override
@@ -87,14 +90,18 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
             }
         });
         mSquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
-            SquareShareArticles.Sharearticles.Sharearticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(this, squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
         });
         mSquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            SquareShareArticles.Sharearticles.Sharearticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.iv_collect:
-
+                    if (!squareArticle.isCollect()) {
+                        mPresenter.collectArticle(squareArticle.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(squareArticle.getId(), position);
+                    }
                     break;
                 default:
                     break;
@@ -107,12 +114,13 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
+        assert supportActionBar != null;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override
-    public void showCoinInfo(SquareShareArticles.Coininfo coininfo) {
+    public void showCoinInfo(Coininfo coininfo) {
         TextView mCoinCountTv = mCoinInfoView.findViewById(R.id.tv_coin_count);
         TextView mRankTv = mCoinInfoView.findViewById(R.id.tv_rank);
         TextView mLvTv = mCoinInfoView.findViewById(R.id.tv_lv);
@@ -129,6 +137,28 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
         }
         mSquareArticleList.addAll(squareShareArticles.getShareArticles().getDatas());
         mSquareShareArticlesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mSquareArticleList.get(position).setCollect(true);
+            mSquareShareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mSquareArticleList.get(position).setCollect(false);
+            mSquareShareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
     }
 
     @Override

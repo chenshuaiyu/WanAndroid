@@ -13,9 +13,17 @@ import java.util.List;
 public interface CollectionWebsiteContract {
     interface Presenter extends IPresenter<View> {
         void getCollectedWebsites();
+
+        void editWebsite(int id, String name, String link, int position);
+
+        void deleteWebsite(int id);
     }
 
     interface View extends BaseView {
         void showCollectedWebsites(List<CollectionWebsite> collectionWebsites);
+
+        void showEditResult(boolean success, String name, String link, int position);
+
+        void showDeleteResult(boolean success);
     }
 }

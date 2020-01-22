@@ -21,13 +21,8 @@ public class ArticlePresenter extends BasePresenter<ArticleContract.View> implem
         addSubcriber(
                 mDataManager.collectArticle(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> {
-                            if (baseResponse.getErrorCode() == 0) {
-                                mView.showCollectSuccess();
-                            } else {
-                                mView.showCollectFail();
-                            }
-                        }, Throwable::printStackTrace)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
         );
     }
 }

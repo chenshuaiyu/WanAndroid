@@ -19,9 +19,29 @@ public class SquareListPresenter extends BasePresenter<SquareListContract.View> 
                 mDataManager.getSquareList(page)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(squareArticlesBaseResponse -> {
-                            mView.showSquareList(squareArticlesBaseResponse.getData());
+                            mView.showSquareList(squareArticlesBaseResponse.getData().getDatas());
                             mView.showContentView();
                         }, Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void collectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.collectArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.cancelCollect(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
         );
     }
 }

@@ -32,7 +32,7 @@ public class MyCoinPresenter extends BasePresenter<MyCoinContract.View> implemen
                 mDataManager.getCoinRecords(page)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(coinRecordsBaseResponse -> {
-                            mView.showCoinRecords(coinRecordsBaseResponse.getData());
+                            mView.showCoinRecords(coinRecordsBaseResponse.getData().getDatas());
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );

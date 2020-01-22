@@ -63,6 +63,7 @@ public class SquareActivity extends BaseActivity<SquarePresenter> implements Squ
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
+        assert supportActionBar != null;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }

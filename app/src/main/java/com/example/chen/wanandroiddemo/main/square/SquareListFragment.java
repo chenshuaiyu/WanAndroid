@@ -9,10 +9,11 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
 import com.example.chen.wanandroiddemo.main.square.contract.SquareListContract;
 import com.example.chen.wanandroiddemo.main.square.presenter.SquareListPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 
@@ -29,7 +30,7 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<SquareArticles.SquareArticle> mSquareArticleList = new ArrayList<>();
+    private List<SquareArticle> mSquareArticleList = new ArrayList<>();
     private SquareArticlesAdapter mSquareArticlesAdapter;
 
     @Override
@@ -66,11 +67,11 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
             }
         });
         mSquareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
-            SquareArticles.SquareArticle squareArticle = mSquareArticleList.get(position);
+            SquareArticle squareArticle = mSquareArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(getActivity(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
         });
         mSquareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            SquareArticles.SquareArticle squareArticle = mSquareArticleList.get(position);
+            SquareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.tv_author:
                     Intent intent = new Intent(getContext(), PersonalSquareActivity.class);
@@ -79,7 +80,11 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
                     startActivity(intent);
                     break;
                 case R.id.iv_collect:
-
+                    if (!squareArticle.isCollect()) {
+                        mPresenter.collectArticle(squareArticle.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(squareArticle.getId(), position);
+                    }
                     break;
                 default:
                     break;
@@ -88,13 +93,35 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
     }
 
     @Override
-    public void showSquareList(SquareArticles squareArticles) {
+    public void showSquareList(List<SquareArticle> squareArticles) {
         if (mRefreshRecyclerView.isFirstPage()) {
             mRefreshRecyclerView.addCurPage();
             mSquareArticleList.clear();
         }
-        mSquareArticleList.addAll(squareArticles.getDatas());
+        mSquareArticleList.addAll(squareArticles);
         mSquareArticlesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mSquareArticleList.get(position).setCollect(true);
+            mSquareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mSquareArticleList.get(position).setCollect(false);
+            mSquareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
     }
 
     @NonNull

@@ -13,7 +13,6 @@ public interface LoginContract {
     }
 
     interface View extends BaseView {
-        void showErrorMesssage(String error);
-        void showSuccessfulMesssage();
+        void showLoginResult(boolean success, String errorMsg);
     }
 }

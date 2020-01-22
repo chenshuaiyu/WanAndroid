@@ -59,14 +59,13 @@ public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implem
     }
 
     @Override
-    public void showErrorMesssage(String error) {
-        ToastUtil.toast(error);
-    }
-
-    @Override
-    public void showSuccessfulMesssage() {
-        ToastUtil.toast("注册成功");
-        OpenActivityUtil.openLoginActivity(this);
-        finish();
+    public void showRegisterResult(boolean success, String errorMsg) {
+        if (success) {
+            ToastUtil.toast(R.string.register_success);
+            OpenActivityUtil.openLoginActivity(this);
+            finish();
+        } else {
+            ToastUtil.toast(errorMsg);
+        }
     }
 }

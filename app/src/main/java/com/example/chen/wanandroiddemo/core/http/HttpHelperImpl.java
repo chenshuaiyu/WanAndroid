@@ -1,16 +1,18 @@
 package com.example.chen.wanandroiddemo.core.http;
 
-import com.example.chen.wanandroiddemo.core.bean.Articles;
+import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
-import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CoinRank;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
+import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
 import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.PageResponse;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -52,7 +54,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getArticles(int page) {
+    public Observable<BaseResponse<PageResponse<Article>>> getArticles(int page) {
         return mApi.getArticles(page);
     }
 
@@ -62,12 +64,12 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getWXTabArticles(int id, int page) {
+    public Observable<BaseResponse<PageResponse<Article>>> getWXTabArticles(int id, int page) {
         return mApi.getWXTabArticles(id, page);
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getWxTabSearchArticles(int id, int page, String k) {
+    public Observable<BaseResponse<PageResponse<Article>>> getWxTabSearchArticles(int id, int page, String k) {
         return mApi.getWxTabSearchArticles(id, page, k);
     }
 
@@ -77,7 +79,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getProjectTabArticles(int page, int cid) {
+    public Observable<BaseResponse<PageResponse<Article>>> getProjectTabArticles(int page, int cid) {
         return mApi.getProjectTabArticles(page, cid);
     }
 
@@ -87,7 +89,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getSystemArticles(int page, int cid) {
+    public Observable<BaseResponse<PageResponse<Article>>> getSystemArticles(int page, int cid) {
         return mApi.getSystemArticles(page, cid);
     }
 
@@ -102,7 +104,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getSearchArticles(int page, String k) {
+    public Observable<BaseResponse<PageResponse<Article>>> getSearchArticles(int page, String k) {
         return mApi.getSearchArticles(page, k);
     }
 
@@ -127,8 +129,8 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<Articles>> getCollectedArtciles(int page) {
-        return mApi.getCollectedArtciles(page);
+    public Observable<BaseResponse<PageResponse<CollectionArticle>>> getCollectedArticles(int page) {
+        return mApi.getCollectedArticles(page);
     }
 
     @Override
@@ -138,11 +140,41 @@ public class HttpHelperImpl implements HttpHelper {
 
     @Override
     public Observable<BaseResponse> collectArticle(int id) {
-        return mApi.collectArtcile(id);
+        return mApi.collectArticle(id);
     }
 
     @Override
-    public Observable<BaseResponse<CoinRanks>> getCoinRanks(int page) {
+    public Observable<BaseResponse> collectOutsideArticle(String title, String author, String link) {
+        return mApi.collectOutsideArticle(title, author, link);
+    }
+
+    @Override
+    public Observable<BaseResponse> cancelCollect(int id) {
+        return mApi.cancelCollect(id);
+    }
+
+    @Override
+    public Observable<BaseResponse> cancelCollect(int id, int originId) {
+        return mApi.cancelCollect(id, originId);
+    }
+
+    @Override
+    public Observable<BaseResponse> collectWebsite(String name, String link) {
+        return mApi.collectWebsite(name, link);
+    }
+
+    @Override
+    public Observable<BaseResponse> editWebsite(int id, String name, String link) {
+        return mApi.editWebsite(id, name, link);
+    }
+
+    @Override
+    public Observable<BaseResponse> deleteWebsite(int id) {
+        return mApi.deleteWebsite(id);
+    }
+
+    @Override
+    public Observable<BaseResponse<PageResponse<CoinRank>>> getCoinRanks(int page) {
         return mApi.getCoinRanks(page);
     }
 
@@ -152,12 +184,12 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<CoinRecords>> getCoinRecords(int page) {
+    public Observable<BaseResponse<PageResponse<CoinRecord>>> getCoinRecords(int page) {
         return mApi.getCoinRecords(page);
     }
 
     @Override
-    public Observable<BaseResponse<SquareArticles>> getSquareList(int page) {
+    public Observable<BaseResponse<PageResponse<SquareArticle>>> getSquareList(int page) {
         return mApi.getSquareList(page);
     }
 
@@ -169,6 +201,11 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<SquareShareArticles>> getMySquare(int page) {
         return mApi.getMySquare(page);
+    }
+
+    @Override
+    public Observable<BaseResponse<SquareShareArticles>> deleteShareArticle(int id) {
+        return mApi.deleteShareArticle(id);
     }
 
     @Override

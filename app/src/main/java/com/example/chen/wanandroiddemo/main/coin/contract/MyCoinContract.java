@@ -3,7 +3,9 @@ package com.example.chen.wanandroiddemo.main.coin.contract;
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
+
+import java.util.List;
 
 public interface MyCoinContract {
     interface Presenter extends IPresenter<View> {
@@ -14,6 +16,6 @@ public interface MyCoinContract {
 
     interface View extends BaseView {
         void showCoin(Coin coin);
-        void showCoinRecords(CoinRecords coinRecords);
+        void showCoinRecords(List<CoinRecord> coinRecords);
     }
 }

@@ -1,16 +1,18 @@
 package com.example.chen.wanandroiddemo.core.http.api;
 
-import com.example.chen.wanandroiddemo.core.bean.Articles;
+import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
-import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CoinRank;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
+import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
 import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticles;
+import com.example.chen.wanandroiddemo.core.bean.PageResponse;
+import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -49,7 +51,7 @@ public interface Api {
      * @return 首页文章数据
      */
     @GET("article/list/{page}/json")
-    Observable<BaseResponse<Articles>> getArticles(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<Article>>> getArticles(@Path("page") int page);
 
     /**
      * 公众号Tab
@@ -69,7 +71,7 @@ public interface Api {
      * @return 公众号文章数据
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    Observable<BaseResponse<Articles>> getWXTabArticles(@Path("id") int id, @Path("page") int page);
+    Observable<BaseResponse<PageResponse<Article>>> getWXTabArticles(@Path("id") int id, @Path("page") int page);
 
 
     /**
@@ -82,7 +84,7 @@ public interface Api {
      * @return 公众号文章数据
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    Observable<BaseResponse<Articles>> getWxTabSearchArticles(@Path("id") int id, @Path("page") int page, @Query("k") String k);
+    Observable<BaseResponse<PageResponse<Article>>> getWxTabSearchArticles(@Path("id") int id, @Path("page") int page, @Query("k") String k);
 
     /**
      * 项目Tab
@@ -102,7 +104,7 @@ public interface Api {
      * @return 项目文章数据
      */
     @GET("project/list/{page}/json")
-    Observable<BaseResponse<Articles>> getProjectTabArticles(@Path("page") int page, @Query("cid") int cid);
+    Observable<BaseResponse<PageResponse<Article>>> getProjectTabArticles(@Path("page") int page, @Query("cid") int cid);
 
     /**
      * 体系
@@ -122,7 +124,7 @@ public interface Api {
      * @return 知识体系下文章数据
      */
     @GET("article/list/{page}/json")
-    Observable<BaseResponse<Articles>> getSystemArticles(@Path("page") int page, @Query("cid") int cid);
+    Observable<BaseResponse<PageResponse<Article>>> getSystemArticles(@Path("page") int page, @Query("cid") int cid);
 
     /**
      * 导航
@@ -152,7 +154,7 @@ public interface Api {
      */
     @POST("article/query/{page}/json")
     @FormUrlEncoded
-    Observable<BaseResponse<Articles>> getSearchArticles(@Path("page") int page, @Field("k") String k);
+    Observable<BaseResponse<PageResponse<Article>>> getSearchArticles(@Path("page") int page, @Field("k") String k);
 
     /**
      * 常用网站
@@ -205,7 +207,7 @@ public interface Api {
      * @return
      */
     @GET("lg/collect/list/{page}/json")
-    Observable<BaseResponse<Articles>> getCollectedArtciles(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<CollectionArticle>>> getCollectedArticles(@Path("page") int page);
 
     /**
      * 收藏网站列表
@@ -224,7 +226,77 @@ public interface Api {
      * @return
      */
     @POST("lg/collect/{id}/json")
-    Observable<BaseResponse> collectArtcile(@Path("id") int id);
+    Observable<BaseResponse> collectArticle(@Path("id") int id);
+
+    /**
+     * 收藏站外文章
+     * https://www.wanandroid.com/lg/collect/add/json
+     *
+     * @param title
+     * @param author
+     * @param link
+     * @return
+     */
+    @POST("lg/collect/add/json")
+    @FormUrlEncoded
+    Observable<BaseResponse> collectOutsideArticle(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+
+    /**
+     * 取消收藏 文章列表
+     * https://www.wanandroid.com/lg/uncollect_originId/2333/json
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<BaseResponse> cancelCollect(@Path("id") int id);
+
+    /**
+     * 取消收藏 我的收藏
+     * https://www.wanandroid.com/lg/uncollect/2805/json
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/uncollect/{id}/json")
+    @FormUrlEncoded
+    Observable<BaseResponse> cancelCollect(@Path("id") int id, @Field("originId") int originId);
+
+    /**
+     * 收藏网站
+     * https://www.wanandroid.com/lg/collect/addtool/json
+     *
+     * @param name
+     * @param link
+     * @return
+     */
+    @POST("lg/collect/addtool/json")
+    @FormUrlEncoded
+    Observable<BaseResponse> collectWebsite(@Field("name") String name, @Field("link") String link);
+
+    /**
+     * 编辑收藏网站
+     * https://www.wanandroid.com/lg/collect/updatetool/json
+     *
+     * @param id
+     * @param name
+     * @param link
+     * @return
+     */
+    @POST("lg/collect/updatetool/json")
+    @FormUrlEncoded
+    Observable<BaseResponse> editWebsite(@Field("id") int id, @Field("name") String name, @Field("link") String link);
+
+    /**
+     * 删除收藏网站
+     * https://www.wanandroid.com/lg/collect/deletetool/json
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/collect/deletetool/json")
+    @FormUrlEncoded
+    Observable<BaseResponse> deleteWebsite(@Field("id") int id);
 
     /**
      * 获取积分排行榜
@@ -234,7 +306,7 @@ public interface Api {
      * @return
      */
     @GET("coin/rank/{page}/json")
-    Observable<BaseResponse<CoinRanks>> getCoinRanks(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<CoinRank>>> getCoinRanks(@Path("page") int page);
 
     /**
      * 获取个人积分
@@ -253,7 +325,7 @@ public interface Api {
      * @return
      */
     @GET("lg/coin/list/{page}/json")
-    Observable<BaseResponse<CoinRecords>> getCoinRecords(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<CoinRecord>>> getCoinRecords(@Path("page") int page);
 
     /**
      * 获取广场列表数据
@@ -263,7 +335,7 @@ public interface Api {
      * @return
      */
     @GET("user_article/list/{page}/json")
-    Observable<BaseResponse<SquareArticles>> getSquareList(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<SquareArticle>>> getSquareList(@Path("page") int page);
 
     /**
      * 获取分享人列表数据
@@ -277,7 +349,7 @@ public interface Api {
     Observable<BaseResponse<SquareShareArticles>> getPersonalSquare(@Path("id") int id, @Path("page") int page);
 
     /**
-     * 获取自己列表数据
+     * 获取自己分享列表数据
      * https://wanandroid.com/user/lg/private_articles/1/json
      *
      * @param page
@@ -285,6 +357,16 @@ public interface Api {
      */
     @GET("user/lg/private_articles/{page}/json")
     Observable<BaseResponse<SquareShareArticles>> getMySquare(@Path("page") int page);
+
+    /**
+     * 删除自己分享的文章
+     * https://wanandroid.com/lg/user_article/delete/9475/json
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/user_article/delete/{id}/json")
+    Observable<BaseResponse<SquareShareArticles>> deleteShareArticle(@Path("id") int id);
 
     /**
      * 分享文章
@@ -295,5 +377,6 @@ public interface Api {
      * @return
      */
     @POST("lg/collect/{id}/json")
+    @FormUrlEncoded
     Observable<BaseResponse> shareArticle(@Field("title") String title, @Field("link") String link);
 }

@@ -13,7 +13,6 @@ public interface RegisterContract {
     }
 
     interface View extends BaseView {
-        void showErrorMesssage(String error);
-        void showSuccessfulMesssage();
+        void showRegisterResult(boolean success, String errorMsg);
     }
 }

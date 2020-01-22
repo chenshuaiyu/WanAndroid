@@ -26,4 +26,25 @@ public class CollectionWebsitePresenter extends BasePresenter<CollectionWebsiteC
                         }, Throwable::printStackTrace)
         );
     }
+
+    @Override
+    public void editWebsite(int id, String name, String link, int position) {
+        addSubcriber(
+                mDataManager.editWebsite(id, name, link)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showEditResult(baseResponse.getErrorCode() == 0, name, link, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void deleteWebsite(int id) {
+        addSubcriber(
+                mDataManager.deleteWebsite(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse ->
+                                        mView.showDeleteResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
+        );
+    }
 }

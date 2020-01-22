@@ -46,9 +46,9 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                                 mDataManager.setLoginPassword("");
                                 mView.resetLoginUser();
                                 mView.setLogoutVisibility(false);
-                                mView.showLogoutSucceed();
+                                mView.showLogoutResult(true);
                             } else {
-                                mView.showLogoutFailed();
+                                mView.showLogoutResult(false);
                             }
                         }, Throwable::printStackTrace)
         );

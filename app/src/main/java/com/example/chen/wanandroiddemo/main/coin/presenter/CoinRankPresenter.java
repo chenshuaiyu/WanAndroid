@@ -20,7 +20,7 @@ public class CoinRankPresenter extends BasePresenter<CoinRankContract.View> impl
                 mDataManager.getCoinRanks(page)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(coinRanksBaseResponse -> {
-                            mView.showCoinRanks(coinRanksBaseResponse.getData());
+                            mView.showCoinRanks(coinRanksBaseResponse.getData().getDatas());
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );

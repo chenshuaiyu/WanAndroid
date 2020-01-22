@@ -22,7 +22,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     @Override
     public void getLoginData(String useranme, String password) {
         if (TextUtils.isEmpty(useranme) || TextUtils.isEmpty(password)) {
-            mView.showErrorMesssage("用户名或密码为空");
+            mView.showLoginResult(false, "用户名或密码为空");
             return;
         }
 
@@ -36,9 +36,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                                 mDataManager.setLoginStatus(true);
                                 mDataManager.setLoginAccount(data.getUsername());
                                 mDataManager.setLoginPassword(data.getPassword());
-                                mView.showSuccessfulMesssage();
+                                mView.showLoginResult(true, loginDataBaseResponse.getErrorMsg());
                             } else {
-                                mView.showErrorMesssage(loginDataBaseResponse.getErrorMsg());
+                                mView.showLoginResult(false, loginDataBaseResponse.getErrorMsg());
                             }
                         }, Throwable::printStackTrace)
         );

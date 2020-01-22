@@ -13,7 +13,7 @@ import com.example.chen.wanandroiddemo.adapter.CoinRecordsAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRecords;
+import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.main.activity.LoginActivity;
 import com.example.chen.wanandroiddemo.main.coin.contract.MyCoinContract;
 import com.example.chen.wanandroiddemo.main.coin.presenter.MyCoinPresenter;
@@ -35,7 +35,7 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<CoinRecords.CoinRecord> mCoinRecordList = new ArrayList<>();
+    private List<CoinRecord> mCoinRecordList = new ArrayList<>();
     private CoinRecordsAdapter mCoinRecordsAdapter;
     private View mInfoView;
 
@@ -94,12 +94,12 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     }
 
     @Override
-    public void showCoinRecords(CoinRecords coinRecords) {
+    public void showCoinRecords(List<CoinRecord> coinRecords) {
         if (mRefreshRecyclerView.isFirstPage()) {
             mRefreshRecyclerView.addCurPage();
             mCoinRecordList.clear();
         }
-        mCoinRecordList.addAll(coinRecords.getDatas());
+        mCoinRecordList.addAll(coinRecords);
         mCoinRecordsAdapter.notifyDataSetChanged();
     }
 

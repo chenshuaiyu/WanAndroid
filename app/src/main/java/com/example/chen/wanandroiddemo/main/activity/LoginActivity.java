@@ -59,13 +59,12 @@ public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements L
     }
 
     @Override
-    public void showErrorMesssage(String error) {
-        ToastUtil.toast(error);
-    }
-
-    @Override
-    public void showSuccessfulMesssage() {
-        ToastUtil.toast(R.string.login_success);
-        finish();
+    public void showLoginResult(boolean success, String errorMsg) {
+        if (success) {
+            ToastUtil.toast(R.string.login_success);
+            finish();
+        } else {
+            ToastUtil.toast(errorMsg);
+        }
     }
 }

@@ -74,10 +74,11 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     }
 
     private void initToolbar() {
+        mToolbar.setTitle(mSystem.getName());
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setTitle(mSystem.getName());
+        assert supportActionBar != null;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }

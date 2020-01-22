@@ -2,7 +2,9 @@ package com.example.chen.wanandroiddemo.main.coin.contract;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.core.bean.CoinRanks;
+import com.example.chen.wanandroiddemo.core.bean.CoinRank;
+
+import java.util.List;
 
 public interface CoinRankContract {
     interface Presenter extends IPresenter<View> {
@@ -10,6 +12,6 @@ public interface CoinRankContract {
     }
 
     interface View extends BaseView {
-        void showCoinRanks(CoinRanks coinRanks);
+        void showCoinRanks(List<CoinRank> coinRanks);
     }
 }

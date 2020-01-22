@@ -82,6 +82,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
+        assert supportActionBar != null;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back);
     }
@@ -109,10 +110,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
                 break;
             case R.id.menu_open_with_browser:
                 ToastUtil.toast(R.string.opening_in_browser);
-                Intent intent = new Intent();
-                intent.setData(Uri.parse(url));
-                intent.setAction(Intent.ACTION_VIEW);
-                startActivity(intent);
+                openWithBrowser();
                 break;
             default:
                 break;
@@ -120,15 +118,21 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
         return true;
     }
 
-    @Override
-    public void showCollectSuccess() {
-        ToastUtil.toast(R.string.collect_success);
-        collect = true;
+    private void openWithBrowser() {
+        Intent intent = new Intent();
+        intent.setData(Uri.parse(url));
+        intent.setAction(Intent.ACTION_VIEW);
+        startActivity(intent);
     }
 
     @Override
-    public void showCollectFail() {
-        ToastUtil.toast(R.string.collect_fail);
-        collect = false;
+    public void showCollectResult(boolean success) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            collect = true;
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+            collect = false;
+        }
     }
 }

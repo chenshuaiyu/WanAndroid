@@ -21,6 +21,8 @@ public class CollectionWebsiteAdapter extends BaseQuickAdapter<CollectionWebsite
     @Override
     protected void convert(BaseViewHolder helper, CollectionWebsite item) {
         helper.setText(R.id.tv_name, item.getName())
-                .setText(R.id.tv_link, item.getLink());
+                .setText(R.id.tv_link, item.getLink())
+                .setImageResource(R.id.iv_collect, R.drawable.ic_like);
+        helper.addOnClickListener(R.id.iv_collect);
     }
 }

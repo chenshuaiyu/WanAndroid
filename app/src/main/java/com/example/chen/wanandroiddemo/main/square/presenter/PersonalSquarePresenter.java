@@ -25,4 +25,24 @@ public class PersonalSquarePresenter extends BasePresenter<PersonalSquareContrac
                         }, Throwable::printStackTrace)
         );
     }
+
+    @Override
+    public void collectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.collectArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.cancelCollect(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
+        );
+    }
 }

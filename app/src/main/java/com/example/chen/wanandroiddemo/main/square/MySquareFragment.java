@@ -13,6 +13,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareShareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.main.square.contract.MySquareContract;
 import com.example.chen.wanandroiddemo.main.square.presenter.MySquarePresenter;
@@ -38,7 +39,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     private View mShareArticleView;
     private Button mShareBtn;
 
-    private List<SquareShareArticles.Sharearticles.Sharearticle> mSquareArticleList = new ArrayList<>();
+    private List<ShareArticle> mSquareArticleList = new ArrayList<>();
     private SquareShareArticlesAdapter mSquareShareArticlesAdapter;
 
     @Override
@@ -61,16 +62,17 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
         mPresenter.subscribeEvent();
 
         mShareBtn.setOnClickListener(v -> {
+            View shareArticleView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_share_article, null);
             new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                     .setTitle(R.string.share)
-                    .setView(R.layout.dialog_share_article)
-                    .setCancelable(true)
+                    .setView(shareArticleView)
+                    .setCancelable(false)
                     .setPositiveButton(R.string.share, (dialog1, which) -> {
-                        View view = getView();
-                        assert view != null;
-                        EditText titleEt = view.findViewById(R.id.et_title);
-                        EditText linkEt = view.findViewById(R.id.et_link);
+                        EditText titleEt = shareArticleView.findViewById(R.id.et_title);
+                        EditText linkEt = shareArticleView.findViewById(R.id.et_link);
                         mPresenter.shareArticle(titleEt.getText().toString(), linkEt.getText().toString());
+                    })
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
                     })
                     .show();
         });
@@ -95,14 +97,21 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
             }
         });
         mSquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
-            SquareShareArticles.Sharearticles.Sharearticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(getContext(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
         });
         mSquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            SquareShareArticles.Sharearticles.Sharearticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.iv_collect:
-
+                    if (!squareArticle.isCollect()) {
+                        mPresenter.collectArticle(squareArticle.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(squareArticle.getId(), position);
+                    }
+                    break;
+                case R.id.iv_close:
+                    mPresenter.deleteShareArticle(squareArticle.getId(), position);
                     break;
                 default:
                     break;
@@ -121,13 +130,46 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     }
 
     @Override
-    public void showShareSuccess() {
-        ToastUtil.toast(R.string.share_success);
+    public void showShareResult(boolean success) {
+        if (success) {
+            ToastUtil.toast(R.string.share_success);
+            mRefreshRecyclerView.reLoad();
+        } else {
+            ToastUtil.toast(R.string.share_fail);
+        }
     }
 
     @Override
-    public void showShareFail() {
-        ToastUtil.toast(R.string.share_fail);
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mSquareArticleList.get(position).setCollect(true);
+            mSquareShareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mSquareArticleList.get(position).setCollect(false);
+            mSquareShareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
+    }
+
+    @Override
+    public void showDeleteResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.delete_success);
+            mSquareArticleList.remove(position);
+            mSquareShareArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.delete_fail);
+        }
     }
 
     @NonNull

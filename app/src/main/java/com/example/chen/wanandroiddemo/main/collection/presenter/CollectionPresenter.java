@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.main.collection.presenter;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.collection.contract.CollectionContract;
+import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 /**
  * @author : chenshuaiyu
@@ -12,5 +13,26 @@ public class CollectionPresenter extends BasePresenter<CollectionContract.View> 
 
     public CollectionPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void collectOutsideArticle(String title, String author, String link) {
+        addSubcriber(
+                mDataManager.collectOutsideArticle(title, author, link)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void collectWebsite(String name, String link) {
+        addSubcriber(
+                mDataManager.collectWebsite(name, link)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse ->
+                                        mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
+        );
     }
 }

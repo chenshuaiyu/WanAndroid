@@ -18,12 +18,22 @@ public class CollectionArticlePresenter extends BasePresenter<CollectionArticleC
     @Override
     public void getCollectedArticles(int page) {
         addSubcriber(
-                mDataManager.getCollectedArtciles(page)
+                mDataManager.getCollectedArticles(page)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(articlesBaseResponse -> {
                             mView.showCollectedArticles(articlesBaseResponse.getData().getDatas());
                             mView.showContentView();
                         }, Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollect(int id, int originId) {
+        addSubcriber(
+                mDataManager.cancelCollect(id, originId)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
         );
     }
 }

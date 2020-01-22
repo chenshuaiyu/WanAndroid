@@ -30,13 +30,39 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
         addSubcriber(
                 mDataManager.shareArticle(title, link)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> {
-                            if (baseResponse.getErrorCode() == 0) {
-                                mView.showShareSuccess();
-                            } else {
-                                mView.showShareFail();
-                            }
-                        }, Throwable::printStackTrace)
+                        .subscribe(baseResponse -> mView.showShareResult(baseResponse.getErrorCode() == 0)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void collectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.collectArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.cancelCollect(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void deleteShareArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.deleteShareArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse ->
+                                        mView.showDeleteResult(baseResponse.getErrorCode() == 0, position)
+                                , Throwable::printStackTrace)
         );
     }
 }
