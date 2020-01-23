@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.core.bean;
+package com.example.chen.wanandroiddemo.core.bean.base;
 
 import java.util.List;
 

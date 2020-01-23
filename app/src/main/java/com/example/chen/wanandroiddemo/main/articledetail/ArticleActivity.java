@@ -10,7 +10,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -103,7 +102,7 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
                 break;
             case R.id.menu_collect:
                 if (!collect) {
-                    mPresenter.collectActicle(id);
+                    mPresenter.collectArticle(id);
                 } else {
 
                 }

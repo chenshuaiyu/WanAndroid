@@ -55,7 +55,7 @@ public class Article {
     private int userId;
     private int visible;
     private int zan;
-    private List<TagsBean> tags;
+    private List<Tag> tags;
 
     public String getApkLink() {
         return apkLink;
@@ -233,37 +233,11 @@ public class Article {
         this.zan = zan;
     }
 
-    public List<TagsBean> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagsBean> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    public static class TagsBean {
-        /**
-         * name : 公众号
-         * url : /wxarticle/list/408/1
-         */
-
-        private String name;
-        private String url;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
     }
 }

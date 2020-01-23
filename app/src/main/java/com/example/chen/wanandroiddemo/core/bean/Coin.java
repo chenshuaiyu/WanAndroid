@@ -4,6 +4,14 @@ package com.example.chen.wanandroiddemo.core.bean;
  * @author chenshuaiyu
  */
 public class Coin {
+    /**
+     * coinCount : 621
+     * level : 7
+     * rank : 694
+     * userId : 20454
+     * username : C**nSY
+     */
+
     private int coinCount;
     private int level;
     private int rank;

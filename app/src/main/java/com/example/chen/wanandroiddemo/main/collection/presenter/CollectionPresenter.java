@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.collection.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.collection.contract.CollectionContract;
@@ -20,7 +21,7 @@ public class CollectionPresenter extends BasePresenter<CollectionContract.View> 
         addSubcriber(
                 mDataManager.collectOutsideArticle(title, author, link)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE)
                                 , Throwable::printStackTrace)
         );
     }
@@ -31,7 +32,7 @@ public class CollectionPresenter extends BasePresenter<CollectionContract.View> 
                 mDataManager.collectWebsite(name, link)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(baseResponse ->
-                                        mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                                        mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE)
                                 , Throwable::printStackTrace)
         );
     }

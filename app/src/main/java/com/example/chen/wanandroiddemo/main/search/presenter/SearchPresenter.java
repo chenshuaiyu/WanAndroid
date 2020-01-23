@@ -3,17 +3,10 @@ package com.example.chen.wanandroiddemo.main.search.presenter;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.search.contract.SearchContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
-import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 import java.util.List;
-
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * @author : chenshuaiyu

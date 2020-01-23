@@ -15,6 +15,7 @@ import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.example.chen.wanandroiddemo.main.homepage.presenter.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 import com.youth.banner.BannerConfig;
@@ -77,7 +78,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.iv_collect:
-
+                    if (!article.isCollect()) {
+                        mPresenter.collectArticle(article.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(article.getId(), position);
+                    }
                     break;
                 default:
                     break;
@@ -120,13 +125,25 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showCollectSuccess() {
-
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mArticleList.get(position).setCollect(true);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
     }
 
     @Override
-    public void showCollectFail() {
-
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mArticleList.get(position).setCollect(false);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
     }
 
     private void setBanner() {

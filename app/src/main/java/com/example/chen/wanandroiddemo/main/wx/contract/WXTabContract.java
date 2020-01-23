@@ -13,10 +13,14 @@ public interface WXTabContract {
     interface Presenter extends IPresenter<View> {
         void getWXTabArticles(int id, int page);
         void getWXTabSearchArticles(int id, int page, String k);
+        void collectArticle(int id, int position);
+        void cancelCollectArticle(int id, int position);
     }
 
     interface View extends BaseView {
         void showWXTabArticles(List<Article> wxTabArticles);
         void showWXTabSearchArticles(List<Article> wxTabArticles);
+        void showCollectResult(boolean success, int position);
+        void showCancelCollectResult(boolean success, int position);
     }
 }

@@ -2,7 +2,8 @@ package com.example.chen.wanandroiddemo.main.system.contract;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.core.bean.System;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
+
 import java.util.List;
 
 /**
@@ -15,6 +16,6 @@ public interface SystemContract {
     }
 
     interface View extends BaseView {
-        void showSystem(List<System> systemList);
+        void showSystem(List<Tab> tabList);
     }
 }

@@ -15,6 +15,9 @@ import com.example.statelayout_lib.StateLayoutManager;
 
 import butterknife.BindView;
 
+/**
+ * @author chenshuaiyu
+ */
 public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implements RegisterContract.View {
 
     @BindView(R.id.et_username)

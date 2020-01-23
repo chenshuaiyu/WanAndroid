@@ -2,21 +2,18 @@ package com.example.chen.wanandroiddemo.core.http;
 
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRank;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
-import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.PageResponse;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.http.api.Api;
 import com.example.chen.wanandroiddemo.core.http.api.RetrofitClient;
 
@@ -84,7 +81,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<List<System>>> getSystem() {
+    public Observable<BaseResponse<List<Tab>>> getSystem() {
         return mApi.getSystem();
     }
 
@@ -134,7 +131,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<List<CollectionWebsite>>> getCollectedWebsites() {
+    public Observable<BaseResponse<List<Website>>> getCollectedWebsites() {
         return mApi.getCollectedWebsites();
     }
 
@@ -174,7 +171,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<PageResponse<CoinRank>>> getCoinRanks(int page) {
+    public Observable<BaseResponse<PageResponse<Coin>>> getCoinRanks(int page) {
         return mApi.getCoinRanks(page);
     }
 
@@ -189,7 +186,7 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<PageResponse<SquareArticle>>> getSquareList(int page) {
+    public Observable<BaseResponse<PageResponse<ShareArticle>>> getSquareList(int page) {
         return mApi.getSquareList(page);
     }
 

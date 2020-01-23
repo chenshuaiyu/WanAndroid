@@ -2,9 +2,9 @@ package com.example.chen.wanandroiddemo.core.bean;
 
 /**
  * @author : chenshuaiyu
- * @date : 2019/3/20 22:16
+ * @date : 2020/1/23 15:11
  */
-public class WXTabTag {
+public class Tag {
     /**
      * name : 公众号
      * url : /wxarticle/list/408/1

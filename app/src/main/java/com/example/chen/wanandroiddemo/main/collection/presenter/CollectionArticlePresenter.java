@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.collection.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.collection.contract.CollectionArticleContract;
@@ -32,7 +33,7 @@ public class CollectionArticlePresenter extends BasePresenter<CollectionArticleC
         addSubcriber(
                 mDataManager.cancelCollect(id, originId)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE)
                                 , Throwable::printStackTrace)
         );
     }

@@ -132,6 +132,28 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         mArticlesAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mWXTabArticleList.get(position).setCollect(true);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mWXTabArticleList.get(position).setCollect(false);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
+    }
+
     @NonNull
     @Override
     public String toString() {

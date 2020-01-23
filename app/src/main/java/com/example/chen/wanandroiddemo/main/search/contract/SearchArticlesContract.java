@@ -13,9 +13,13 @@ import java.util.List;
 public interface SearchArticlesContract {
     interface Presenter extends IPresenter<View> {
         void getSearchArticles(int page, String key);
+        void collectArticle(int id, int position);
+        void cancelCollectArticle(int id, int position);
     }
 
     interface View extends BaseView {
         void showSearchArticles(List<Article> articles);
+        void showCollectResult(boolean success, int position);
+        void showCancelCollectResult(boolean success, int position);
     }
 }

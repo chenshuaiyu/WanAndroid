@@ -5,8 +5,19 @@ package com.example.chen.wanandroiddemo.core.bean;
  * @date : 2020/1/21 16:35
  */
 public class CoinRecord {
+    /**
+     * coinCount : 36
+     * date : 1579745931000
+     * desc : 2020-01-23 10:18:51 签到 , 积分：10 + 26
+     * id : 137635
+     * reason : 签到
+     * type : 1
+     * userId : 20454
+     * userName : ChenSY
+     */
+
     private int coinCount;
-    private double date;
+    private long date;
     private String desc;
     private int id;
     private String reason;
@@ -22,11 +33,11 @@ public class CoinRecord {
         this.coinCount = coinCount;
     }
 
-    public double getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(double date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

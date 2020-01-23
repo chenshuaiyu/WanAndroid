@@ -2,7 +2,7 @@ package com.example.chen.wanandroiddemo.main.collection.contract;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface CollectionWebsiteContract {
     }
 
     interface View extends BaseView {
-        void showCollectedWebsites(List<CollectionWebsite> collectionWebsites);
+        void showCollectedWebsites(List<Website> websites);
 
         void showEditResult(boolean success, String name, String link, int position);
 

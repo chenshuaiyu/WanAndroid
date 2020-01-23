@@ -9,7 +9,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.main.square.contract.SquareListContract;
 import com.example.chen.wanandroiddemo.main.square.presenter.SquareListPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
@@ -30,7 +30,7 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<SquareArticle> mSquareArticleList = new ArrayList<>();
+    private List<ShareArticle> mSquareArticleList = new ArrayList<>();
     private SquareArticlesAdapter mSquareArticlesAdapter;
 
     @Override
@@ -67,11 +67,11 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
             }
         });
         mSquareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
-            SquareArticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(getActivity(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
         });
         mSquareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            SquareArticle squareArticle = mSquareArticleList.get(position);
+            ShareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.tv_author:
                     Intent intent = new Intent(getContext(), PersonalSquareActivity.class);
@@ -93,7 +93,7 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
     }
 
     @Override
-    public void showSquareList(List<SquareArticle> squareArticles) {
+    public void showSquareList(List<ShareArticle> squareArticles) {
         if (mRefreshRecyclerView.isFirstPage()) {
             mRefreshRecyclerView.addCurPage();
             mSquareArticleList.clear();

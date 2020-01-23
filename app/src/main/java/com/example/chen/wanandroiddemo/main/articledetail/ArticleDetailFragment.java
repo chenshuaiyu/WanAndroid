@@ -28,8 +28,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
     @BindView(R.id.fl_container)
     FrameLayout mFrameLayout;
 
-    private String url;
-
     @Override
     protected ArticleDetailPresenter getPresenter() {
         return new ArticleDetailPresenter(DataManager.getInstance());
@@ -48,7 +46,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
     protected void initView() {
         mPresenter.subscribeEvent();
         assert getArguments() != null;
-        url = getArguments().getString(BUNDLE_ARTICLE_DETAIL_URL);
+        String url = getArguments().getString(BUNDLE_ARTICLE_DETAIL_URL);
 
         AgentWeb agentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mFrameLayout, new LinearLayout.LayoutParams(-1, -1))

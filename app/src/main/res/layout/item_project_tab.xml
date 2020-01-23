@@ -92,6 +92,15 @@
                 android:layout_weight="1">
 
                 <ImageView
+                    android:id="@+id/iv_collect"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_dislike" />
+
+                <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"

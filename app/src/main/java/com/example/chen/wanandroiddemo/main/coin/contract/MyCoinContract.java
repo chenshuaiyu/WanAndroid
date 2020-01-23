@@ -7,6 +7,9 @@ import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 
 import java.util.List;
 
+/**
+ * @author chenshuaiyu
+ */
 public interface MyCoinContract {
     interface Presenter extends IPresenter<View> {
         void getCoin();

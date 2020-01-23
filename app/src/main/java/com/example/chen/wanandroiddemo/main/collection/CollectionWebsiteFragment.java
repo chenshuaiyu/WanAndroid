@@ -12,7 +12,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.CollectionWebsiteAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.main.collection.contract.CollectionWebsiteContract;
 import com.example.chen.wanandroiddemo.main.collection.presenter.CollectionWebsitePresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
@@ -35,7 +35,7 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<CollectionWebsite> mCollectionWebsites = new ArrayList<>();
+    private List<Website> mWebsites = new ArrayList<>();
     private CollectionWebsiteAdapter mCollectionWebsiteAdapter;
 
     @Override
@@ -56,7 +56,7 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
         mPresenter.subscribeEvent();
 
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCollectionWebsiteAdapter = new CollectionWebsiteAdapter(R.layout.item_collection_website, mCollectionWebsites);
+        mCollectionWebsiteAdapter = new CollectionWebsiteAdapter(R.layout.item_collection_website, mWebsites);
         mRefreshRecyclerView.setAdapter(mCollectionWebsiteAdapter);
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
@@ -71,11 +71,11 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
             }
         });
         mCollectionWebsiteAdapter.setOnItemClickListener((adapter, view, position) -> {
-            CollectionWebsite website = mCollectionWebsites.get(position);
+            Website website = mWebsites.get(position);
             OpenActivityUtil.openArticleDetailActivity(getContext(), website.getId(), website.getLink(), website.getName(), true);
         });
         mCollectionWebsiteAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            CollectionWebsite collectionWebsite = mCollectionWebsites.get(position);
+            Website website = mWebsites.get(position);
             switch (view.getId()) {
                 case R.id.iv_collect:
                     //取消收藏
@@ -83,8 +83,8 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
                             .setTitle(R.string.cancel_collect)
                             .setCancelable(false)
                             .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                                mPresenter.deleteWebsite(collectionWebsite.getId());
-                                mCollectionWebsites.remove(position);
+                                mPresenter.deleteWebsite(website.getId());
+                                mWebsites.remove(position);
                                 mCollectionWebsiteAdapter.notifyDataSetChanged();
                             })
                             .setNegativeButton(R.string.cancel, (dialog, which) -> {
@@ -97,18 +97,18 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
         });
         mCollectionWebsiteAdapter.setOnItemLongClickListener((adapter, view, position) -> {
             //编辑
-            CollectionWebsite collectionWebsite = mCollectionWebsites.get(position);
+            Website website = mWebsites.get(position);
             View editWebsiteView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_website, null);
             EditText nameEt = editWebsiteView.findViewById(R.id.et_name);
             EditText linkEt = editWebsiteView.findViewById(R.id.et_link);
-            nameEt.setText(collectionWebsite.getName());
-            linkEt.setText(collectionWebsite.getLink());
+            nameEt.setText(website.getName());
+            linkEt.setText(website.getLink());
             new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                     .setTitle(R.string.edit_website)
                     .setView(editWebsiteView)
                     .setCancelable(false)
                     .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                        mPresenter.editWebsite(collectionWebsite.getId(), nameEt.getText().toString(), linkEt.getText().toString(), position);
+                        mPresenter.editWebsite(website.getId(), nameEt.getText().toString(), linkEt.getText().toString(), position);
                     })
                     .setNegativeButton(R.string.cancel, (dialog, which) -> {
                     })
@@ -118,9 +118,9 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
     }
 
     @Override
-    public void showCollectedWebsites(List<CollectionWebsite> collectionWebsites) {
-        mCollectionWebsites.clear();
-        mCollectionWebsites.addAll(collectionWebsites);
+    public void showCollectedWebsites(List<Website> websites) {
+        mWebsites.clear();
+        mWebsites.addAll(websites);
         mCollectionWebsiteAdapter.notifyDataSetChanged();
     }
 
@@ -128,9 +128,9 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
     public void showEditResult(boolean success, String name, String link, int position) {
         if (success) {
             ToastUtil.toast(R.string.edit_success);
-            CollectionWebsite collectionWebsite = mCollectionWebsites.get(position);
-            collectionWebsite.setName(name);
-            collectionWebsite.setLink(link);
+            Website website = mWebsites.get(position);
+            website.setName(name);
+            website.setLink(link);
             mCollectionWebsiteAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.edit_fail);

@@ -27,7 +27,7 @@ public class Tab implements Serializable {
     private int parentChapterId;
     private boolean userControlSetTop;
     private int visible;
-    private List<?> children;
+    private List<Tab> children;
 
     public int getCourseId() {
         return courseId;
@@ -85,11 +85,11 @@ public class Tab implements Serializable {
         this.visible = visible;
     }
 
-    public List<?> getChildren() {
+    public List<Tab> getChildren() {
         return children;
     }
 
-    public void setChildren(List<?> children) {
+    public void setChildren(List<Tab> children) {
         this.children = children;
     }
 }

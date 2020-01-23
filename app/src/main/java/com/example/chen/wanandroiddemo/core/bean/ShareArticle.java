@@ -7,6 +7,38 @@ import java.util.List;
  * @date : 2020/1/21 16:41
  */
 public class ShareArticle {
+    /**
+     * apkLink :
+     * audit : 1
+     * author :
+     * chapterId : 229
+     * chapterName : AOP
+     * collect : false
+     * courseId : 13
+     * desc :
+     * envelopePic :
+     * fresh : false
+     * id : 11597
+     * link : https://juejin.im/post/5e2478346fb9a02fbc4ad2cc
+     * niceDate : 2020-01-20 01:20
+     * niceShareDate : 2020-01-20 01:10
+     * origin :
+     * prefix :
+     * projectLink :
+     * publishTime : 1579454420000
+     * selfVisible : 0
+     * shareDate : 1579453802000
+     * shareUser : 鸿洋
+     * superChapterId : 227
+     * superChapterName : 注解 & 反射 & AOP
+     * tags : []
+     * title : Gradle Transform + ASM 探索
+     * type : 0
+     * userId : 2
+     * visible : 1
+     * zan : 0
+     */
+
     private String apkLink;
     private int audit;
     private String author;
@@ -24,9 +56,9 @@ public class ShareArticle {
     private String origin;
     private String prefix;
     private String projectLink;
-    private double publishTime;
+    private long publishTime;
     private int selfVisible;
-    private double shareDate;
+    private long shareDate;
     private String shareUser;
     private int superChapterId;
     private String superChapterName;
@@ -173,11 +205,11 @@ public class ShareArticle {
         this.projectLink = projectLink;
     }
 
-    public double getPublishTime() {
+    public long getPublishTime() {
         return publishTime;
     }
 
-    public void setPublishTime(double publishTime) {
+    public void setPublishTime(long publishTime) {
         this.publishTime = publishTime;
     }
 
@@ -189,11 +221,11 @@ public class ShareArticle {
         this.selfVisible = selfVisible;
     }
 
-    public double getShareDate() {
+    public long getShareDate() {
         return shareDate;
     }
 
-    public void setShareDate(double shareDate) {
+    public void setShareDate(long shareDate) {
         this.shareDate = shareDate;
     }
 

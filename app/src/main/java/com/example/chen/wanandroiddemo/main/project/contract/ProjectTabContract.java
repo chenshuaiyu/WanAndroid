@@ -13,9 +13,13 @@ import java.util.List;
 public interface ProjectTabContract {
     interface Presenter extends IPresenter<View> {
         void getProjectTabArticles(int page, int id);
+        void collectArticle(int id, int position);
+        void cancelCollectArticle(int id, int position);
     }
 
     interface View extends BaseView {
         void showProjectTabArticles(List<Article> projectTabArticles);
+        void showCollectResult(boolean success, int position);
+        void showCancelCollectResult(boolean success, int position);
     }
 }

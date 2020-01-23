@@ -19,6 +19,7 @@ import com.example.chen.wanandroiddemo.main.search.contract.SearchArticlesContra
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -85,6 +86,11 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.iv_collect:
+                    if (!article.isCollect()) {
+                        mPresenter.collectArticle(article.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(article.getId(), position);
+                    }
                     break;
                 default:
                     break;
@@ -130,5 +136,27 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     public void showSearchArticles(List<Article> articles) {
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mArticles.get(position).setCollect(true);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mArticles.get(position).setCollect(false);
+            mArticlesAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
     }
 }

@@ -7,7 +7,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.CoinRanksAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.CoinRank;
+import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.main.coin.contract.CoinRankContract;
 import com.example.chen.wanandroiddemo.main.coin.presenter.CoinRankPresenter;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
@@ -26,7 +26,7 @@ public class CoinRankFragment extends BaseFragment<CoinRankPresenter> implements
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<CoinRank> mCoinRankList = new ArrayList<>();
+    private List<Coin> mCoinRankList = new ArrayList<>();
     private CoinRanksAdapter mCoinRanksAdapter;
 
     @Override
@@ -65,7 +65,7 @@ public class CoinRankFragment extends BaseFragment<CoinRankPresenter> implements
     }
 
     @Override
-    public void showCoinRanks(List<CoinRank> coinRanks) {
+    public void showCoinRanks(List<Coin> coinRanks) {
         if (mRefreshRecyclerView.isFirstPage()) {
             mRefreshRecyclerView.addCurPage();
             mCoinRankList.clear();

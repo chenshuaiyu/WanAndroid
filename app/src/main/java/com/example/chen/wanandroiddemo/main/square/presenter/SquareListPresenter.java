@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.square.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.square.contract.SquareListContract;
@@ -30,7 +31,7 @@ public class SquareListPresenter extends BasePresenter<SquareListContract.View> 
         addSubcriber(
                 mDataManager.collectArticle(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0, position)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
                                 , Throwable::printStackTrace)
         );
     }
@@ -40,7 +41,7 @@ public class SquareListPresenter extends BasePresenter<SquareListContract.View> 
         addSubcriber(
                 mDataManager.cancelCollect(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == 0, position)
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
                                 , Throwable::printStackTrace)
         );
     }

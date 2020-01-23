@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.collection.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.collection.contract.CollectionWebsiteContract;
@@ -32,7 +33,7 @@ public class CollectionWebsitePresenter extends BasePresenter<CollectionWebsiteC
         addSubcriber(
                 mDataManager.editWebsite(id, name, link)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showEditResult(baseResponse.getErrorCode() == 0, name, link, position)
+                        .subscribe(baseResponse -> mView.showEditResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, name, link, position)
                                 , Throwable::printStackTrace)
         );
     }
@@ -43,7 +44,7 @@ public class CollectionWebsitePresenter extends BasePresenter<CollectionWebsiteC
                 mDataManager.deleteWebsite(id)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(baseResponse ->
-                                        mView.showDeleteResult(baseResponse.getErrorCode() == 0)
+                                        mView.showDeleteResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE)
                                 , Throwable::printStackTrace)
         );
     }

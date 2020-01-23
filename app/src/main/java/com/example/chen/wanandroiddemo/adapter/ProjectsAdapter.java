@@ -29,11 +29,13 @@ public class ProjectsAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         helper.setText(R.id.tv_author, item.getAuthor())
                 .setText(R.id.tv_title, Html.fromHtml(item.getTitle()))
                 .setText(R.id.tv_desc, item.getDesc())
-                .setText(R.id.tv_time, item.getNiceDate());
+                .setText(R.id.tv_time, item.getNiceDate())
+                .setImageResource(R.id.iv_collect, item.isCollect() ? R.drawable.ic_like : R.drawable.ic_dislike);
         if (!DataManager.getInstance().getNoImageMode()) {
             Glide.with(mContext)
                     .load(item.getEnvelopePic())
                     .into((ImageView) helper.getView(R.id.iv_pic));
         }
+        helper.addOnClickListener(R.id.iv_collect);
     }
 }

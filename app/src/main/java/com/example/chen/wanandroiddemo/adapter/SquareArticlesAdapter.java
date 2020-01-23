@@ -5,21 +5,21 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 
 import java.util.List;
 
 /**
  * @author chenshuaiyu
  */
-public class SquareArticlesAdapter extends BaseQuickAdapter<SquareArticle, BaseViewHolder> {
+public class SquareArticlesAdapter extends BaseQuickAdapter<ShareArticle, BaseViewHolder> {
 
-    public SquareArticlesAdapter(int layoutResId, @Nullable List<SquareArticle> data) {
+    public SquareArticlesAdapter(int layoutResId, @Nullable List<ShareArticle> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, SquareArticle item) {
+    protected void convert(BaseViewHolder helper, ShareArticle item) {
         helper.setText(R.id.tv_author, item.getShareUser())
                 .setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_time, item.getNiceShareDate())

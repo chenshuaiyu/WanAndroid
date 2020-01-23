@@ -14,7 +14,7 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SquareShareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.core.bean.Coininfo;
+import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.main.square.contract.PersonalSquareContract;
@@ -120,7 +120,7 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
     }
 
     @Override
-    public void showCoinInfo(Coininfo coininfo) {
+    public void showCoinInfo(Coin coininfo) {
         TextView mCoinCountTv = mCoinInfoView.findViewById(R.id.tv_coin_count);
         TextView mRankTv = mCoinInfoView.findViewById(R.id.tv_rank);
         TextView mLvTv = mCoinInfoView.findViewById(R.id.tv_lv);

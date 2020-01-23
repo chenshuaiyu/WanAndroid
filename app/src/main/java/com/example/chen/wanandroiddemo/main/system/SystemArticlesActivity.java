@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.system;
 
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.statelayout_lib.StateLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
@@ -16,7 +17,6 @@ import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticlesContract;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlesPresenter;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    private System mSystem;
+    private Tab mTab;
     private List<Fragment> mFragmentList = new ArrayList<>();
     private ViewPagerAdapter mAdapter;
 
@@ -56,14 +56,14 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
-        mSystem = (System) getIntent().getSerializableExtra(Constants.SYSTEM);
+        mTab = (Tab) getIntent().getSerializableExtra(Constants.SYSTEM);
 
         initToolbar();
 
-        for (System childrenSystem : mSystem.getChildren()) {
+        for (Tab childrenTab : mTab.getChildren()) {
             SystemArticleFragment articleFragment = new SystemArticleFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable(SystemArticleFragment.BUNDLE_SYSTEM_ARTICLE, childrenSystem);
+            bundle.putSerializable(SystemArticleFragment.BUNDLE_SYSTEM_ARTICLE, childrenTab);
             articleFragment.setArguments(bundle);
             mFragmentList.add(articleFragment);
         }
@@ -74,7 +74,7 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
     }
 
     private void initToolbar() {
-        mToolbar.setTitle(mSystem.getName());
+        mToolbar.setTitle(mTab.getName());
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();

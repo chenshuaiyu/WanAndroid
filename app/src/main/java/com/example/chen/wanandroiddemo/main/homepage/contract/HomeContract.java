@@ -14,19 +14,15 @@ import java.util.List;
 public interface HomeContract {
     interface Presenter extends IPresenter<View> {
         void getBanner();
-
         void getArticles(int page);
-
-        void collectActicle(int id);
+        void collectArticle(int id, int position);
+        void cancelCollectArticle(int id, int position);
     }
 
     interface View extends BaseView {
         void showBanner(List<Banner> banners);
-
         void showArticles(List<Article> articles);
-
-        void showCollectSuccess();
-
-        void showCollectFail();
+        void showCollectResult(boolean success, int position);
+        void showCancelCollectResult(boolean success, int position);
     }
 }

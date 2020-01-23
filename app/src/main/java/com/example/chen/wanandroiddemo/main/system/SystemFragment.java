@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.main.system;
 
 import android.content.Intent;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
@@ -8,8 +9,8 @@ import com.example.chen.wanandroiddemo.adapter.SystemAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemContract;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemPresenter;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
@@ -28,7 +29,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
-    private List<System> mSystems = new ArrayList<>();
+    private List<Tab> mTabs = new ArrayList<>();
     private SystemAdapter mSystemAdapter;
 
     @Override
@@ -49,12 +50,12 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
         mPresenter.subscribeEvent();
 
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mSystemAdapter = new SystemAdapter(R.layout.item_system, mSystems);
+        mSystemAdapter = new SystemAdapter(R.layout.item_system, mTabs);
         mRefreshRecyclerView.setAdapter(mSystemAdapter);
         mSystemAdapter.setOnItemClickListener((adapter, view, position) -> {
-            System system = mSystems.get(position);
+            Tab tab = mTabs.get(position);
             Intent intent = new Intent(getActivity(), SystemArticlesActivity.class);
-            intent.putExtra(Constants.SYSTEM, system);
+            intent.putExtra(Constants.SYSTEM, tab);
             startActivity(intent);
         });
 
@@ -72,9 +73,9 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     }
 
     @Override
-    public void showSystem(List<System> systemList) {
-        mSystems.clear();
-        mSystems.addAll(systemList);
+    public void showSystem(List<Tab> tabList) {
+        mTabs.clear();
+        mTabs.addAll(tabList);
         mSystemAdapter.notifyDataSetChanged();
     }
 }

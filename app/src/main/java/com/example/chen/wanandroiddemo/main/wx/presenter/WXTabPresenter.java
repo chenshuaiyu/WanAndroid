@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.wx.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -33,6 +34,26 @@ public class WXTabPresenter extends BasePresenter<WXTabContract.View> implements
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(articlesBaseResponse -> mView.showWXTabSearchArticles(articlesBaseResponse.getData().getDatas()),
                                 Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void collectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.collectArticle(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.cancelCollect(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
+                                , Throwable::printStackTrace)
         );
     }
 }

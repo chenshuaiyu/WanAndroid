@@ -1,17 +1,19 @@
 package com.example.chen.wanandroiddemo.core.bean;
 
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
+
 /**
  * @author chenshuaiyu
  */
 public class SquareShareArticles {
-    private Coininfo coinInfo;
+    private Coin coinInfo;
     private PageResponse<ShareArticle> shareArticles;
 
-    public Coininfo getCoinInfo() {
+    public Coin getCoinInfo() {
         return coinInfo;
     }
 
-    public void setCoinInfo(Coininfo coinInfo) {
+    public void setCoinInfo(Coin coinInfo) {
         this.coinInfo = coinInfo;
     }
 

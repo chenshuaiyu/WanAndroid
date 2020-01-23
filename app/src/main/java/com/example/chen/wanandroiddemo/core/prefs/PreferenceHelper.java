@@ -5,6 +5,7 @@ package com.example.chen.wanandroiddemo.core.prefs;
  * @date : 2019/3/16 10:51
  */
 public interface PreferenceHelper {
+
     /**
      * 设置登录状态
      *
@@ -92,7 +93,7 @@ public interface PreferenceHelper {
     /**
      * 设置自动缓存
      *
-     * @param mode
+     * @param autoCache
      */
     void setAutoCache(boolean autoCache);
 

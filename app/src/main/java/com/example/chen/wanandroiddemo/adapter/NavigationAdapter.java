@@ -36,9 +36,9 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
             @Override
             public View getView(FlowLayout parent, int position, final Article article) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_navigation_tag, parent, false);
-                TextView name = view.findViewById(R.id.tv_name);
-                name.setText(article.getTitle());
-                name.setTextColor(ColorUtil.randomTagColor());
+                TextView nameTv = view.findViewById(R.id.tv_name);
+                nameTv.setText(article.getTitle());
+                nameTv.setTextColor(ColorUtil.randomTagColor());
                 view.setOnClickListener(v -> {
                     //bug：收藏待处理
                     OpenActivityUtil.openArticleDetailActivity(mContext, article.getId(), article.getLink(), article.getTitle(), article.isCollect());

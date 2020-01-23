@@ -2,21 +2,18 @@ package com.example.chen.wanandroiddemo.core.http.api;
 
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
-import com.example.chen.wanandroiddemo.core.bean.CoinRank;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
-import com.example.chen.wanandroiddemo.core.bean.CollectionWebsite;
+import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.PageResponse;
-import com.example.chen.wanandroiddemo.core.bean.SquareArticle;
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
+import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.core.bean.Website;
 
 import java.util.List;
 
@@ -113,7 +110,7 @@ public interface Api {
      * @return 体系数据
      */
     @GET("tree/json")
-    Observable<BaseResponse<List<System>>> getSystem();
+    Observable<BaseResponse<List<Tab>>> getSystem();
 
     /**
      * 知识体系下文章
@@ -216,7 +213,7 @@ public interface Api {
      * @return
      */
     @GET("lg/collect/usertools/json")
-    Observable<BaseResponse<List<CollectionWebsite>>> getCollectedWebsites();
+    Observable<BaseResponse<List<Website>>> getCollectedWebsites();
 
     /**
      * 收藏文章
@@ -256,6 +253,7 @@ public interface Api {
      * https://www.wanandroid.com/lg/uncollect/2805/json
      *
      * @param id
+     * @param originId
      * @return
      */
     @POST("lg/uncollect/{id}/json")
@@ -306,7 +304,7 @@ public interface Api {
      * @return
      */
     @GET("coin/rank/{page}/json")
-    Observable<BaseResponse<PageResponse<CoinRank>>> getCoinRanks(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<Coin>>> getCoinRanks(@Path("page") int page);
 
     /**
      * 获取个人积分
@@ -335,7 +333,7 @@ public interface Api {
      * @return
      */
     @GET("user_article/list/{page}/json")
-    Observable<BaseResponse<PageResponse<SquareArticle>>> getSquareList(@Path("page") int page);
+    Observable<BaseResponse<PageResponse<ShareArticle>>> getSquareList(@Path("page") int page);
 
     /**
      * 获取分享人列表数据

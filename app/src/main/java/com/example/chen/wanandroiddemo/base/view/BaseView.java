@@ -38,6 +38,8 @@ public interface BaseView {
 
     /**
      * 设置夜间模式
+     *
+     * @param isNightMode
      */
     void useNightMode(boolean isNightMode);
 

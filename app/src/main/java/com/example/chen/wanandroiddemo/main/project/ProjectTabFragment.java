@@ -12,6 +12,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.project.presenter.ProjectTabPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
+import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 
@@ -55,14 +56,28 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
         assert getArguments() != null;
         mProjectTab = (Tab) getArguments().getSerializable(BUNDLE_PROJECT_TAB);
 
-        mProjectsAdapter = new ProjectsAdapter(R.layout.item_project_tab, mArticles);
-
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mProjectsAdapter = new ProjectsAdapter(R.layout.item_project_tab, mArticles);
         mRefreshRecyclerView.setAdapter(mProjectsAdapter);
         mProjectsAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
             OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle(), article.isCollect());
+        });
+        mProjectsAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            Article article = mArticles.get(position);
+            switch (view.getId()) {
+                case R.id.iv_collect:
+                    if (!article.isCollect()) {
+                        mPresenter.collectArticle(article.getId(), position);
+                    } else {
+                        mPresenter.cancelCollectArticle(article.getId(), position);
+                    }
+                    break;
+                default:
+                    break;
+
+            }
         });
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
@@ -86,6 +101,28 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
         }
         mArticles.addAll(projectTabArticles);
         mProjectsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.collect_success);
+            mArticles.get(position).setCollect(true);
+            mProjectsAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.collect_fail);
+        }
+    }
+
+    @Override
+    public void showCancelCollectResult(boolean success, int position) {
+        if (success) {
+            ToastUtil.toast(R.string.cancel_collect_success);
+            mArticles.get(position).setCollect(false);
+            mProjectsAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtil.toast(R.string.cancel_collect_fail);
+        }
     }
 
     @NonNull

@@ -1,6 +1,6 @@
 package com.example.chen.wanandroiddemo.utils;
 
-import com.example.chen.wanandroiddemo.core.bean.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

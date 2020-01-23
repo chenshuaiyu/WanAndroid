@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.homepage.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
@@ -39,17 +40,22 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     }
 
     @Override
-    public void collectActicle(int id) {
+    public void collectArticle(int id, int position) {
         addSubcriber(
                 mDataManager.collectArticle(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> {
-                            if (baseResponse.getErrorCode() == 0) {
-                                mView.showCollectSuccess();
-                            } else {
-                                mView.showCollectFail();
-                            }
-                        }, Throwable::printStackTrace)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
+                                , Throwable::printStackTrace)
+        );
+    }
+
+    @Override
+    public void cancelCollectArticle(int id, int position) {
+        addSubcriber(
+                mDataManager.cancelCollect(id)
+                        .compose(RxUtils.switchSchedulers())
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
+                                , Throwable::printStackTrace)
         );
     }
 }

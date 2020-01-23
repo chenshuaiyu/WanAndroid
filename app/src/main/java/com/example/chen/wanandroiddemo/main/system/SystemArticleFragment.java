@@ -7,10 +7,10 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticleContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlePresenter;
-import com.example.chen.wanandroiddemo.core.bean.System;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
@@ -31,7 +31,7 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
-    private System mChildrenSystem;
+    private Tab mChildrenTab;
     private List<Article> mArticles = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
 
@@ -52,7 +52,7 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
     protected void initView() {
         mPresenter.subscribeEvent();
         assert getArguments() != null;
-        mChildrenSystem = (System) getArguments().getSerializable(BUNDLE_SYSTEM_ARTICLE);
+        mChildrenTab = (Tab) getArguments().getSerializable(BUNDLE_SYSTEM_ARTICLE);
 
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
 
@@ -67,12 +67,12 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
             @Override
             public void refresh(int firstPage) {
-                mPresenter.getSystemArticles(firstPage, mChildrenSystem.getId());
+                mPresenter.getSystemArticles(firstPage, mChildrenTab.getId());
             }
 
             @Override
             public void loadMore(int page) {
-                mPresenter.getSystemArticles(page, mChildrenSystem.getId());
+                mPresenter.getSystemArticles(page, mChildrenTab.getId());
             }
         });
     }
@@ -90,6 +90,9 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
     @NonNull
     @Override
     public String toString() {
-        return mChildrenSystem.getName();
+        assert getArguments() != null;
+        mChildrenTab = (Tab) getArguments().getSerializable(BUNDLE_SYSTEM_ARTICLE);
+        assert mChildrenTab != null;
+        return mChildrenTab.getName();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.square.presenter;
 
+import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.square.contract.MySquareContract;
@@ -30,7 +31,7 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
         addSubcriber(
                 mDataManager.shareArticle(title, link)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showShareResult(baseResponse.getErrorCode() == 0)
+                        .subscribe(baseResponse -> mView.showShareResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE)
                                 , Throwable::printStackTrace)
         );
     }
@@ -40,7 +41,7 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
         addSubcriber(
                 mDataManager.collectArticle(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == 0, position)
+                        .subscribe(baseResponse -> mView.showCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
                                 , Throwable::printStackTrace)
         );
     }
@@ -50,7 +51,7 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
         addSubcriber(
                 mDataManager.cancelCollect(id)
                         .compose(RxUtils.switchSchedulers())
-                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == 0, position)
+                        .subscribe(baseResponse -> mView.showCancelCollectResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
                                 , Throwable::printStackTrace)
         );
     }
@@ -61,7 +62,7 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
                 mDataManager.deleteShareArticle(id)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(baseResponse ->
-                                        mView.showDeleteResult(baseResponse.getErrorCode() == 0, position)
+                                        mView.showDeleteResult(baseResponse.getErrorCode() == Constants.SUCCESS_CODE, position)
                                 , Throwable::printStackTrace)
         );
     }
