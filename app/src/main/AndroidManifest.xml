@@ -22,10 +22,6 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.square.PersonalSquareActivity"></activity>
-        <activity android:name=".main.square.SquareActivity" />
-        <activity android:name=".main.coin.CoinActivity" />
-
         <receiver
             android:name=".receiver.NetChangeReceiver"
             android:enabled="true"
@@ -35,6 +31,9 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".main.square.PersonalSquareActivity"></activity>
+        <activity android:name=".main.square.SquareActivity" />
+        <activity android:name=".main.coin.CoinActivity" />
         <activity android:name=".main.collection.CollectionActivity" />
         <activity android:name=".main.activity.SettingsActivity" />
         <activity android:name=".main.activity.RegisterActivity" />

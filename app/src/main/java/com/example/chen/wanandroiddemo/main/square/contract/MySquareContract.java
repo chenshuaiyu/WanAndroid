@@ -14,6 +14,7 @@ public interface MySquareContract {
         void collectArticle(int id, int position);
         void cancelCollectArticle(int id, int position);
         void deleteShareArticle(int id, int position);
+        boolean getLoginStatus();
     }
 
     interface View extends BaseView {

@@ -3,11 +3,12 @@ package com.example.chen.wanandroiddemo.main.search;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 
 import com.example.chen.wanandroiddemo.R;
@@ -20,7 +21,7 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +33,13 @@ import butterknife.BindView;
  */
 public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter> implements SearchArticlesContract.View {
 
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.refresh_recycler_view)
+    protected RefreshRecyclerView mRefreshRecyclerView;
 
-    private int curPage = 0;
     private String key;
-    private List<Article> mArticles = new ArrayList<>();;
+    private List<Article> mArticles = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
 
     public static Intent newIntent(Context context, String key) {
@@ -64,22 +62,19 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
-
-        Intent intent = getIntent();
-        key = intent.getStringExtra(Constants.SEARCH_KEY);
-
+        key = getIntent().getStringExtra(Constants.SEARCH_KEY);
         initToolbar();
 
+        mRefreshRecyclerView.setFirstPage(0);
+        mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mArticles);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mArticlesAdapter);
+        mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
             OpenActivityUtil.openArticleDetailActivity(this, article.getId(), article.getLink(), article.getTitle(), article.isCollect());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-
             switch (view.getId()) {
                 case R.id.ll_chapter:
                     OpenActivityUtil.openSystemArticlesActivity(this,
@@ -97,17 +92,20 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
             }
         });
 
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            curPage = 0;
-            mPresenter.getSearchArticles(curPage++, key);
-            refreshLayout.finishRefresh(1500);
-        });
-        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            mPresenter.getSearchArticles(curPage++, key);
-            refreshLayout.finishLoadMore(1500);
+        mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
+            @Override
+            public void refresh(int firstPage) {
+                mPresenter.getSearchArticles(firstPage, key);
+            }
+
+            @Override
+            public void loadMore(int page) {
+                mPresenter.getSearchArticles(page, key);
+            }
         });
 
-        mPresenter.getSearchArticles(curPage++, key);
+        //初始化第一页数据
+        mRefreshRecyclerView.reLoad();
     }
 
     private void initToolbar() {
@@ -121,19 +119,11 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    @Override
     public void showSearchArticles(List<Article> articles) {
+        if (mRefreshRecyclerView.isFirstPage()) {
+            mRefreshRecyclerView.addCurPage();
+            mArticles.clear();
+        }
         mArticles.addAll(articles);
         mArticlesAdapter.notifyDataSetChanged();
     }
@@ -158,5 +148,13 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         } else {
             ToastUtil.toast(R.string.cancel_collect_fail);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

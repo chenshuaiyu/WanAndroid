@@ -10,13 +10,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
-import com.example.chen.wanandroiddemo.adapter.SquareShareArticlesAdapter;
+import com.example.chen.wanandroiddemo.adapter.MySquareShareArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.main.square.contract.MySquareContract;
 import com.example.chen.wanandroiddemo.main.square.presenter.MySquarePresenter;
+import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
@@ -36,11 +37,8 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
-    private View mShareArticleView;
-    private Button mShareBtn;
-
     private List<ShareArticle> mSquareArticleList = new ArrayList<>();
-    private SquareShareArticlesAdapter mSquareShareArticlesAdapter;
+    private MySquareShareArticlesAdapter mMySquareShareArticlesAdapter;
 
     @Override
     protected MySquarePresenter getPresenter() {
@@ -51,17 +49,22 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.fragment_my_square)
-                .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
+                .setErrorLayoutResId(R.layout.not_login)
+                .setErrorReLoadViewResId(R.id.tv_not_login)
+                .setOnReLoadListener(() -> {
+                    OpenActivityUtil.openLoginActivity(Objects.requireNonNull(getContext()));
+                    Objects.requireNonNull(getActivity()).finish();
+                })
                 .build();
     }
 
     @Override
     protected void initView() {
-        mShareArticleView = LayoutInflater.from(getContext()).inflate(R.layout.share_article, null);
-        mShareBtn = mShareArticleView.findViewById(R.id.btn_share);
+        View shareArticleView1 = LayoutInflater.from(getContext()).inflate(R.layout.share_article, null);
+        Button shareBtn = shareArticleView1.findViewById(R.id.btn_share);
         mPresenter.subscribeEvent();
 
-        mShareBtn.setOnClickListener(v -> {
+        shareBtn.setOnClickListener(v -> {
             View shareArticleView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_share_article, null);
             new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                     .setTitle(R.string.share)
@@ -77,13 +80,11 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
                     .show();
         });
 
-        //缺少删除分享的文章的逻辑
-
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSquareShareArticlesAdapter = new SquareShareArticlesAdapter(R.layout.item_square_share_articles, mSquareArticleList);
-        mRefreshRecyclerView.setAdapter(mSquareShareArticlesAdapter);
-        mSquareShareArticlesAdapter.addHeaderView(mShareArticleView);
+        mMySquareShareArticlesAdapter = new MySquareShareArticlesAdapter(R.layout.item_square_share_articles, mSquareArticleList);
+        mRefreshRecyclerView.setAdapter(mMySquareShareArticlesAdapter);
+        mMySquareShareArticlesAdapter.addHeaderView(shareArticleView1);
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {
             @Override
@@ -96,11 +97,11 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
                 mPresenter.getMySquare(page);
             }
         });
-        mSquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
+        mMySquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(getContext(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
         });
-        mSquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+        mMySquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.iv_collect:
@@ -110,7 +111,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
                         mPresenter.cancelCollectArticle(squareArticle.getId(), position);
                     }
                     break;
-                case R.id.iv_close:
+                case R.id.iv_delete:
                     mPresenter.deleteShareArticle(squareArticle.getId(), position);
                     break;
                 default:
@@ -126,7 +127,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
             mSquareArticleList.clear();
         }
         mSquareArticleList.addAll(squareShareArticles.getShareArticles().getDatas());
-        mSquareShareArticlesAdapter.notifyDataSetChanged();
+        mMySquareShareArticlesAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -144,7 +145,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
         if (success) {
             ToastUtil.toast(R.string.collect_success);
             mSquareArticleList.get(position).setCollect(true);
-            mSquareShareArticlesAdapter.notifyDataSetChanged();
+            mMySquareShareArticlesAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.collect_fail);
         }
@@ -155,7 +156,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
         if (success) {
             ToastUtil.toast(R.string.cancel_collect_success);
             mSquareArticleList.get(position).setCollect(false);
-            mSquareShareArticlesAdapter.notifyDataSetChanged();
+            mMySquareShareArticlesAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.cancel_collect_fail);
         }
@@ -166,9 +167,20 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
         if (success) {
             ToastUtil.toast(R.string.delete_success);
             mSquareArticleList.remove(position);
-            mSquareShareArticlesAdapter.notifyDataSetChanged();
+            mMySquareShareArticlesAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.delete_fail);
+        }
+    }
+
+    @Override
+    public void reLoad() {
+        if (!NetUtil.isNetworkConnected()) {
+            showNetErrorView();
+        } else if (mPresenter.getLoginStatus()) {
+            mRefreshRecyclerView.reLoad();
+        } else {
+            showErrorView();
         }
     }
 

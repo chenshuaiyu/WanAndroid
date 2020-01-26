@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.system;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,7 +28,7 @@ import butterknife.BindView;
  */
 public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> implements SystemArticleContract.View {
 
-    public static final String BUNDLE_SYSTEM_ARTICLE = "system_article";
+    private static final String BUNDLE_SYSTEM_ARTICLE = "system_article";
 
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
@@ -46,6 +48,14 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
                 .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
                 .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
                 .build();
+    }
+
+    public static SystemArticleFragment newInstance(Tab tab) {
+        Bundle args = new Bundle();
+        args.putSerializable(SystemArticleFragment.BUNDLE_SYSTEM_ARTICLE, tab);
+        SystemArticleFragment fragment = new SystemArticleFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

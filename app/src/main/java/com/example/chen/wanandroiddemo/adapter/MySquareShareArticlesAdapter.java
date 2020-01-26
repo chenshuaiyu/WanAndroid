@@ -10,11 +10,12 @@ import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import java.util.List;
 
 /**
- * @author chenshuaiyu
+ * @author : chenshuaiyu
+ * @date : 2020/1/26 16:32
  */
-public class SquareShareArticlesAdapter extends BaseQuickAdapter<ShareArticle, BaseViewHolder> {
+public class MySquareShareArticlesAdapter extends BaseQuickAdapter<ShareArticle, BaseViewHolder> {
 
-    public SquareShareArticlesAdapter(int layoutResId, @Nullable List<ShareArticle> data) {
+    public MySquareShareArticlesAdapter(int layoutResId, @Nullable List<ShareArticle> data) {
         super(layoutResId, data);
     }
 
@@ -25,5 +26,6 @@ public class SquareShareArticlesAdapter extends BaseQuickAdapter<ShareArticle, B
                 .setVisible(R.id.tv_fresh, item.isFresh())
                 .setImageResource(R.id.iv_collect, item.isCollect() ? R.drawable.ic_like : R.drawable.ic_dislike);
         helper.addOnClickListener(R.id.iv_collect);
+        helper.addOnClickListener(R.id.iv_delete);
     }
 }

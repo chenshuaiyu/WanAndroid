@@ -2,6 +2,7 @@ package com.example.chen.wanandroiddemo.main.homepage;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -149,7 +150,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private void setBanner() {
         List<String> title = new ArrayList<>();
         for (Banner banner : mBannerList) {
-            title.add(banner.getTitle());
+            title.add(Html.fromHtml(banner.getTitle()).toString());
         }
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         mBanner.setImageLoader(new GlideImageLoader());

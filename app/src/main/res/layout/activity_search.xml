@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
         <RelativeLayout
-            android:id="@+id/clear_all_history"
+            android:id="@+id/rl_clear_all_history"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true">

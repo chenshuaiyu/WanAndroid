@@ -23,7 +23,6 @@ import java.util.List;
 public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> implements ProjectContract.View {
 
     private List<Fragment> mFragments = new ArrayList<>();
-    private ViewPagerAdapter mPagerAdapter;
 
     @Override
     protected ProjectPresenter getPresenter() {
@@ -47,14 +46,10 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
     public void showTab(List<Tab> projectTabList) {
         mFragments.clear();
         for (Tab tab : projectTabList) {
-            ProjectTabFragment tabFragment = new ProjectTabFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ProjectTabFragment.BUNDLE_PROJECT_TAB, tab);
-            tabFragment.setArguments(bundle);
-            mFragments.add(tabFragment);
+            mFragments.add(ProjectTabFragment.newInstance(tab));
         }
-        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setAdapter(mPagerAdapter);
+        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
+        mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size());
         mTabLayout.setupWithViewPager(mViewPager);
     }

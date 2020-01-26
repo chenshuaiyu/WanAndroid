@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.main.wx;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.example.chen.wanandroiddemo.R;
@@ -13,7 +14,6 @@ import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.wx.contract.WXTabContract;
 import com.example.chen.wanandroiddemo.main.wx.presenter.WXTabPresenter;
-import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
@@ -31,16 +31,15 @@ import butterknife.BindView;
  */
 public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTabContract.View {
 
-    public static final String BUNDLE_WX_TAB = "wx_tab";
+    private static final String BUNDLE_WX_TAB = "wx_tab";
+    private static final int NORMAL_MODE = 0;
+    private static final int SEARCH_MODE = 1;
 
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
 
     private int mode = NORMAL_MODE;
     private String searchContent = "";
-
-    public static final int NORMAL_MODE = 0;
-    public static final int SEARCH_MODE = 1;
 
     private int curSearchPage = 1;
     private List<Article> mWXTabArticleList = new ArrayList<>();
@@ -60,9 +59,18 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
                 .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
                 .setOnReLoadListener(() -> {
                     curSearchPage = 1;
+                    searchContent = "";
                     mRefreshRecyclerView.reLoad();
                 })
                 .build();
+    }
+
+    public static WXTabFragment newInstance(Tab tab) {
+        Bundle args = new Bundle();
+        args.putSerializable(WXTabFragment.BUNDLE_WX_TAB, tab);
+        WXTabFragment fragment = new WXTabFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -89,7 +97,6 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
             @Override
             public void refresh(int firstPage) {
                 mode = NORMAL_MODE;
-                curSearchPage = 1;
                 mSearchView.clear();
                 mPresenter.getWXTabArticles(mWXTab.getId(), firstPage);
             }
@@ -108,7 +115,8 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
             mode = SEARCH_MODE;
             curSearchPage = 1;
             if (!TextUtils.isEmpty(content)) {
-                mPresenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage, searchContent);
+                searchContent = content;
+                mPresenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage, content);
             }
         });
     }
@@ -126,6 +134,7 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     @Override
     public void showWXTabSearchArticles(List<Article> wxTabArticles) {
         if (curSearchPage == 1) {
+            curSearchPage++;
             mWXTabArticleList.clear();
         }
         mWXTabArticleList.addAll(wxTabArticles);

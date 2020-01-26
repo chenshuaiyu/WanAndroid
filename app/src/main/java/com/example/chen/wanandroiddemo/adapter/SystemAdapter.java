@@ -22,7 +22,7 @@ public class SystemAdapter extends BaseQuickAdapter<Tab, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Tab item) {
         StringBuilder s = new StringBuilder();
         for (Tab childrenTab : item.getChildren()) {
-            s.append(childrenTab.getName() + "    ");
+            s.append(childrenTab.getName()).append("    ");
         }
         s.delete(s.length() - 4, s.length());
         helper.setText(R.id.tv_title, item.getName())

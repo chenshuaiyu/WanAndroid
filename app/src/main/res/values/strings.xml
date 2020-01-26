@@ -85,5 +85,6 @@
     <string name="cancel_collect_fail">取消收藏失败</string>
     <string name="delete">删除</string>
     <string name="register_success">注册成功</string>
+    <string name="todo">待办</string>
 
 </resources>

@@ -66,4 +66,9 @@ public class MySquarePresenter extends BasePresenter<MySquareContract.View> impl
                                 , Throwable::printStackTrace)
         );
     }
+
+    @Override
+    public boolean getLoginStatus() {
+        return mDataManager.getLoginStatus();
+    }
 }

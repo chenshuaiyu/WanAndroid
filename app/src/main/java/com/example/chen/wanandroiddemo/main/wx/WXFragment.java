@@ -1,8 +1,5 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 
 import com.example.chen.wanandroiddemo.R;
@@ -24,7 +21,6 @@ import java.util.List;
 public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WXContract.View {
 
     private List<Fragment> mFragments = new ArrayList<>();
-    private ViewPagerAdapter mPagerAdapter;
 
     @Override
     protected WXPresenter getPresenter() {
@@ -48,14 +44,10 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     public void showTab(List<Tab> wxTabList) {
         mFragments.clear();
         for (Tab tab : wxTabList) {
-            WXTabFragment tabFragment = new WXTabFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(WXTabFragment.BUNDLE_WX_TAB, tab);
-            tabFragment.setArguments(bundle);
-            mFragments.add(tabFragment);
+            mFragments.add(WXTabFragment.newInstance(tab));
         }
-        mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
-        mViewPager.setAdapter(mPagerAdapter);
+        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
+        mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(mFragments.size());
         mTabLayout.setupWithViewPager(mViewPager);
     }

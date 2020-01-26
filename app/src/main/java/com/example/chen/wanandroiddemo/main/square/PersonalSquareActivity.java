@@ -1,5 +1,6 @@
 package com.example.chen.wanandroiddemo.main.square;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -63,6 +64,13 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
                 .build();
     }
 
+    public static Intent newIntent(Context context, String name, int id) {
+        Intent intent = new Intent(context, PersonalSquareActivity.class);
+        intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_NAME, name);
+        intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_ID, id);
+        return intent;
+    }
+
     @Override
     protected void initView() {
         mCoinInfoView = LayoutInflater.from(this).inflate(R.layout.my_coin, null);
@@ -74,7 +82,7 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
 
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mSquareShareArticlesAdapter = new SquareShareArticlesAdapter(R.layout.item_square_share_articles, mSquareArticleList);
+        mSquareShareArticlesAdapter = new SquareShareArticlesAdapter(R.layout.item_my_square_share_articles, mSquareArticleList);
         mRefreshRecyclerView.setAdapter(mSquareShareArticlesAdapter);
         mSquareShareArticlesAdapter.addHeaderView(mCoinInfoView);
 
@@ -120,13 +128,13 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
     }
 
     @Override
-    public void showCoinInfo(Coin coininfo) {
+    public void showCoinInfo(Coin coinInfo) {
         TextView mCoinCountTv = mCoinInfoView.findViewById(R.id.tv_coin_count);
         TextView mRankTv = mCoinInfoView.findViewById(R.id.tv_rank);
         TextView mLvTv = mCoinInfoView.findViewById(R.id.tv_lv);
-        mCoinCountTv.setText(String.valueOf(coininfo.getCoinCount()));
-        mRankTv.setText(String.valueOf(coininfo.getRank()));
-        mLvTv.setText(String.valueOf(coininfo.getLevel()));
+        mCoinCountTv.setText(String.valueOf(coinInfo.getCoinCount()));
+        mRankTv.setText(String.valueOf(coinInfo.getRank()));
+        mLvTv.setText(String.valueOf(coinInfo.getLevel()));
     }
 
     @Override
@@ -163,12 +171,8 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }

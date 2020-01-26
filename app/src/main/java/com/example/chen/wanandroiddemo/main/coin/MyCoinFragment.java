@@ -1,6 +1,5 @@
 package com.example.chen.wanandroiddemo.main.coin;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -14,10 +13,10 @@ import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
-import com.example.chen.wanandroiddemo.main.activity.LoginActivity;
 import com.example.chen.wanandroiddemo.main.coin.contract.MyCoinContract;
 import com.example.chen.wanandroiddemo.main.coin.presenter.MyCoinPresenter;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
 import com.example.statelayout_lib.StateLayoutManager;
 
@@ -51,7 +50,7 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
                 .setErrorLayoutResId(R.layout.not_login)
                 .setErrorReLoadViewResId(R.id.tv_not_login)
                 .setOnReLoadListener(() -> {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    OpenActivityUtil.openLoginActivity(Objects.requireNonNull(getContext()));
                     Objects.requireNonNull(getActivity()).finish();
                 })
                 .build();

@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_todo"
+        android:icon="@drawable/ic_todo"
+        android:title="@string/todo"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_website"
         android:icon="@drawable/ic_website"
         android:title="@string/commom_website"

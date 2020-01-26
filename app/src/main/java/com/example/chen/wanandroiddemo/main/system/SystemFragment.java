@@ -1,12 +1,9 @@
 package com.example.chen.wanandroiddemo.main.system;
 
-import android.content.Intent;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.SystemAdapter;
-import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
@@ -54,9 +51,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
         mRefreshRecyclerView.setAdapter(mSystemAdapter);
         mSystemAdapter.setOnItemClickListener((adapter, view, position) -> {
             Tab tab = mTabs.get(position);
-            Intent intent = new Intent(getActivity(), SystemArticlesActivity.class);
-            intent.putExtra(Constants.SYSTEM, tab);
-            startActivity(intent);
+            startActivity(SystemArticlesActivity.newIntent(getContext(), tab));
         });
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {

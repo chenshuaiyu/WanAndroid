@@ -1,7 +1,5 @@
 package com.example.chen.wanandroiddemo.main.square;
 
-import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -74,10 +72,7 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
             ShareArticle squareArticle = mSquareArticleList.get(position);
             switch (view.getId()) {
                 case R.id.tv_author:
-                    Intent intent = new Intent(getContext(), PersonalSquareActivity.class);
-                    intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_NAME, squareArticle.getShareUser());
-                    intent.putExtra(PersonalSquareActivity.INTENT_KEY_SHARE_USER_ID, squareArticle.getUserId());
-                    startActivity(intent);
+                    startActivity(PersonalSquareActivity.newIntent(getContext(), squareArticle.getShareUser(), squareArticle.getUserId()));
                     break;
                 case R.id.iv_collect:
                     if (!squareArticle.isCollect()) {

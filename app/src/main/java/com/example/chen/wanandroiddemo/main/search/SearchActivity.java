@@ -1,14 +1,15 @@
 package com.example.chen.wanandroiddemo.main.search;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 import butterknife.BindView;
 
@@ -49,15 +51,15 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.btn_search)
-    Button mButton;
+    Button mSearchBtn;
     @BindView(R.id.et_content)
-    EditText mEditText;
-    @BindView(R.id.clear_all_history)
-    RelativeLayout mRelativeLayout;
+    EditText mContentEt;
+    @BindView(R.id.rl_clear_all_history)
+    RelativeLayout mClearAllHistoryRl;
 
     private List<HotWord> mHotWords = new ArrayList<>();
-    private TagAdapter<HotWord> mTagAdapter;
     private List<HistoryRecord> mHistoryRecords = new ArrayList<>();
+    private TagAdapter<HotWord> mTagAdapter;
     private HistoryAdapter mHistoryAdapter;
 
     @Override
@@ -77,38 +79,30 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
         initToolbar();
 
-        mButton.setOnClickListener(v -> {
-            String s = mEditText.getText().toString();
-            if (!TextUtils.isEmpty(s)) {
-                addHisotryRecord(s);
-                searchArticles(s);
+        mSearchBtn.setOnClickListener(v -> {
+            String content = mContentEt.getText().toString();
+            if (!TextUtils.isEmpty(content)) {
+                addHisotryRecord(content);
+                searchArticles(content);
             }
         });
 
         initTagFlowLayout();
         initRecyclerView();
 
-        mRelativeLayout.setOnClickListener(v -> {
+        mClearAllHistoryRl.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(SearchActivity.this)
                     .setTitle(R.string.clear_all_history)
-                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPresenter.clearHisotryRecord();
-                            mHistoryRecords.clear();
-                            mHistoryAdapter.notifyDataSetChanged();
-                        }
+                    .setPositiveButton(R.string.confirm, (dialog1, which) -> {
+                        mPresenter.clearHisotryRecord();
+                        mHistoryRecords.clear();
+                        mHistoryAdapter.notifyDataSetChanged();
                     })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
+                    .setNegativeButton(R.string.cancel, (dialog12, which) -> {
                     })
                     .create();
             dialog.show();
         });
-
         mPresenter.getHotWord();
         mPresenter.getAllHisotryRecord();
     }
@@ -174,8 +168,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     private void setEditSelection(String data) {
-        mEditText.setText(data);
-        mEditText.setSelection(data.length());
+        mContentEt.setText(data);
+        mContentEt.setSelection(data.length());
     }
 
     private void addHisotryRecord(String s) {
@@ -184,9 +178,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             if (record.getData().equals(s)) {
                 mHistoryRecords.remove(i);
                 mPresenter.deleteHisotryRecord(record);
+                break;
             }
         }
-
         HistoryRecord record = new HistoryRecord(null, System.currentTimeMillis(), s);
         //添加至数据库
         mPresenter.addHisotryRecord(record);
@@ -198,25 +192,13 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void onResume() {
         super.onResume();
-        mEditText.setSelection(mEditText.getText().toString().length());
+        mContentEt.setSelection(mContentEt.getText().toString().length());
         mHistoryAdapter.notifyDataSetChanged();
     }
 
     private void searchArticles(String key) {
         Intent intent = SearchArticlesActivity.newIntent(this, key);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
-        }
-        return true;
     }
 
     @Override
@@ -230,5 +212,13 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mHistoryRecords.addAll(historyRecords);
         Collections.reverse(mHistoryRecords);
         mHistoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

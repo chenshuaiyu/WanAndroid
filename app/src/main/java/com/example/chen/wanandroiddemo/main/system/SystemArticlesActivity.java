@@ -3,11 +3,14 @@ package com.example.chen.wanandroiddemo.main.system;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.statelayout_lib.StateLayoutManager;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -29,16 +32,15 @@ import butterknife.BindView;
  */
 public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPresenter> implements SystemArticlesContract.View {
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
 
     private Tab mTab;
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private ViewPagerAdapter mAdapter;
 
     @Override
     protected SystemArticlesPresenter getPresenter() {
@@ -53,6 +55,12 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
                 .build();
     }
 
+    public static Intent newIntent(Context context, Tab tab) {
+        Intent intent = new Intent(context, SystemArticlesActivity.class);
+        intent.putExtra(Constants.SYSTEM, tab);
+        return intent;
+    }
+
     @Override
     protected void initView() {
         mPresenter.subscribeEvent();
@@ -61,14 +69,10 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
         initToolbar();
 
         for (Tab childrenTab : mTab.getChildren()) {
-            SystemArticleFragment articleFragment = new SystemArticleFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(SystemArticleFragment.BUNDLE_SYSTEM_ARTICLE, childrenTab);
-            articleFragment.setArguments(bundle);
-            mFragmentList.add(articleFragment);
+            mFragmentList.add(SystemArticleFragment.newInstance(childrenTab));
         }
-        mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
-        mViewPager.setAdapter(mAdapter);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(mFragmentList.size());
         mTabLayout.setupWithViewPager(mViewPager);
     }

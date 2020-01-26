@@ -6,6 +6,9 @@
 
     <include layout="@layout/common_toolbar" />
 
-    <include layout="@layout/refresh_recycler_view" />
+    <com.example.chen.wanandroiddemo.widget.RefreshRecyclerView
+        android:id="@+id/refresh_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

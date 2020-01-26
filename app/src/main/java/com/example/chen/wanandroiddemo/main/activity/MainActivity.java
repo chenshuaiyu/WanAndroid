@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
 import com.example.chen.wanandroiddemo.main.square.SquareActivity;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.fragment.app.Fragment;
@@ -209,6 +210,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.menu_todo:
+                break;
             case R.id.menu_website:
                 startActivity(new Intent(this, CommonActivity.class));
                 break;
@@ -230,7 +233,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                     startActivity(new Intent(this, CollectionActivity.class));
                 } else {
                     ToastUtil.toast(R.string.not_login_and_to_login);
-                    startActivity(new Intent(this, LoginActivity.class));
+                    OpenActivityUtil.openLoginActivity(this);
                 }
                 break;
             case R.id.menu_square:

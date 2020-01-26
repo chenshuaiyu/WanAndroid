@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.main.project;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -27,7 +29,7 @@ import butterknife.BindView;
  */
 public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implements ProjectTabContract.View {
 
-    public static final String BUNDLE_PROJECT_TAB = "project_tab";
+    private static final String BUNDLE_PROJECT_TAB = "project_tab";
 
     @BindView(R.id.refresh_recycler_view)
     protected RefreshRecyclerView mRefreshRecyclerView;
@@ -48,6 +50,14 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
                 .setContentLayoutResId(R.layout.fragment_refresh_recycler_view)
                 .setOnReLoadListener(() -> mRefreshRecyclerView.reLoad())
                 .build();
+    }
+
+    public static ProjectTabFragment newInstance(Tab tab) {
+        Bundle args = new Bundle();
+        args.putSerializable(ProjectTabFragment.BUNDLE_PROJECT_TAB, tab);
+        ProjectTabFragment fragment = new ProjectTabFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
