@@ -8,10 +8,10 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
  */
 public interface ArticleContract {
     interface Presenter extends IPresenter<View> {
-        void collectArticle(int id);
+
     }
 
     interface View extends BaseView {
-        void showCollectResult(boolean success);
+
     }
 }

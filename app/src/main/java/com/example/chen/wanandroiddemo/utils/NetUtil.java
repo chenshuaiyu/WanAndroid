@@ -11,7 +11,6 @@ import com.example.chen.wanandroiddemo.app.WanAndroidApp;
  * @date : 2019/4/9 21:19
  */
 public class NetUtil {
-
     public static boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) WanAndroidApp.getInstance()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);

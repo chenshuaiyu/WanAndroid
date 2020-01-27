@@ -84,10 +84,10 @@ public class CoinActivity extends BaseActivity<CoinPresenter> implements CoinCon
                 finish();
                 break;
             case R.id.menu_welfare:
-                OpenActivityUtil.openArticleDetailActivity(this, 0, Constants.COIN_WELFARE, "本站福利", false);
+                OpenActivityUtil.openArticleDetailActivity(this, Constants.COIN_WELFARE, "本站福利");
                 break;
             case R.id.menu_coin_rule:
-                OpenActivityUtil.openArticleDetailActivity(this, 0, Constants.COIN_RULE_LINK, "本站积分规则", false);
+                OpenActivityUtil.openArticleDetailActivity(this, Constants.COIN_RULE_LINK, "本站积分规则");
                 break;
             default:
                 break;

@@ -108,7 +108,7 @@ public class CollectionActivity extends BaseActivity<CollectionPresenter> implem
                 //收藏网址
                 View collectWebsiteView = LayoutInflater.from(this).inflate(R.layout.dialog_collect_website, null);
                 new AlertDialog.Builder(CollectionActivity.this)
-                        .setTitle(R.string.collect_outside_article)
+                        .setTitle(R.string.collect_website)
                         .setView(collectWebsiteView)
                         .setCancelable(false)
                         .setPositiveButton(R.string.collect, (dialog1, which) -> {

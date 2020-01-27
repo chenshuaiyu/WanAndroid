@@ -57,9 +57,7 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
                 TextView textView = view.findViewById(R.id.tv_hot_word);
                 textView.setText(website.getName());
                 view.setBackgroundColor(ColorUtil.randomTagColor());
-
-                //bug：不需收藏
-                view.setOnClickListener(v -> OpenActivityUtil.openArticleDetailActivity(getContext(), website.getId(), website.getLink(), website.getName(), false));
+                view.setOnClickListener(v -> OpenActivityUtil.openArticleDetailActivity(getContext(), website.getLink(), website.getName()));
                 return view;
             }
         };

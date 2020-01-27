@@ -71,7 +71,7 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);
-            OpenActivityUtil.openArticleDetailActivity(this, article.getId(), article.getLink(), article.getTitle(), article.isCollect());
+            OpenActivityUtil.openArticleDetailActivity(this, article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticles.get(position);

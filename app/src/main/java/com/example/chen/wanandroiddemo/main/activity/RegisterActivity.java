@@ -48,7 +48,6 @@ public class RegisterActivity extends BaseLoadActivity<RegisterPresenter> implem
 
     @Override
     protected void initView() {
-
         mLoginBtn.setOnClickListener(
                 v -> {
                     OpenActivityUtil.openLoginActivity(this);

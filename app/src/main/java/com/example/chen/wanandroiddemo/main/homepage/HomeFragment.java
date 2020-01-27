@@ -24,6 +24,7 @@ import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -38,9 +39,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     private com.youth.banner.Banner mBanner;
 
-    private ArticlesAdapter mArticlesAdapter;
     private List<Banner> mBannerList = new ArrayList<>();
     private List<Article> mArticleList = new ArrayList<>();
+    private ArticlesAdapter mArticlesAdapter;
 
     @Override
     protected HomePresenter getPresenter() {
@@ -69,7 +70,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getId(), article.getLink(), article.getTitle(), article.isCollect());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
         mArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Article article = mArticleList.get(position);
@@ -102,8 +103,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 mPresenter.getArticles(page);
             }
         });
-        //改
-//        getActivity().findViewById(R.id.toolbar).setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
     }
 
     @Override
@@ -160,8 +159,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mBanner.setDelayTime(2500);
         mBanner.setOnBannerListener(position -> {
             Banner banner = mBannerList.get(position);
-            //bug：banner不收藏
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getId(), banner.getUrl(), banner.getTitle(), false);
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), banner.getUrl(), banner.getTitle());
         });
         mBanner.start();
     }

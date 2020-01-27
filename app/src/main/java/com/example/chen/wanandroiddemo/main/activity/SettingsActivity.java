@@ -56,7 +56,7 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
                 ShareUtil.sendEmail(this, getString(R.string.email_client));
                 break;
             case R.id.rl_clear_cache:
-
+                //清除缓存
                 break;
             default:
                 break;
@@ -105,13 +105,9 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                back();
-                finish();
-                break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            back();
+            finish();
         }
         return true;
     }

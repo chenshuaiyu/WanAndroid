@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.main.articledetail;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -41,6 +42,14 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
                 .build();
     }
 
+    public static ArticleDetailFragment newInstance(String url) {
+        Bundle args = new Bundle();
+        args.putString(ArticleDetailFragment.BUNDLE_ARTICLE_DETAIL_URL, url);
+        ArticleDetailFragment fragment = new ArticleDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
@@ -77,7 +86,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
             //不使用缓存，只从网络获取
             mSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         }
-
         //支持缩放
         mSettings.setJavaScriptEnabled(true);
         mSettings.setSupportZoom(true);

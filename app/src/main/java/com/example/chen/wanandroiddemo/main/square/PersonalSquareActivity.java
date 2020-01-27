@@ -99,7 +99,7 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
         });
         mSquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(this, squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
+            OpenActivityUtil.openArticleDetailActivity(this, squareArticle.getLink(), squareArticle.getTitle());
         });
         mSquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);

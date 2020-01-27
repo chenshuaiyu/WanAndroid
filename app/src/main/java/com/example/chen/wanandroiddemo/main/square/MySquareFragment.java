@@ -99,7 +99,7 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
         });
         mMySquareShareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getContext(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
+            OpenActivityUtil.openArticleDetailActivity(getContext(), squareArticle.getLink(), squareArticle.getTitle());
         });
         mMySquareShareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);

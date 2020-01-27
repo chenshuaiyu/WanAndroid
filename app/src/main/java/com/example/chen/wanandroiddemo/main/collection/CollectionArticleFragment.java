@@ -69,27 +69,23 @@ public class CollectionArticleFragment extends BaseFragment<CollectionArticlePre
         });
         mCollectionArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             CollectionArticle article = mCollectionArticles.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getContext(), article.getId(), article.getLink(), article.getTitle(), true);
+            OpenActivityUtil.openArticleDetailActivity(getContext(), article.getLink(), article.getTitle());
         });
         mCollectionArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             CollectionArticle collectionArticle = mCollectionArticles.get(position);
-            switch (view.getId()) {
-                case R.id.iv_collect:
-                    //取消收藏
-                    new AlertDialog.Builder(Objects.requireNonNull(getContext()))
-                            .setTitle(R.string.cancel_collect)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                                mPresenter.cancelCollect(collectionArticle.getId(), collectionArticle.getOriginId());
-                                mCollectionArticles.remove(position);
-                                mCollectionArticlesAdapter.notifyDataSetChanged();
-                            })
-                            .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                            })
-                            .show();
-                    break;
-                default:
-                    break;
+            if (view.getId() == R.id.iv_collect) {
+                //取消收藏
+                new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                        .setTitle(R.string.cancel_collect)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm, (dialog, which) -> {
+                            mPresenter.cancelCollect(collectionArticle.getId(), collectionArticle.getOriginId());
+                            mCollectionArticles.remove(position);
+                            mCollectionArticlesAdapter.notifyDataSetChanged();
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        })
+                        .show();
             }
         });
     }

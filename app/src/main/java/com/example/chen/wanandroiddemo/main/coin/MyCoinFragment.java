@@ -34,9 +34,13 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     @BindView(R.id.refresh_recycler_view)
     RefreshRecyclerView mRefreshRecyclerView;
 
+    private TextView mCoinCountTv;
+    private TextView mRankTv;
+    private TextView mLvTv;
+    private View mInfoView;
+
     private List<CoinRecord> mCoinRecordList = new ArrayList<>();
     private CoinRecordsAdapter mCoinRecordsAdapter;
-    private View mInfoView;
 
     @Override
     protected MyCoinPresenter getPresenter() {
@@ -61,6 +65,9 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
         mPresenter.subscribeEvent();
 
         mInfoView = LayoutInflater.from(getContext()).inflate(R.layout.my_coin, null);
+        mCoinCountTv = mInfoView.findViewById(R.id.tv_coin_count);
+        mRankTv = mInfoView.findViewById(R.id.tv_rank);
+        mLvTv = mInfoView.findViewById(R.id.tv_lv);
 
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -84,9 +91,6 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
 
     @Override
     public void showCoin(Coin coin) {
-        TextView mCoinCountTv = mInfoView.findViewById(R.id.tv_coin_count);
-        TextView mRankTv = mInfoView.findViewById(R.id.tv_rank);
-        TextView mLvTv = mInfoView.findViewById(R.id.tv_lv);
         mCoinCountTv.setText(String.valueOf(coin.getCoinCount()));
         mRankTv.setText(String.valueOf(coin.getRank()));
         mLvTv.setText(String.valueOf(coin.getLevel()));

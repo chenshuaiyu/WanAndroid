@@ -72,7 +72,7 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
         });
         mCollectionWebsiteAdapter.setOnItemClickListener((adapter, view, position) -> {
             Website website = mWebsites.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getContext(), website.getId(), website.getLink(), website.getName(), true);
+            OpenActivityUtil.openArticleDetailActivity(getContext(), website.getLink(), website.getName());
         });
         mCollectionWebsiteAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Website website = mWebsites.get(position);
@@ -91,29 +91,27 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
                             })
                             .show();
                     break;
+                case R.id.tv_edit:
+                    //编辑
+                    View editWebsiteView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_website, null);
+                    EditText nameEt = editWebsiteView.findViewById(R.id.et_name);
+                    EditText linkEt = editWebsiteView.findViewById(R.id.et_link);
+                    nameEt.setText(website.getName());
+                    linkEt.setText(website.getLink());
+                    new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                            .setTitle(R.string.edit_website)
+                            .setView(editWebsiteView)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.confirm, (dialog, which) -> {
+                                mPresenter.editWebsite(website.getId(), nameEt.getText().toString(), linkEt.getText().toString(), position);
+                            })
+                            .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                            })
+                            .show();
+                    break;
                 default:
                     break;
             }
-        });
-        mCollectionWebsiteAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            //编辑
-            Website website = mWebsites.get(position);
-            View editWebsiteView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_website, null);
-            EditText nameEt = editWebsiteView.findViewById(R.id.et_name);
-            EditText linkEt = editWebsiteView.findViewById(R.id.et_link);
-            nameEt.setText(website.getName());
-            linkEt.setText(website.getLink());
-            new AlertDialog.Builder(Objects.requireNonNull(getContext()))
-                    .setTitle(R.string.edit_website)
-                    .setView(editWebsiteView)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.confirm, (dialog, which) -> {
-                        mPresenter.editWebsite(website.getId(), nameEt.getText().toString(), linkEt.getText().toString(), position);
-                    })
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    })
-                    .show();
-            return true;
         });
     }
 

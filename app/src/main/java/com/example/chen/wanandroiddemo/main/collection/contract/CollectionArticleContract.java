@@ -13,13 +13,11 @@ import java.util.List;
 public interface CollectionArticleContract {
     interface Presenter extends IPresenter<View> {
         void getCollectedArticles(int page);
-
         void cancelCollect(int id, int originId);
     }
 
     interface View extends BaseView {
         void showCollectedArticles(List<CollectionArticle> articles);
-
         void showCollectResult(boolean success);
     }
 }

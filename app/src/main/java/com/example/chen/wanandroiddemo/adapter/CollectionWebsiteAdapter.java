@@ -24,5 +24,6 @@ public class CollectionWebsiteAdapter extends BaseQuickAdapter<Website, BaseView
                 .setText(R.id.tv_link, item.getLink())
                 .setImageResource(R.id.iv_collect, R.drawable.ic_like);
         helper.addOnClickListener(R.id.iv_collect);
+        helper.addOnClickListener(R.id.tv_edit);
     }
 }

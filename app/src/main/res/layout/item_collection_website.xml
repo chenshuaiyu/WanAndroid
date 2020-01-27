@@ -24,12 +24,22 @@
         android:layout_marginBottom="@dimen/dp_5"
         tools:text="https://github.com/chenshuaiyu" />
 
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/iv_collect"
+        android:text="@string/edit"
+        android:padding="@dimen/dp_5"/>
+
     <ImageView
         android:id="@+id/iv_collect"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="6dp"
         android:layout_marginEnd="@dimen/dp_10"
         android:src="@drawable/ic_like" />
 

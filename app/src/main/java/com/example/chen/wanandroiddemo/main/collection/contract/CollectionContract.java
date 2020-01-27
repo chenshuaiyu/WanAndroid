@@ -10,7 +10,6 @@ import com.example.chen.wanandroiddemo.base.view.BaseView;
 public interface CollectionContract {
     interface Presenter extends IPresenter<View> {
         void collectOutsideArticle(String title, String author, String link);
-
         void collectWebsite(String name, String link);
     }
 

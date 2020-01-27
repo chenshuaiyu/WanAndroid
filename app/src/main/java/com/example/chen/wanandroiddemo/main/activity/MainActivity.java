@@ -56,6 +56,7 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity<MainPresenter>
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
+    private static final long INTERVAL = 2000;
     private long exitTime = 0;
 
     @BindView(R.id.toolbar)
@@ -265,7 +266,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (System.currentTimeMillis() - exitTime > 2000) {
+            if (System.currentTimeMillis() - exitTime > INTERVAL) {
                 ToastUtil.toast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {

@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.adapter;
 
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -39,10 +40,7 @@ public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHold
                 TextView nameTv = view.findViewById(R.id.tv_name);
                 nameTv.setText(article.getTitle());
                 nameTv.setTextColor(ColorUtil.randomTagColor());
-                view.setOnClickListener(v -> {
-                    //bug：收藏待处理
-                    OpenActivityUtil.openArticleDetailActivity(mContext, article.getId(), article.getLink(), article.getTitle(), article.isCollect());
-                });
+                view.setOnClickListener(v -> OpenActivityUtil.openArticleDetailActivity(mContext, article.getLink(), article.getTitle()));
                 return view;
             }
         });

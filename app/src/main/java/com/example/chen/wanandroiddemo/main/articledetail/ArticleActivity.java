@@ -31,16 +31,12 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    private int id;
     private String url;
-    private boolean collect;
 
-    public static Intent newIntent(Context context, int id, String link, String title, boolean collect) {
+    public static Intent newIntent(Context context, String link, String title) {
         Intent intent = new Intent(context, ArticleActivity.class);
-        intent.putExtra(Constants.ARTICLE_ID, id);
         intent.putExtra(Constants.ARTICLE_URL, link);
         intent.putExtra(Constants.ARTICLE_TITLE, title);
-        intent.putExtra(Constants.ARTICLE_COLLECT, collect);
         return intent;
     }
 
@@ -60,17 +56,12 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
         mPresenter.subscribeEvent();
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(Constants.ARTICLE_ID, 0);
         url = intent.getStringExtra(Constants.ARTICLE_URL);
-        collect = intent.getBooleanExtra(Constants.ARTICLE_COLLECT, false);
         String title = intent.getStringExtra(Constants.ARTICLE_TITLE);
 
         initToolbar(title);
 
-        ArticleDetailFragment fragment = new ArticleDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ArticleDetailFragment.BUNDLE_ARTICLE_DETAIL_URL, url);
-        fragment.setArguments(bundle);
+        ArticleDetailFragment fragment = ArticleDetailFragment.newInstance(url);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fl_container, fragment)
                 .commit();
@@ -89,8 +80,6 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_article_detail, menu);
-        MenuItem item = menu.findItem(R.id.menu_collect);
-        item.setIcon(collect ? R.drawable.ic_collect : R.drawable.ic_uncollect);
         return true;
     }
 
@@ -99,13 +88,6 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                break;
-            case R.id.menu_collect:
-                if (!collect) {
-                    mPresenter.collectArticle(id);
-                } else {
-
-                }
                 break;
             case R.id.menu_open_with_browser:
                 ToastUtil.toast(R.string.opening_in_browser);
@@ -122,16 +104,5 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
         intent.setData(Uri.parse(url));
         intent.setAction(Intent.ACTION_VIEW);
         startActivity(intent);
-    }
-
-    @Override
-    public void showCollectResult(boolean success) {
-        if (success) {
-            ToastUtil.toast(R.string.collect_success);
-            collect = true;
-        } else {
-            ToastUtil.toast(R.string.collect_fail);
-            collect = false;
-        }
     }
 }

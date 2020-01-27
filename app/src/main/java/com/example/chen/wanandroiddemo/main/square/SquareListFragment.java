@@ -66,7 +66,7 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
         });
         mSquareArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
-            OpenActivityUtil.openArticleDetailActivity(getActivity(), squareArticle.getId(), squareArticle.getLink(), squareArticle.getTitle(), squareArticle.isCollect());
+            OpenActivityUtil.openArticleDetailActivity(getActivity(), squareArticle.getLink(), squareArticle.getTitle());
         });
         mSquareArticlesAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             ShareArticle squareArticle = mSquareArticleList.get(position);
