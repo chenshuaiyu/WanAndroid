@@ -12,11 +12,11 @@ import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
 import com.example.chen.wanandroiddemo.main.navigation.presenter.NavigationPresenter;
-import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import q.rorbin.verticaltablayout.VerticalTabLayout;
@@ -27,8 +27,14 @@ import q.rorbin.verticaltablayout.widget.TabView;
 /**
  * @author : chenshuaiyu
  * @date : 2019/3/22 15:19
+ *
+ * 参考：https://github.com/rain9155/WanAndroid/blob/master/app/src/main/java/com/example/hy/wanandroid/view/navigation/NavigationActivity.java
  */
 public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
+
+    private int mCurrentSelectedIndex;
+    private boolean isDownScroll;
+    private boolean isTagSelected;
 
     @BindView(R.id.vertical_tab_layout)
     VerticalTabLayout mVerticalTabLayout;
@@ -37,7 +43,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     private List<Navigation> mNavigations = new ArrayList<>();
     private NavigationAdapter mNavigationAdapter;
-    private TabAdapter mTabAdapter;
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -58,23 +63,25 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         mPresenter.subscribeEvent();
 
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mNavigationAdapter);
-        leftAndRightLinkage();
+        leftRightLink();
     }
 
-    private void leftAndRightLinkage() {
+    private void leftRightLink() {
         mVerticalTabLayout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabView tab, int position) {
-                selectTag(position);
+                isTagSelected = true;
+                mCurrentSelectedIndex = position;
+                mRecyclerView.stopScroll();
+                smoothScrollToPosition(position);
             }
 
             @Override
             public void onTabReselected(TabView tab, int position) {
-
             }
         });
 
@@ -82,6 +89,26 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int firstIndex = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (!isTagSelected && mVerticalTabLayout != null) {
+                        if (firstIndex != mCurrentSelectedIndex) {
+                            mVerticalTabLayout.setTabSelected(firstIndex);
+                            mCurrentSelectedIndex = firstIndex;
+                        }
+                    }
+                    isTagSelected = false;
+
+                    if (isDownScroll) {
+                        isDownScroll = false;
+                        isTagSelected = true;
+                        int indexInRecyclerView = mCurrentSelectedIndex - firstIndex;
+                        if (indexInRecyclerView >= 0 && indexInRecyclerView < recyclerView.getChildCount()) {
+                            recyclerView.smoothScrollBy(0, recyclerView.getChildAt(indexInRecyclerView).getTop());
+                        }
+                    }
+                }
             }
 
             @Override
@@ -91,23 +118,16 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         });
     }
 
-    private void selectTag(int position) {
-        mRecyclerView.stopScroll();
-        scrollToPosition(position);
-    }
-
-    private void scrollToPosition(int currentPosition) {
-        int firstPosition = mLayoutManager.findFirstVisibleItemPosition();
-        int lastPosition = mLayoutManager.findLastVisibleItemPosition();
-        ToastUtil.toast(firstPosition + " : " + lastPosition);
-        if (currentPosition <= firstPosition) {
-            mRecyclerView.smoothScrollToPosition(currentPosition);
-        } else if (currentPosition <= lastPosition) {
-            int top = mRecyclerView.getChildAt(currentPosition - firstPosition).getTop();
-            mRecyclerView.smoothScrollBy(0, top);
+    private void smoothScrollToPosition(int position) {
+        int fistIndex = mLayoutManager.findFirstVisibleItemPosition();
+        int lastIndex = mLayoutManager.findLastVisibleItemPosition();
+        if (position < fistIndex) {
+            mRecyclerView.smoothScrollToPosition(position);
+        } else if (position < lastIndex) {
+            mRecyclerView.smoothScrollBy(0, mRecyclerView.getChildAt(mCurrentSelectedIndex - fistIndex).getTop());
         } else {
-            mRecyclerView.smoothScrollToPosition(currentPosition);
-//            needScroll = true;
+            isDownScroll = true;
+            mRecyclerView.smoothScrollToPosition(position);
         }
     }
 
@@ -116,8 +136,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         mNavigations.clear();
         mNavigations.addAll(navigations);
         mNavigationAdapter.notifyDataSetChanged();
-
-        mTabAdapter = new TabAdapter() {
+        TabAdapter tabAdapter = new TabAdapter() {
             @Override
             public int getCount() {
                 return mNavigations.size();
@@ -137,8 +156,8 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
             public ITabView.TabTitle getTitle(int position) {
                 return new TabView.TabTitle.Builder()
                         .setContent(mNavigations.get(position).getName())
-                        .setTextColor(ContextCompat.getColor(getActivity(), R.color.sky_blue),
-                                ContextCompat.getColor(getActivity(), R.color.gray))
+                        .setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.sky_blue),
+                                ContextCompat.getColor(getContext(), R.color.gray))
                         .build();
             }
 
@@ -147,7 +166,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
                 return -1;
             }
         };
-        mVerticalTabLayout.setTabAdapter(mTabAdapter);
+        mVerticalTabLayout.setTabAdapter(tabAdapter);
         mVerticalTabLayout.setIndicatorColor(R.color.white);
     }
 }

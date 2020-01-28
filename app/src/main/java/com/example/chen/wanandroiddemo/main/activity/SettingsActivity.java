@@ -2,9 +2,11 @@ package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -37,10 +39,8 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     Switch mAutoCacheSwitch;
     @BindView(R.id.rl_feedback)
     RelativeLayout mFeedbackLayout;
-    @BindView(R.id.rl_clear_cache)
-    RelativeLayout mClearCacheLayout;
 
-    @OnClick({R.id.switch_night_mode, R.id.switch_no_image_mode, R.id.switch_auto_cache, R.id.rl_feedback, R.id.rl_clear_cache})
+    @OnClick({R.id.switch_night_mode, R.id.switch_no_image_mode, R.id.switch_auto_cache, R.id.rl_feedback})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.switch_night_mode:
@@ -54,9 +54,6 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
                 break;
             case R.id.rl_feedback:
                 ShareUtil.sendEmail(this, getString(R.string.email_client));
-                break;
-            case R.id.rl_clear_cache:
-                //清除缓存
                 break;
             default:
                 break;
@@ -98,18 +95,10 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
         boolean checked = mNightModeSwitch.isChecked();
         mPresenter.setNightMode(checked);
         RxBus.getInstance().post(new NightModeEvent(checked));
+        //使用动画过渡重启设置界面过程
         startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
         overridePendingTransition(R.anim.activity_settings_enter, R.anim.activity_settings_exit);
         finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            back();
-            finish();
-        }
-        return true;
     }
 
     @Override
@@ -131,6 +120,15 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     public void onBackPressed() {
         back();
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            back();
+            finish();
+        }
+        return true;
     }
 
     private void back() {

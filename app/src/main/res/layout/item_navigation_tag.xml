@@ -5,12 +5,12 @@
     android:layout_marginEnd="6dp"
     android:layout_marginBottom="4dp"
     android:background="@drawable/bg_tag"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

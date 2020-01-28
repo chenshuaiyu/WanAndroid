@@ -39,7 +39,6 @@
     <string name="general">通用</string>
     <string name="others">其它</string>
     <string name="feedback">意见反馈</string>
-    <string name="clear_cache">清除缓存</string>
     <string name="email_client">邮件客户端</string>
     <string name="login_title">WanAndroid 客户端登录</string>
     <string name="login_success">登录成功</string>

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
 import com.example.chen.wanandroiddemo.main.square.SquareActivity;
+import com.example.chen.wanandroiddemo.main.todo.ToDoActivity;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     private static final long INTERVAL = 2000;
     private long exitTime = 0;
+    private boolean mNightMode;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -74,9 +76,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mNaviView.setCheckedItem(R.id.menu_wanandroid);
-            startActivity(new Intent(MainActivity.this, MainActivity.class));
-            finish();
+            if (mNightMode != mPresenter.getNightMode()) {
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                finish();
+            }
         }
     };
 
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.subscribeEvent();
+        mNightMode = mPresenter.getNightMode();
         initToolbar();
         BottomNaviViewUtil.disableShiftMode(mBottomNaviView);
         mNaviView.setNavigationItemSelectedListener(this);
@@ -212,6 +216,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.menu_todo:
+                if (mPresenter.isLogin()) {
+                    startActivity(new Intent(this, ToDoActivity.class));
+                } else {
+                    ToastUtil.toast(R.string.not_login_and_to_login);
+                }
                 break;
             case R.id.menu_website:
                 startActivity(new Intent(this, CommonActivity.class));

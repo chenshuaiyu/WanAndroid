@@ -12,6 +12,7 @@ public interface MainContract {
         void setLoginUser();
         boolean isLogin();
         void logout();
+        boolean getNightMode();
     }
 
     interface View extends BaseView {
