@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.utils;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,5 +17,10 @@ public class ShareUtil {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(
                 "mailto:" + Constants.EMAIL_ADDRESS));
         context.startActivity(Intent.createChooser(intent, title));
+    }
+
+    public static void copyLink(Context context, String str) {
+        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        mClipboardManager.setPrimaryClip(ClipData.newPlainText(null, str));
     }
 }

@@ -86,5 +86,7 @@
     <string name="register_success">注册成功</string>
     <string name="todo">待办</string>
     <string name="edit">编辑</string>
+    <string name="copy_link">复制链接</string>
+    <string name="copy_success">复制成功</string>
 
 </resources>

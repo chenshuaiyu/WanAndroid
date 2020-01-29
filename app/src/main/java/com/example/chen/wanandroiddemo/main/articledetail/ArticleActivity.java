@@ -18,6 +18,7 @@ import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.articledetail.contract.ArticleContract;
 import com.example.chen.wanandroiddemo.main.articledetail.presenter.ArticlePresenter;
+import com.example.chen.wanandroiddemo.utils.ShareUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -91,6 +92,10 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
             case R.id.menu_open_with_browser:
                 ToastUtil.toast(R.string.opening_in_browser);
                 openWithBrowser();
+                break;
+            case R.id.menu_copy_link:
+                ShareUtil.copyLink(this, url);
+                ToastUtil.toast(R.string.copy_success);
                 break;
             default:
                 break;
