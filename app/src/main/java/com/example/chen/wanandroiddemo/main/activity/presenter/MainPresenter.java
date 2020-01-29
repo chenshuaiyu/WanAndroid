@@ -2,8 +2,8 @@ package com.example.chen.wanandroiddemo.main.activity.presenter;
 
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.main.activity.contract.MainContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.main.activity.contract.MainContract;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 /**

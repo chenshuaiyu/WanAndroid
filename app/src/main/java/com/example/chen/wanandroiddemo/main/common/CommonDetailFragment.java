@@ -8,8 +8,8 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Website;
-import com.example.chen.wanandroiddemo.main.common.contract.CommonFContract;
-import com.example.chen.wanandroiddemo.main.common.presenter.CommonFPresenter;
+import com.example.chen.wanandroiddemo.main.common.contract.CommonDetailContract;
+import com.example.chen.wanandroiddemo.main.common.presenter.CommonDetailPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.statelayout_lib.StateLayoutManager;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 /**
  * @author chenshuaiyu
  */
-public class CommonFragment extends BaseFragment<CommonFPresenter> implements CommonFContract.View {
+public class CommonDetailFragment extends BaseFragment<CommonDetailPresenter> implements CommonDetailContract.View {
 
     @BindView(R.id.tag_flow_layout)
     TagFlowLayout mTagFlowLayout;
@@ -34,8 +34,8 @@ public class CommonFragment extends BaseFragment<CommonFPresenter> implements Co
     private TagAdapter<Website> mTagAdapter;
 
     @Override
-    protected CommonFPresenter getPresenter() {
-        return new CommonFPresenter(DataManager.getInstance());
+    protected CommonDetailPresenter getPresenter() {
+        return new CommonDetailPresenter(DataManager.getInstance());
     }
 
     @Override

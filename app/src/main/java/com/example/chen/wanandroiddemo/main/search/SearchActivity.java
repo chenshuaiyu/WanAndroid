@@ -2,14 +2,6 @@ package com.example.chen.wanandroiddemo.main.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,13 +11,20 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.main.search.contract.SearchContract;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
+import com.example.chen.wanandroiddemo.main.search.contract.SearchContract;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -35,7 +34,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
 import butterknife.BindView;
 

@@ -2,7 +2,6 @@ package com.example.chen.wanandroiddemo.main.search.contract;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
-import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 

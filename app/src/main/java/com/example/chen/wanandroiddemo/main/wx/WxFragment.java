@@ -7,8 +7,8 @@ import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.main.wx.contract.WXContract;
-import com.example.chen.wanandroiddemo.main.wx.presenter.WXPresenter;
+import com.example.chen.wanandroiddemo.main.wx.contract.WxContract;
+import com.example.chen.wanandroiddemo.main.wx.presenter.WxPresenter;
 import com.example.statelayout_lib.StateLayoutManager;
 
 import java.util.ArrayList;
@@ -18,20 +18,20 @@ import java.util.List;
  * @author : chenshuaiyu
  * @date : 2019/3/19 16:40
  */
-public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WXContract.View {
+public class WxFragment extends BaseViewPagerFragment<WxPresenter> implements WxContract.View {
 
     private List<Fragment> mFragments = new ArrayList<>();
 
     @Override
-    protected WXPresenter getPresenter() {
-        return new WXPresenter(DataManager.getInstance());
+    protected WxPresenter getPresenter() {
+        return new WxPresenter(DataManager.getInstance());
     }
 
     @Override
     protected StateLayoutManager getStateLayoutManager() {
         return new StateLayoutManager.Builder()
                 .setContentLayoutResId(R.layout.common_tab_view_pager)
-                .setOnReLoadListener(() -> mPresenter.getWXTab())
+                .setOnReLoadListener(() -> mPresenter.getWxTab())
                 .build();
     }
 
@@ -44,7 +44,7 @@ public class WXFragment extends BaseViewPagerFragment<WXPresenter> implements WX
     public void showTab(List<Tab> wxTabList) {
         mFragments.clear();
         for (Tab tab : wxTabList) {
-            mFragments.add(WXTabFragment.newInstance(tab));
+            mFragments.add(WxTabFragment.newInstance(tab));
         }
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mFragments);
         mViewPager.setAdapter(pagerAdapter);

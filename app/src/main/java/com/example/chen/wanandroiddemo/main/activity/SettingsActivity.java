@@ -2,15 +2,14 @@ package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;

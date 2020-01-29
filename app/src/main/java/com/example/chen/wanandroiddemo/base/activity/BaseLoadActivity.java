@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.R;

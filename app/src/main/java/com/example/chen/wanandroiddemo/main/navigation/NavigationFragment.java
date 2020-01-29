@@ -9,8 +9,8 @@ import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.NavigationAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
+import com.example.chen.wanandroiddemo.main.navigation.contract.NavigationContract;
 import com.example.chen.wanandroiddemo.main.navigation.presenter.NavigationPresenter;
 import com.example.statelayout_lib.StateLayoutManager;
 

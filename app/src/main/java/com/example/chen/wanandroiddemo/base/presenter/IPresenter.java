@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.base.presenter;
 
 import com.example.chen.wanandroiddemo.base.view.BaseView;
+
 import io.reactivex.disposables.Disposable;
 
 /**

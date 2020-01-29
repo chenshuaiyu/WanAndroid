@@ -3,21 +3,20 @@ package com.example.chen.wanandroiddemo.main.search;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.widget.Toolbar;
-
-import android.view.MenuItem;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.main.search.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
+import com.example.chen.wanandroiddemo.main.search.contract.SearchArticlesContract;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchArticlesPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;

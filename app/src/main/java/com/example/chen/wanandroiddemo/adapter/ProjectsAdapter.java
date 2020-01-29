@@ -1,9 +1,9 @@
 package com.example.chen.wanandroiddemo.adapter;
 
-import androidx.annotation.Nullable;
-
 import android.text.Html;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;

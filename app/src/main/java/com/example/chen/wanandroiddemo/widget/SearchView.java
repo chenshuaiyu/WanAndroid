@@ -1,12 +1,13 @@
 package com.example.chen.wanandroiddemo.widget;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
 
 import com.example.chen.wanandroiddemo.R;
 

@@ -1,11 +1,12 @@
 package com.example.chen.wanandroiddemo.widget;
 
 import android.content.Context;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chen.wanandroiddemo.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

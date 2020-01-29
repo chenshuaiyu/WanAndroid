@@ -1,9 +1,10 @@
 package com.example.chen.wanandroiddemo.main.activity;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.app.Constants;

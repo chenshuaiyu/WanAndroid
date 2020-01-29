@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_common"
-        android:name="com.example.chen.wanandroiddemo.main.common.CommonFragment"
+        android:name="com.example.chen.wanandroiddemo.main.common.CommonDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

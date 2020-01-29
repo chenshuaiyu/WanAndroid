@@ -1,15 +1,13 @@
 package com.example.chen.wanandroiddemo.main.project;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseViewPagerFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.main.project.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.main.project.contract.ProjectContract;
 import com.example.chen.wanandroiddemo.main.project.presenter.ProjectPresenter;
 import com.example.statelayout_lib.StateLayoutManager;
 

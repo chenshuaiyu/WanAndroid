@@ -2,18 +2,18 @@ package com.example.chen.wanandroiddemo.core;
 
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
-import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.core.db.DbHelper;
 import com.example.chen.wanandroiddemo.core.db.DbHelperImpl;
@@ -69,13 +69,13 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<BaseResponse<List<Tab>>> getWXTab() {
-        return mHttpHelper.getWXTab();
+    public Observable<BaseResponse<List<Tab>>> getWxTab() {
+        return mHttpHelper.getWxTab();
     }
 
     @Override
-    public Observable<BaseResponse<PageResponse<Article>>> getWXTabArticles(int id, int page) {
-        return mHttpHelper.getWXTabArticles(id, page);
+    public Observable<BaseResponse<PageResponse<Article>>> getWxTabArticles(int id, int page) {
+        return mHttpHelper.getWxTabArticles(id, page);
     }
 
     @Override

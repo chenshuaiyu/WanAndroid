@@ -1,18 +1,18 @@
 package com.example.chen.wanandroiddemo.main.homepage;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
 import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
-import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
+import com.example.chen.wanandroiddemo.main.homepage.contract.HomeContract;
 import com.example.chen.wanandroiddemo.main.homepage.presenter.HomePresenter;
 import com.example.chen.wanandroiddemo.utils.GlideImageLoader;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
@@ -24,7 +24,6 @@ import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 

@@ -5,49 +5,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
-import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
-import com.example.chen.wanandroiddemo.main.square.SquareActivity;
-import com.example.chen.wanandroiddemo.main.todo.ToDoActivity;
-import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-
 import android.view.KeyEvent;
 import android.view.Menu;
-
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.MainContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.MainPresenter;
+import com.example.chen.wanandroiddemo.main.coin.CoinActivity;
 import com.example.chen.wanandroiddemo.main.collection.CollectionActivity;
 import com.example.chen.wanandroiddemo.main.common.CommonActivity;
 import com.example.chen.wanandroiddemo.main.homepage.HomeFragment;
 import com.example.chen.wanandroiddemo.main.navigation.NavigationFragment;
 import com.example.chen.wanandroiddemo.main.project.ProjectFragment;
 import com.example.chen.wanandroiddemo.main.search.SearchActivity;
+import com.example.chen.wanandroiddemo.main.square.SquareActivity;
 import com.example.chen.wanandroiddemo.main.system.SystemFragment;
-import com.example.chen.wanandroiddemo.main.wx.WXFragment;
+import com.example.chen.wanandroiddemo.main.todo.ToDoActivity;
+import com.example.chen.wanandroiddemo.main.wx.WxFragment;
 import com.example.chen.wanandroiddemo.utils.BottomNaviViewUtil;
+import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 
@@ -86,7 +80,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private Fragment[] mFragments = new Fragment[]{
             new HomeFragment(),
             new SystemFragment(),
-            new WXFragment(),
+            new WxFragment(),
             new NavigationFragment(),
             new ProjectFragment()
     };

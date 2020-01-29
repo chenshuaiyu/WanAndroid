@@ -1,10 +1,10 @@
 package com.example.chen.wanandroiddemo.main.wx;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.os.Bundle;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ArticlesAdapter;
@@ -12,8 +12,8 @@ import com.example.chen.wanandroiddemo.base.fragment.BaseFragment;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.main.wx.contract.WXTabContract;
-import com.example.chen.wanandroiddemo.main.wx.presenter.WXTabPresenter;
+import com.example.chen.wanandroiddemo.main.wx.contract.WxTabContract;
+import com.example.chen.wanandroiddemo.main.wx.presenter.WxTabPresenter;
 import com.example.chen.wanandroiddemo.utils.OpenActivityUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
 import com.example.chen.wanandroiddemo.widget.RefreshRecyclerView;
@@ -29,7 +29,7 @@ import butterknife.BindView;
  * @author : chenshuaiyu
  * @date : 2019/3/19 18:13
  */
-public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTabContract.View {
+public class WxTabFragment extends BaseFragment<WxTabPresenter> implements WxTabContract.View {
 
     private static final String BUNDLE_WX_TAB = "wx_tab";
     private static final int NORMAL_MODE = 0;
@@ -42,15 +42,15 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     private String searchContent = "";
 
     private int curSearchPage = 1;
-    private List<Article> mWXTabArticleList = new ArrayList<>();
+    private List<Article> mWxTabArticleList = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
 
-    private Tab mWXTab;
+    private Tab mWxTab;
     private SearchView mSearchView;
 
     @Override
-    protected WXTabPresenter getPresenter() {
-        return new WXTabPresenter(DataManager.getInstance());
+    protected WxTabPresenter getPresenter() {
+        return new WxTabPresenter(DataManager.getInstance());
     }
 
     @Override
@@ -65,10 +65,10 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
                 .build();
     }
 
-    public static WXTabFragment newInstance(Tab tab) {
+    public static WxTabFragment newInstance(Tab tab) {
         Bundle args = new Bundle();
-        args.putSerializable(WXTabFragment.BUNDLE_WX_TAB, tab);
-        WXTabFragment fragment = new WXTabFragment();
+        args.putSerializable(WxTabFragment.BUNDLE_WX_TAB, tab);
+        WxTabFragment fragment = new WxTabFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,9 +77,9 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     protected void initView() {
         mPresenter.subscribeEvent();
         assert getArguments() != null;
-        mWXTab = (Tab) getArguments().getSerializable(BUNDLE_WX_TAB);
+        mWxTab = (Tab) getArguments().getSerializable(BUNDLE_WX_TAB);
 
-        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWXTabArticleList);
+        mArticlesAdapter = new ArticlesAdapter(R.layout.common_item_article, mWxTabArticleList);
 
         mSearchView = new SearchView(getContext());
         mSearchView.setPadding(5, 0, 5, 0);
@@ -89,7 +89,7 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRefreshRecyclerView.setAdapter(mArticlesAdapter);
         mArticlesAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Article article = mWXTabArticleList.get(position);
+            Article article = mWxTabArticleList.get(position);
             OpenActivityUtil.openArticleDetailActivity(getActivity(), article.getLink(), article.getTitle());
         });
 
@@ -98,15 +98,15 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
             public void refresh(int firstPage) {
                 mode = NORMAL_MODE;
                 mSearchView.clear();
-                mPresenter.getWXTabArticles(mWXTab.getId(), firstPage);
+                mPresenter.getWxTabArticles(mWxTab.getId(), firstPage);
             }
 
             @Override
             public void loadMore(int page) {
                 if (mode == NORMAL_MODE) {
-                    mPresenter.getWXTabArticles(mWXTab.getId(), page);
+                    mPresenter.getWxTabArticles(mWxTab.getId(), page);
                 } else {
-                    mPresenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage++, searchContent);
+                    mPresenter.getWxTabSearchArticles(mWxTab.getId(), curSearchPage++, searchContent);
                 }
             }
         });
@@ -116,28 +116,28 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
             curSearchPage = 1;
             if (!TextUtils.isEmpty(content)) {
                 searchContent = content;
-                mPresenter.getWXTabSearchArticles(mWXTab.getId(), curSearchPage, content);
+                mPresenter.getWxTabSearchArticles(mWxTab.getId(), curSearchPage, content);
             }
         });
     }
 
     @Override
-    public void showWXTabArticles(List<Article> wxTabArticles) {
+    public void showWxTabArticles(List<Article> wxTabArticles) {
         if (mRefreshRecyclerView.isFirstPage()) {
             mRefreshRecyclerView.addCurPage();
-            mWXTabArticleList.clear();
+            mWxTabArticleList.clear();
         }
-        mWXTabArticleList.addAll(wxTabArticles);
+        mWxTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showWXTabSearchArticles(List<Article> wxTabArticles) {
+    public void showWxTabSearchArticles(List<Article> wxTabArticles) {
         if (curSearchPage == 1) {
             curSearchPage++;
-            mWXTabArticleList.clear();
+            mWxTabArticleList.clear();
         }
-        mWXTabArticleList.addAll(wxTabArticles);
+        mWxTabArticleList.addAll(wxTabArticles);
         mArticlesAdapter.notifyDataSetChanged();
     }
 
@@ -145,7 +145,7 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     public void showCollectResult(boolean success, int position) {
         if (success) {
             ToastUtil.toast(R.string.collect_success);
-            mWXTabArticleList.get(position).setCollect(true);
+            mWxTabArticleList.get(position).setCollect(true);
             mArticlesAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.collect_fail);
@@ -156,7 +156,7 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     public void showCancelCollectResult(boolean success, int position) {
         if (success) {
             ToastUtil.toast(R.string.cancel_collect_success);
-            mWXTabArticleList.get(position).setCollect(false);
+            mWxTabArticleList.get(position).setCollect(false);
             mArticlesAdapter.notifyDataSetChanged();
         } else {
             ToastUtil.toast(R.string.cancel_collect_fail);
@@ -166,6 +166,6 @@ public class WXTabFragment extends BaseFragment<WXTabPresenter> implements WXTab
     @NonNull
     @Override
     public String toString() {
-        return mWXTab.getName();
+        return mWxTab.getName();
     }
 }

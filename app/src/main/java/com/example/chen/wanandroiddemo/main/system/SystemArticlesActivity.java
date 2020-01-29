@@ -1,26 +1,24 @@
 package com.example.chen.wanandroiddemo.main.system;
 
-import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.statelayout_lib.StateLayoutManager;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.ViewPagerAdapter;
 import com.example.chen.wanandroiddemo.app.Constants;
 import com.example.chen.wanandroiddemo.base.activity.BaseLoadActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.core.bean.Tab;
 import com.example.chen.wanandroiddemo.main.system.contract.SystemArticlesContract;
 import com.example.chen.wanandroiddemo.main.system.presenter.SystemArticlesPresenter;
+import com.example.statelayout_lib.StateLayoutManager;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

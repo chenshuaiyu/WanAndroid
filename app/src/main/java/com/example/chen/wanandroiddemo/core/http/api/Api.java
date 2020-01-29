@@ -2,18 +2,18 @@ package com.example.chen.wanandroiddemo.core.http.api;
 
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
-import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public interface Api {
      * @return 公众号Tab数据
      */
     @GET("wxarticle/chapters/json")
-    Observable<BaseResponse<List<Tab>>> getWXTab();
+    Observable<BaseResponse<List<Tab>>> getWxTab();
 
     /**
      * 公众号文章
@@ -68,7 +68,7 @@ public interface Api {
      * @return 公众号文章数据
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    Observable<BaseResponse<PageResponse<Article>>> getWXTabArticles(@Path("id") int id, @Path("page") int page);
+    Observable<BaseResponse<PageResponse<Article>>> getWxTabArticles(@Path("id") int id, @Path("page") int page);
 
 
     /**

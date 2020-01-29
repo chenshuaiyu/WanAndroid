@@ -1,8 +1,8 @@
 package com.example.chen.wanandroiddemo.main.activity.presenter;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.main.activity.contract.SettingsContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.main.activity.contract.SettingsContract;
 
 /**
  * @author : chenshuaiyu

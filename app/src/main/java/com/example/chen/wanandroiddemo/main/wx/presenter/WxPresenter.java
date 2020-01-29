@@ -1,27 +1,27 @@
-package com.example.chen.wanandroiddemo.main.common.presenter;
+package com.example.chen.wanandroiddemo.main.wx.presenter;
 
 import com.example.chen.wanandroiddemo.base.presenter.BasePresenter;
-import com.example.chen.wanandroiddemo.main.common.contract.CommonFContract;
 import com.example.chen.wanandroiddemo.core.DataManager;
+import com.example.chen.wanandroiddemo.main.wx.contract.WxContract;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
 /**
  * @author : chenshuaiyu
- * @date : 2019/3/24 17:43
+ * @date : 2019/3/19 17:22
  */
-public class CommonFPresenter extends BasePresenter<CommonFContract.View> implements CommonFContract.Presenter {
+public class WxPresenter extends BasePresenter<WxContract.View> implements WxContract.Presenter {
 
-    public CommonFPresenter(DataManager dataManager) {
+    public WxPresenter(DataManager dataManager) {
         super(dataManager);
     }
 
     @Override
-    public void getCommonWebsite() {
+    public void getWxTab() {
         addSubcriber(
-                mDataManager.getCommonWebsite()
+                mDataManager.getWxTab()
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(listBaseResponse -> {
-                            mView.showCommonWebsite(listBaseResponse.getData());
+                            mView.showTab(listBaseResponse.getData());
                             mView.showContentView();
                         }, Throwable::printStackTrace)
         );

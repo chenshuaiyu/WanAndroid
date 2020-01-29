@@ -2,18 +2,18 @@ package com.example.chen.wanandroiddemo.core.http;
 
 import com.example.chen.wanandroiddemo.core.bean.Article;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
-import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
 import com.example.chen.wanandroiddemo.core.bean.Coin;
 import com.example.chen.wanandroiddemo.core.bean.CoinRecord;
 import com.example.chen.wanandroiddemo.core.bean.CollectionArticle;
-import com.example.chen.wanandroiddemo.core.bean.Website;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
 import com.example.chen.wanandroiddemo.core.bean.LoginData;
 import com.example.chen.wanandroiddemo.core.bean.Navigation;
-import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 import com.example.chen.wanandroiddemo.core.bean.ShareArticle;
 import com.example.chen.wanandroiddemo.core.bean.SquareShareArticles;
 import com.example.chen.wanandroiddemo.core.bean.Tab;
+import com.example.chen.wanandroiddemo.core.bean.Website;
+import com.example.chen.wanandroiddemo.core.bean.base.BaseResponse;
+import com.example.chen.wanandroiddemo.core.bean.base.PageResponse;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public interface HttpHelper {
 
     Observable<BaseResponse<PageResponse<Article>>> getArticles(int page);
 
-    Observable<BaseResponse<List<Tab>>> getWXTab();
+    Observable<BaseResponse<List<Tab>>> getWxTab();
 
-    Observable<BaseResponse<PageResponse<Article>>> getWXTabArticles(int id, int page);
+    Observable<BaseResponse<PageResponse<Article>>> getWxTabArticles(int id, int page);
 
     Observable<BaseResponse<PageResponse<Article>>> getWxTabSearchArticles(int id, int page, String k);
 

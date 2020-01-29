@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.utils;
 
 import androidx.annotation.StringRes;
+
 import android.widget.Toast;
 
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;

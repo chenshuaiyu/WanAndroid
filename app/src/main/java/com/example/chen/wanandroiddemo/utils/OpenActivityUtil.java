@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.chen.wanandroiddemo.core.bean.Tab;
-import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.main.activity.LoginActivity;
+import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.main.system.SystemArticlesActivity;
 
 import java.util.Arrays;

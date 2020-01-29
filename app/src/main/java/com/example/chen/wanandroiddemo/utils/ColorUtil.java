@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.utils;
 
 import com.example.chen.wanandroiddemo.app.Constants;
+
 import java.util.Random;
 
 /**

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.Banner;
 import com.youth.banner.loader.ImageLoader;
