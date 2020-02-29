@@ -37,7 +37,6 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     private TextView mCoinCountTv;
     private TextView mRankTv;
     private TextView mLvTv;
-    private View mInfoView;
 
     private List<CoinRecord> mCoinRecordList = new ArrayList<>();
     private CoinRecordsAdapter mCoinRecordsAdapter;
@@ -64,15 +63,15 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
     protected void initView() {
         mPresenter.subscribeEvent();
 
-        mInfoView = LayoutInflater.from(getContext()).inflate(R.layout.my_coin, null);
-        mCoinCountTv = mInfoView.findViewById(R.id.tv_coin_count);
-        mRankTv = mInfoView.findViewById(R.id.tv_rank);
-        mLvTv = mInfoView.findViewById(R.id.tv_lv);
+        View infoView = LayoutInflater.from(getContext()).inflate(R.layout.my_coin, null);
+        mCoinCountTv = infoView.findViewById(R.id.tv_coin_count);
+        mRankTv = infoView.findViewById(R.id.tv_rank);
+        mLvTv = infoView.findViewById(R.id.tv_lv);
 
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mCoinRecordsAdapter = new CoinRecordsAdapter(R.layout.item_coin_record, mCoinRecordList);
-        mCoinRecordsAdapter.addHeaderView(mInfoView);
+        mCoinRecordsAdapter.addHeaderView(infoView);
         mRefreshRecyclerView.setAdapter(mCoinRecordsAdapter);
 
         mRefreshRecyclerView.setCallback(new RefreshRecyclerView.Callback() {

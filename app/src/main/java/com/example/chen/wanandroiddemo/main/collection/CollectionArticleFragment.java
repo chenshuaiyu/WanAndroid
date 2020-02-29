@@ -112,6 +112,6 @@ public class CollectionArticleFragment extends BaseFragment<CollectionArticlePre
     @NonNull
     @Override
     public String toString() {
-        return "文章";
+        return getResources().getString(R.string.article);
     }
 }

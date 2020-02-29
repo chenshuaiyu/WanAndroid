@@ -22,17 +22,18 @@ public class SplashActivity extends AppCompatActivity {
 
     private int time = Constants.SPLASH_TIME;
     private ScheduledExecutorService mExecutorService;
+    private final String skip = getResources().getString(R.string.skip) + " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mTimeTv = findViewById(R.id.tv_time);
-        mTimeTv.setText("跳过 " + time);
+        mTimeTv.setText(skip + time);
 
         mExecutorService = Executors.newSingleThreadScheduledExecutor();
         mExecutorService.scheduleWithFixedDelay(() -> runOnUiThread(() -> {
-            mTimeTv.setText("跳过 " + time);
+            mTimeTv.setText(skip + time);
             time--;
             if (time < 0) {
                 openMainActivity();

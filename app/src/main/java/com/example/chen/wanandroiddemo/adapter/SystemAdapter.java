@@ -14,7 +14,6 @@ import java.util.List;
  * @date : 2019/3/22 14:39
  */
 public class SystemAdapter extends BaseQuickAdapter<Tab, BaseViewHolder> {
-
     public SystemAdapter(int layoutResId, @Nullable List<Tab> data) {
         super(layoutResId, data);
     }

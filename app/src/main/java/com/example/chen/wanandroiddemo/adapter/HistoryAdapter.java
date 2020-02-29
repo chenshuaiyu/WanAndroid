@@ -14,7 +14,6 @@ import java.util.List;
  * @date : 2019/3/23 9:33
  */
 public class HistoryAdapter extends BaseQuickAdapter<HistoryRecord, BaseViewHolder> {
-
     public HistoryAdapter(int layoutResId, @Nullable List<HistoryRecord> data) {
         super(layoutResId, data);
     }

@@ -20,7 +20,7 @@
     <string name="history">历史记录</string>
     <string name="hot_word">热词</string>
     <string name="search_more">搜索更多干货</string>
-    <string name="commom_website">常用网站</string>
+    <string name="common_website">常用网站</string>
     <string name="clear_all_history">清除所有历史</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
@@ -88,5 +88,10 @@
     <string name="edit">编辑</string>
     <string name="copy_link">复制链接</string>
     <string name="copy_success">复制成功</string>
+    <string name="skip">跳过</string>
+    <string name="press_again_to_exit">再按一次退出程序</string>
+    <string name="article">文章</string>
+    <string name="website">网站</string>
+    <string name="my_square">我的广场</string>
 
 </resources>

@@ -187,6 +187,6 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     @NonNull
     @Override
     public String toString() {
-        return "我的广场";
+        return getResources().getString(R.string.my_square);
     }
 }

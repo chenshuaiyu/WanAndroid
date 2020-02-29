@@ -23,9 +23,6 @@ public class WanAndroidApp extends Application {
         super.onCreate();
         app = this;
 
-        // 接入腾讯Bugly
-//        CrashReport.initCrashReport(getApplicationContext(), "87a5a6c3e8", true);
-
         initLeakCanary();
 
         //初始化数据库

@@ -27,7 +27,6 @@ public class RetrofitClient {
             .writeTimeout(20, TimeUnit.SECONDS)
             //设置Cookie
             .cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(WanAndroidApp.getInstance())))
-            //.cookieJar(new CookieManger(WanAndroidApp.getInstance()))
             .build();
 
     private static Retrofit mRetrofit = new Retrofit.Builder()

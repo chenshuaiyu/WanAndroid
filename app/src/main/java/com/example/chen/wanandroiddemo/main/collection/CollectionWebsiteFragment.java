@@ -147,6 +147,6 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
     @NonNull
     @Override
     public String toString() {
-        return "网站";
+        return getResources().getString(R.string.website);
     }
 }

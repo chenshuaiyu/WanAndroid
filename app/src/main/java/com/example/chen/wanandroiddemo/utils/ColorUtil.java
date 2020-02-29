@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class ColorUtil {
     public static int randomTagColor() {
-        int num = new Random().nextInt(Constants.COLOR_HOTWORD.length);
-        return Constants.COLOR_HOTWORD[num];
+        int num = new Random().nextInt(Constants.COLOR_HOT_WORD.length);
+        return Constants.COLOR_HOT_WORD[num];
     }
 }

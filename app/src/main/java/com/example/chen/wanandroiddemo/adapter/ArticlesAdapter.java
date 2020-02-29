@@ -16,7 +16,6 @@ import java.util.List;
  * @date : 2019/3/30 20:03
  */
 public class ArticlesAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
-
     public ArticlesAdapter(int layoutResId, @Nullable List<Article> data) {
         super(layoutResId, data);
     }

@@ -41,7 +41,7 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     }
 
     private void initToolbar() {
-        mToolbar.setTitle(R.string.commom_website);
+        mToolbar.setTitle(R.string.common_website);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();

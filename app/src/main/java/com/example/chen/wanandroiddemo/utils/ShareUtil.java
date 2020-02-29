@@ -21,6 +21,8 @@ public class ShareUtil {
 
     public static void copyLink(Context context, String str) {
         ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        mClipboardManager.setPrimaryClip(ClipData.newPlainText(null, str));
+        if (mClipboardManager != null) {
+            mClipboardManager.setPrimaryClip(ClipData.newPlainText(null, str));
+        }
     }
 }

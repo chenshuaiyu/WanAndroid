@@ -270,7 +270,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - exitTime > INTERVAL) {
-                ToastUtil.toast("再按一次退出程序");
+                ToastUtil.toast(getResources().getString(R.string.press_again_to_exit));
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -290,8 +290,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     @Override
-    public void setLogoutVisibility(boolean visiable) {
-        mLogoutMenuItem.setVisible(visiable);
+    public void setLogoutVisibility(boolean visible) {
+        mLogoutMenuItem.setVisible(visible);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.example.chen.wanandroiddemo.main.articledetail.ArticleActivity;
 import com.example.chen.wanandroiddemo.main.system.SystemArticlesActivity;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author : chenshuaiyu
@@ -30,7 +31,7 @@ public class OpenActivityUtil {
         Tab childTab = new Tab();
         childTab.setName(chapterName);
         childTab.setId(chapterId);
-        tab.setChildren(Arrays.asList(childTab));
+        tab.setChildren(Collections.singletonList(childTab));
         context.startActivity(SystemArticlesActivity.newIntent(context, tab));
     }
 }

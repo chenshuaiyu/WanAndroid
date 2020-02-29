@@ -13,7 +13,6 @@ import java.util.List;
  * @author chenshuaiyu
  */
 public class SquareArticlesAdapter extends BaseQuickAdapter<ShareArticle, BaseViewHolder> {
-
     public SquareArticlesAdapter(int layoutResId, @Nullable List<ShareArticle> data) {
         super(layoutResId, data);
     }

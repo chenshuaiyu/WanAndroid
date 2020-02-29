@@ -14,7 +14,6 @@ import java.util.List;
  * @date : 2020/1/26 16:32
  */
 public class MySquareShareArticlesAdapter extends BaseQuickAdapter<ShareArticle, BaseViewHolder> {
-
     public MySquareShareArticlesAdapter(int layoutResId, @Nullable List<ShareArticle> data) {
         super(layoutResId, data);
     }

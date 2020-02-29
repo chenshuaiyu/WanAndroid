@@ -24,6 +24,7 @@ import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -75,7 +76,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             Article article = mArticleList.get(position);
             switch (view.getId()) {
                 case R.id.ll_chapter:
-                    OpenActivityUtil.openSystemArticlesActivity(getActivity(),
+                    OpenActivityUtil.openSystemArticlesActivity(Objects.requireNonNull(getActivity()),
                             article.getSuperChapterName(), article.getChapterName(), article.getChapterId());
                     break;
                 case R.id.iv_collect:

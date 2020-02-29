@@ -48,7 +48,7 @@ public class Constants {
     /**
      * Color
      */
-    public static final int[] COLOR_HOTWORD = new int[]{
+    public static final int[] COLOR_HOT_WORD = new int[]{
             Color.parseColor("#90C5F0"),
             Color.parseColor("#91CED5"),
             Color.parseColor("#F88F55"),

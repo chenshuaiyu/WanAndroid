@@ -122,6 +122,6 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
     @NonNull
     @Override
     public String toString() {
-        return "广场";
+        return getResources().getString(R.string.square);
     }
 }

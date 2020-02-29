@@ -11,7 +11,7 @@
     <item
         android:id="@+id/menu_website"
         android:icon="@drawable/ic_website"
-        android:title="@string/commom_website"
+        android:title="@string/common_website"
         app:showAsAction="ifRoom" />
 
     <item

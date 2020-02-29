@@ -24,7 +24,6 @@ import java.util.List;
  * @date : 2019/3/24 21:13
  */
 public class NavigationAdapter extends BaseQuickAdapter<Navigation, BaseViewHolder> {
-
     public NavigationAdapter(int layoutResId, @Nullable List<Navigation> data) {
         super(layoutResId, data);
     }
