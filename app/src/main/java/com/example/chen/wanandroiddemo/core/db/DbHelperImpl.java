@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.core.db;
 import com.example.chen.wanandroiddemo.app.WanAndroidApp;
 import com.example.chen.wanandroiddemo.core.dao.DaoSession;
 import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
+import com.example.chen.wanandroiddemo.core.dao.HistoryRecordDao;
 
 import java.util.List;
 
@@ -37,8 +38,7 @@ public class DbHelperImpl implements DbHelper {
 
     @Override
     public List<HistoryRecord> getAllHistoryRecord() {
-        List<HistoryRecord> records = mDaoSession.loadAll(HistoryRecord.class);
-        return records;
+        return mDaoSession.loadAll(HistoryRecord.class);
     }
 
     @Override
@@ -49,5 +49,12 @@ public class DbHelperImpl implements DbHelper {
     @Override
     public void deleteHistoryRecord(HistoryRecord record) {
         mDaoSession.delete(record);
+    }
+
+    @Override
+    public List<HistoryRecord> getSearchAssociation(String key) {
+        return mDaoSession.queryBuilder(HistoryRecord.class)
+                .where(HistoryRecordDao.Properties.Data.like("%" + key + "%"))
+                .list();
     }
 }

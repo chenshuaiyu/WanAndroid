@@ -18,10 +18,12 @@ public interface SearchContract {
         void getAllHisotryRecord();
         void clearHisotryRecord();
         void deleteHisotryRecord(HistoryRecord record);
+        void associate(String key);
     }
 
     interface View extends BaseView {
         void showHotWord(List<HotWord> hotWords);
         void showAllHisotryRecord(List<HistoryRecord> historyRecords);
+        void showAssociation(List<String> words);
     }
 }

@@ -16,4 +16,6 @@ public interface DbHelper {
     void clearHistoryRecord();
 
     void deleteHistoryRecord(HistoryRecord record);
+
+    List<HistoryRecord> getSearchAssociation(String key);
 }

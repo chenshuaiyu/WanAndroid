@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.main.search;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,8 +20,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
+import com.example.chen.wanandroiddemo.adapter.SearchAssociationAdapter;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.core.bean.HotWord;
@@ -27,6 +31,7 @@ import com.example.chen.wanandroiddemo.core.dao.HistoryRecord;
 import com.example.chen.wanandroiddemo.main.search.contract.SearchContract;
 import com.example.chen.wanandroiddemo.main.search.presenter.SearchPresenter;
 import com.example.chen.wanandroiddemo.utils.ColorUtil;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -34,8 +39,10 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author chenshuaiyu
@@ -103,6 +110,16 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         });
         mPresenter.getHotWord();
         mPresenter.getAllHisotryRecord();
+
+        //搜索联想
+        mPresenter.addSubcriber(
+                RxTextView.textChanges(mContentEt)
+                        .debounce(1, TimeUnit.SECONDS).skip(1)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(charSequence -> {
+                            mPresenter.associate(charSequence.toString());
+                        }, Throwable::printStackTrace)
+        );
     }
 
     private void initRecyclerView() {
@@ -210,6 +227,33 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mHistoryRecords.addAll(historyRecords);
         Collections.reverse(mHistoryRecords);
         mHistoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showAssociation(List<String> words) {
+        initPopupWindow(words);
+    }
+
+    private void initPopupWindow(List<String> words) {
+        View view = getLayoutInflater().inflate(R.layout.search_association, null);
+        RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SearchAssociationAdapter searchAssociationAdapter = new SearchAssociationAdapter(R.layout.item_search_association, words);
+        recyclerView.setAdapter(searchAssociationAdapter);
+
+        PopupWindow popupWindow = new PopupWindow(view, mContentEt.getWidth(), 200);
+        popupWindow.setFocusable(false);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0xFFFFFFFF));
+        popupWindow.showAsDropDown(mContentEt);
+
+        searchAssociationAdapter.setOnItemClickListener((adapter, view1, position) -> {
+            String s = words.get(position);
+            mContentEt.setText(s);
+            mContentEt.setSelection(s.length());
+            popupWindow.dismiss();
+        });
     }
 
     @Override

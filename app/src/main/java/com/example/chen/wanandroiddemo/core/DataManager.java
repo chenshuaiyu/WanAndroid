@@ -244,6 +244,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public List<HistoryRecord> getSearchAssociation(String key) {
+        return mDbHelper.getSearchAssociation(key);
+    }
+
+    @Override
     public void setLoginStatus(boolean status) {
         mPreferenceHelper.setLoginStatus(status);
     }
