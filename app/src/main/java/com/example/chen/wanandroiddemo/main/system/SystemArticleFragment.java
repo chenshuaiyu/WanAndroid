@@ -60,7 +60,6 @@ public class SystemArticleFragment extends BaseFragment<SystemArticlePresenter> 
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
         assert getArguments() != null;
         mChildrenTab = (Tab) getArguments().getSerializable(BUNDLE_SYSTEM_ARTICLE);
 

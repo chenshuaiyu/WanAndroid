@@ -48,8 +48,6 @@ public class CommonDetailFragment extends BaseFragment<CommonDetailPresenter> im
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mTagAdapter = new TagAdapter<Website>(mWebsites) {
             @Override
             public View getView(FlowLayout parent, int position, final Website website) {

@@ -62,7 +62,6 @@ public class MySquareFragment extends BaseFragment<MySquarePresenter> implements
     protected void initView() {
         View shareArticleView1 = LayoutInflater.from(getContext()).inflate(R.layout.share_article, null);
         Button shareBtn = shareArticleView1.findViewById(R.id.btn_share);
-        mPresenter.subscribeEvent();
 
         shareBtn.setOnClickListener(v -> {
             View shareArticleView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_share_article, null);

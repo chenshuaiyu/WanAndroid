@@ -60,7 +60,6 @@ public class SearchArticlesActivity extends BaseActivity<SearchArticlesPresenter
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
         key = getIntent().getStringExtra(Constants.SEARCH_KEY);
         initToolbar();
 

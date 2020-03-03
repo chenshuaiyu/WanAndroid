@@ -3,6 +3,7 @@ package com.example.chen.wanandroiddemo.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.chen.wanandroiddemo.bus.RxBus;
 import com.example.chen.wanandroiddemo.bus.event.NetChangeEvent;

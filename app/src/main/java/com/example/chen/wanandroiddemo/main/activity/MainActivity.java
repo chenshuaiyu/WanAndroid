@@ -101,7 +101,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
         mNightMode = mPresenter.getNightMode();
         initToolbar();
         BottomNaviViewUtil.disableShiftMode(mBottomNaviView);

@@ -49,7 +49,6 @@ public class SquareActivity extends BaseActivity<SquarePresenter> implements Squ
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
         initToolbar();
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments);

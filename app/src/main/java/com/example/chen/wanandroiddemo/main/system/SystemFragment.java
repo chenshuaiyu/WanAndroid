@@ -44,8 +44,6 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSystemAdapter = new SystemAdapter(R.layout.item_system, mTabs);
         mRefreshRecyclerView.setAdapter(mSystemAdapter);

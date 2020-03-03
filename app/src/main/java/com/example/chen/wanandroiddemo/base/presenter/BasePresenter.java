@@ -7,6 +7,8 @@ import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.utils.RxUtils;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -49,6 +51,8 @@ public class BasePresenter<T extends BaseView> implements IPresenter<T> {
     public void subscribeEvent() {
         addSubcriber(
                 RxBus.getInstance().toObservable(NetChangeEvent.class)
+                        //解决关闭Wifi时，连续发送两次广播
+                        .throttleFirst(2, TimeUnit.SECONDS)
                         .compose(RxUtils.switchSchedulers())
                         .subscribe(
                                 netChangeEvent -> mView.showNetChangeTips()

@@ -53,7 +53,6 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter> implements A
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
 
         Intent intent = getIntent();
         url = intent.getStringExtra(Constants.ARTICLE_URL);

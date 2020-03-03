@@ -60,8 +60,6 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mNavigationAdapter = new NavigationAdapter(R.layout.item_navigation, mNavigations);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);

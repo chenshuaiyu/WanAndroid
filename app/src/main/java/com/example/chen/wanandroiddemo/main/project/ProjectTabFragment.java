@@ -62,7 +62,6 @@ public class ProjectTabFragment extends BaseFragment<ProjectTabPresenter> implem
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
         assert getArguments() != null;
         mProjectTab = (Tab) getArguments().getSerializable(BUNDLE_PROJECT_TAB);
 

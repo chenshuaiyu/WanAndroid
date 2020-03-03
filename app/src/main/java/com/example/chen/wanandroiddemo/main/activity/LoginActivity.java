@@ -46,8 +46,6 @@ public class LoginActivity extends BaseLoadActivity<LoginPresenter> implements L
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRegisterBtn.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();

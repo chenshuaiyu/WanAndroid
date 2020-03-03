@@ -36,7 +36,6 @@ public class CommonActivity extends BaseActivity<CommonPresenter> implements Com
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
         initToolbar();
     }
 

@@ -61,8 +61,6 @@ public class MyCoinFragment extends BaseFragment<MyCoinPresenter> implements MyC
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         View infoView = LayoutInflater.from(getContext()).inflate(R.layout.my_coin, null);
         mCoinCountTv = infoView.findViewById(R.id.tv_coin_count);
         mRankTv = infoView.findViewById(R.id.tv_rank);

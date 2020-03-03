@@ -44,8 +44,6 @@ public class CoinRankFragment extends BaseFragment<CoinRankPresenter> implements
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRefreshRecyclerView.setFirstPage(1);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mCoinRanksAdapter = new CoinRanksAdapter(R.layout.item_coin_rank, mCoinRankList);

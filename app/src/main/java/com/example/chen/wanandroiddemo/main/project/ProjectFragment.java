@@ -37,7 +37,6 @@ public class ProjectFragment extends BaseViewPagerFragment<ProjectPresenter> imp
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
     }
 
     @Override

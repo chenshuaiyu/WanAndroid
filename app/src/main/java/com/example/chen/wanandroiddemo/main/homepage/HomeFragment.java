@@ -58,8 +58,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         View bannerLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_banner, null);
         mBanner = bannerLayout.findViewById(R.id.banner);
 

@@ -49,8 +49,6 @@ public class CollectionArticleFragment extends BaseFragment<CollectionArticlePre
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRefreshRecyclerView.setFirstPage(0);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mCollectionArticlesAdapter = new CollectionArticlesAdapter(R.layout.item_collection_article, mCollectionArticles);

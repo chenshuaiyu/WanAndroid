@@ -20,7 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.adapter.HistoryAdapter;
 import com.example.chen.wanandroiddemo.adapter.SearchAssociationAdapter;
@@ -80,7 +79,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
 
         initToolbar();
 

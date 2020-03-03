@@ -18,6 +18,10 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @author chenshuaiyu
@@ -53,7 +57,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
         assert getArguments() != null;
         String url = getArguments().getString(BUNDLE_ARTICLE_DETAIL_URL);
 
@@ -80,6 +83,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
                 //若有缓存，使用缓存，否则从网络获取
                 mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
             }
+//            setWithRxJava(mSettings);
         } else {
             mSettings.setAppCacheEnabled(false);
             mSettings.setDatabaseEnabled(false);
@@ -99,5 +103,33 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter> 
         mSettings.setLoadWithOverviewMode(true);
         //自适应屏幕
         mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+    }
+
+    private void setWithRxJava(WebSettings mSettings) {
+        //使用RxJava有点繁琐
+        Observable<Integer> net = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                if (NetUtil.isNetworkConnected()) {
+                    //默认从网络获取
+                    emitter.onNext(WebSettings.LOAD_DEFAULT);
+                }
+            }
+        });
+
+        Observable<Integer> cache = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                //若有缓存，使用缓存，否则从网络获取
+                emitter.onNext(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            }
+        });
+
+        mPresenter.addSubcriber(
+                Observable.concat(net, cache)
+                        .firstElement()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(mSettings::setCacheMode)
+        );
     }
 }

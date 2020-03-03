@@ -37,7 +37,6 @@ public class WxFragment extends BaseViewPagerFragment<WxPresenter> implements Wx
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
     }
 
     @Override

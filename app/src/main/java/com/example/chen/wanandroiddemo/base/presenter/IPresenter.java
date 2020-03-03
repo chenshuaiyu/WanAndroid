@@ -33,5 +33,4 @@ public interface IPresenter<T extends BaseView> {
      * 订阅事件
      */
     void subscribeEvent();
-
 }

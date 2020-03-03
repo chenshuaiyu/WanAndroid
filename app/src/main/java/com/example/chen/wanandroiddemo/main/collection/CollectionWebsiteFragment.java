@@ -53,8 +53,6 @@ public class CollectionWebsiteFragment extends BaseFragment<CollectionWebsiteCon
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mCollectionWebsiteAdapter = new CollectionWebsiteAdapter(R.layout.item_collection_website, mWebsites);
         mRefreshRecyclerView.setAdapter(mCollectionWebsiteAdapter);

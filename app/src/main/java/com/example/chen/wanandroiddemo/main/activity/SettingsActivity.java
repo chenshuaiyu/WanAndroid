@@ -72,7 +72,6 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.subscribeEvent();
         initToolbar();
 
         mPresenter.getNightMode();

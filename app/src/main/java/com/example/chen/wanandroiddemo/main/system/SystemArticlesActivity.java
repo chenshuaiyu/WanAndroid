@@ -61,7 +61,6 @@ public class SystemArticlesActivity extends BaseLoadActivity<SystemArticlesPrese
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
         mTab = (Tab) getIntent().getSerializableExtra(Constants.SYSTEM);
 
         initToolbar();

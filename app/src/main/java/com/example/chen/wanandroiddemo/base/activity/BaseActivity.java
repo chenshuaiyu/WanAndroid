@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.base.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         initPresenter();
+        mPresenter.subscribeEvent();
         init();
         mUnbinder = ButterKnife.bind(this);
     }
@@ -113,6 +115,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         String state = NetUtil.getNetworkType();
         dataManager.setNetState(state);
         ToastUtil.toast(state);
+        Log.d("CCC", "Activity: " + this.getLocalClassName());
 //        reLoad();
     }
 }

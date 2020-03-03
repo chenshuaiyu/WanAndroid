@@ -1,5 +1,7 @@
 package com.example.chen.wanandroiddemo.bus;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;

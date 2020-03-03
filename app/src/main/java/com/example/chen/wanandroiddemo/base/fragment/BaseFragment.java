@@ -1,6 +1,7 @@
 package com.example.chen.wanandroiddemo.base.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,10 +184,5 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
 
     @Override
     public void showNetChangeTips() {
-        DataManager dataManager = DataManager.getInstance();
-        String state = NetUtil.getNetworkType();
-        dataManager.setNetState(state);
-        ToastUtil.toast(state);
-//        reLoad();
     }
 }

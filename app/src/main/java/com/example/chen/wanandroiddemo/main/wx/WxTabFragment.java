@@ -75,7 +75,6 @@ public class WxTabFragment extends BaseFragment<WxTabPresenter> implements WxTab
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
         assert getArguments() != null;
         mWxTab = (Tab) getArguments().getSerializable(BUNDLE_WX_TAB);
 

@@ -77,7 +77,6 @@ public class PersonalSquareActivity extends BaseLoadActivity<PersonalSquarePrese
         Intent intent = getIntent();
         mShareUserName = intent.getStringExtra(INTENT_KEY_SHARE_USER_NAME);
         mShareUserId = intent.getIntExtra(INTENT_KEY_SHARE_USER_ID, 0);
-        mPresenter.subscribeEvent();
         initToolbar();
 
         mRefreshRecyclerView.setFirstPage(1);

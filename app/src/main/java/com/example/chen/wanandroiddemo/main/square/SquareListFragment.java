@@ -46,8 +46,6 @@ public class SquareListFragment extends BaseFragment<SquareListPresenter> implem
 
     @Override
     protected void initView() {
-        mPresenter.subscribeEvent();
-
         mRefreshRecyclerView.setFirstPage(0);
         mRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSquareArticlesAdapter = new SquareArticlesAdapter(R.layout.item_square_list, mSquareArticleList);
