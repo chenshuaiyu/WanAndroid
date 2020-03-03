@@ -22,7 +22,7 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.todo.ToDoActivity"></activity>
+        <activity android:name=".main.todo.ToDoActivity" />
 
         <receiver
             android:name=".receiver.NetChangeReceiver"
@@ -45,14 +45,14 @@
         <activity android:name=".main.system.SystemArticlesActivity" />
         <activity android:name=".main.activity.LoginActivity" />
         <activity android:name=".main.articledetail.ArticleActivity" />
-        <activity android:name=".main.activity.MainActivity">
+        <activity android:name=".main.activity.MainActivity" />
+        <activity android:name=".main.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.activity.SplashActivity" />
     </application>
 
 </manifest>

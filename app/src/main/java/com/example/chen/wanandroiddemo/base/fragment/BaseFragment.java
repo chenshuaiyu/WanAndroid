@@ -177,12 +177,4 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
             mStateLayout.reLoad();
         }
     }
-
-    @Override
-    public void useNightMode(boolean isNightMode) {
-    }
-
-    @Override
-    public void showNetChangeTips() {
-    }
 }

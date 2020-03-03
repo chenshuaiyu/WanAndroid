@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private int time = Constants.SPLASH_TIME;
     private ScheduledExecutorService mExecutorService;
-    private final String skip = getResources().getString(R.string.skip) + " ";
+    private final String skip = "跳过 ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

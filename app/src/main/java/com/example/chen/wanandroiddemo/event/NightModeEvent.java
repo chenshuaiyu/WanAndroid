@@ -1,4 +1,4 @@
-package com.example.chen.wanandroiddemo.bus.event;
+package com.example.chen.wanandroiddemo.event;
 
 /**
  * @author : chenshuaiyu

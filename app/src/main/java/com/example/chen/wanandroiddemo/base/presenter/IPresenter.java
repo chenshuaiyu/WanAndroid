@@ -29,8 +29,4 @@ public interface IPresenter<T extends BaseView> {
      */
     void addSubcriber(Disposable disposable);
 
-    /**
-     * 订阅事件
-     */
-    void subscribeEvent();
 }

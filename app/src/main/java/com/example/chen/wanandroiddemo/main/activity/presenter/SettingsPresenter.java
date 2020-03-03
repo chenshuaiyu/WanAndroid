@@ -15,11 +15,6 @@ public class SettingsPresenter extends BasePresenter<SettingsContract.View> impl
     }
 
     @Override
-    public void subscribeEvent() {
-        super.subscribeEvent();
-    }
-
-    @Override
     public void setNightMode(boolean isNightMode) {
         mDataManager.setNightMode(isNightMode);
     }

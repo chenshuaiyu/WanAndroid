@@ -9,9 +9,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.chen.wanandroiddemo.base.presenter.IPresenter;
 import com.example.chen.wanandroiddemo.base.view.BaseView;
+import com.example.chen.wanandroiddemo.event.NetChangeEvent;
+import com.example.chen.wanandroiddemo.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.utils.NetUtil;
 import com.example.chen.wanandroiddemo.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -30,7 +36,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         initPresenter();
-        mPresenter.subscribeEvent();
         init();
         mUnbinder = ButterKnife.bind(this);
     }
@@ -38,6 +43,18 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     private void initPresenter() {
         mPresenter = getPresenter();
         mPresenter.attachView(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -100,22 +117,23 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     public void reLoad() {
     }
 
-    @Override
-    public void useNightMode(boolean isNightMode) {
-        if (isNightMode) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetChangeEvent(NetChangeEvent event) {
+        DataManager dataManager = DataManager.getInstance();
+        String state = NetUtil.getNetworkType();
+        if (!dataManager.getNetState().equals(state)) {
+            dataManager.setNetState(state);
+            ToastUtil.toast(state);
+//            reLoad();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNightModeEvent(NightModeEvent event) {
+        if (event.isNightMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-    }
-
-    @Override
-    public void showNetChangeTips() {
-        DataManager dataManager = DataManager.getInstance();
-        String state = NetUtil.getNetworkType();
-        dataManager.setNetState(state);
-        ToastUtil.toast(state);
-        Log.d("CCC", "Activity: " + this.getLocalClassName());
-//        reLoad();
     }
 }

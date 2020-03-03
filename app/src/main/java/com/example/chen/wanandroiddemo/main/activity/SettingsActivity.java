@@ -13,12 +13,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.chen.wanandroiddemo.R;
 import com.example.chen.wanandroiddemo.base.activity.BaseActivity;
-import com.example.chen.wanandroiddemo.bus.RxBus;
-import com.example.chen.wanandroiddemo.bus.event.NightModeEvent;
+import com.example.chen.wanandroiddemo.event.NightModeEvent;
 import com.example.chen.wanandroiddemo.core.DataManager;
 import com.example.chen.wanandroiddemo.main.activity.contract.SettingsContract;
 import com.example.chen.wanandroiddemo.main.activity.presenter.SettingsPresenter;
 import com.example.chen.wanandroiddemo.utils.ShareUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -92,10 +93,10 @@ public class SettingsActivity extends BaseActivity<SettingsPresenter> implements
     private void setNightMode() {
         boolean checked = mNightModeSwitch.isChecked();
         mPresenter.setNightMode(checked);
-        RxBus.getInstance().post(new NightModeEvent(checked));
         //使用动画过渡重启设置界面过程
         startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
         overridePendingTransition(R.anim.activity_settings_enter, R.anim.activity_settings_exit);
+        EventBus.getDefault().post(new NightModeEvent(checked));
         finish();
     }
 

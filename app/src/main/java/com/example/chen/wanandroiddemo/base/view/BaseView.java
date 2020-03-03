@@ -35,16 +35,4 @@ public interface BaseView {
      * 重加载数据
      */
     void reLoad();
-
-    /**
-     * 设置夜间模式
-     *
-     * @param isNightMode
-     */
-    void useNightMode(boolean isNightMode);
-
-    /**
-     * 显示网络变化提示
-     */
-    void showNetChangeTips();
 }
